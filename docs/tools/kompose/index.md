@@ -17,7 +17,7 @@ approvers:
 <!--
 If you have a Docker Compose `docker-compose.yml` or a Docker Distributed Application Bundle `docker-compose-bundle.dab` file, you can convert it into Kubernetes deployments and services like this:
 -->
-如果你有一个Docker Compose的docker-compose.yml文件或者一个`docker-compose-bundle.dab`文件，可以通过kompose命令将它们生成为Kubernetes的deplyment、service的资源文件，如下所示：
+如果你有一个Docker Compose的`docker-compose.yml`文件或者一个`docker-compose-bundle.dab`文件，可以通过kompose命令将它们生成为Kubernetes的deplyment、service的资源文件，如下所示：
 
 ```console
 $ kompose --bundle docker-compose-bundle.dab convert
