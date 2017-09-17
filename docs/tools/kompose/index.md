@@ -39,7 +39,7 @@ file "redis-deployment.yaml" created
 
 <!--Grab the latest [release](https://github.com/kubernetes-incubator/kompose/releases) for your OS, untar and extract the binary.
 -->
-下载最新的kompose[版本](https://github.com/kubernetes-incubator/kompose/releases)，解压并提取二进制文件
+下载最新的kompose[版本](https://github.com/kubernetes-incubator/kompose/releases)，解压并提取二进制文件。
 ### Linux
 
 ```sh
