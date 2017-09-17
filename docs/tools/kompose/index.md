@@ -11,14 +11,14 @@ approvers:
 `kompose` 是一个将`docker-compose`迁移到**kubernetes**的工具，`kompose`会把Docker Compose文件翻译成Kubernetes资源文件。
 <!--`kompose` is a convenience tool to go from local Docker development to managing your application with Kubernetes. Transformation of the Docker Compose format to Kubernetes resources manifest may not be exact, but it helps tremendously when first deploying an application on Kubernetes.
 -->
-<br /><br />
+<br />
 `kompose`是从本地Docker管理到使用Kubernetes管理你的应用程序的便利工具。 Docker的转换撰写格式到Kubernetes资源清单可能不是精确的，但是当首次在Kubernetes上部署应用程序时，它可以很有帮助。
 
 ## 用例说明
 <!--
 If you have a Docker Compose `docker-compose.yml` or a Docker Distributed Application Bundle `docker-compose-bundle.dab` file, you can convert it into Kubernetes deployments and services like this:
 -->
-如果你有一个Docker Compose的docker-compose.yml文件和一个Docker分布式应用绑定的`docker-compose-bundle.dab`文件，可以通过kompose命令将它们生成为Kubernetes的deplyment、service的资源文件，如下所示：
+如果你有一个Docker Compose的docker-compose.yml文件或者一个`docker-compose-bundle.dab`文件，可以通过kompose命令将它们生成为Kubernetes的deplyment、service的资源文件，如下所示：
 
 ```console
 $ kompose --bundle docker-compose-bundle.dab convert
@@ -40,7 +40,7 @@ file "redis-deployment.yaml" created
 
 <!--Grab the latest [release](https://github.com/kubernetes-incubator/kompose/releases) for your OS, untar and extract the binary.
 -->
-下载最新的kcompose[版本](https://github.com/kubernetes-incubator/kompose/releases)，解压并提取二进制文件
+下载最新的kompose[版本](https://github.com/kubernetes-incubator/kompose/releases)，解压并提取二进制文件
 ### Linux
 
 ```sh
