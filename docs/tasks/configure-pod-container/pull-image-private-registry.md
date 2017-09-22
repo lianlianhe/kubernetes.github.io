@@ -28,7 +28,7 @@ title: 从私有仓库拉取镜像
 
 {% capture overview %}
 
-这篇教程指导如何创建Pod并使用Secret从私有Docker仓库或者镜像源拉取镜像。
+这篇教程指导如何创建 Pod 并使用 Secret 从私有 Docker 仓库或者镜像源拉取镜像。
 
 {% endcapture %}
 
@@ -36,7 +36,7 @@ title: 从私有仓库拉取镜像
 
 * {% include task-tutorial-prereqs.md %}
 
-* 要完成这个实验，你需要有一个
+* 要完成这个实验，您需要有一个
 [Docker ID](https://docs.docker.com/docker-id/) 和密码。
 
 {% endcapture %}
@@ -93,7 +93,7 @@ The output contains a section similar to this:
         }
     }
 
-**注意:** 如果你使用了Docker保存验证信息, 你不会看到`auth`而是`credsStore`和一样的值。
+**注意:** 如果你使用了 Docker 保存验证信息, 你不会看到`auth`而是`credsStore`，它的值就是 store 的名字。
 {: .note}
 
 <!--
@@ -111,18 +111,18 @@ where:
 * `<your-email>` is your Docker email.
 -->
 
-## 创建一个Secret来保存你的验证口令
+## 创建一个 Secret 来保存你的验证口令
 
-创建一个名为`regsecret`的Secret:
+创建一个名为`regsecret`的 Secret :
 
     kubectl create secret docker-registry regsecret --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 
 在这里:
 
-* `<your-registry-server>` 是你的私有Docker仓库的FQDN.
-* `<your-name>` 是你的Docker用户名.
-* `<your-pword>` 是你的Docker密码.
-* `<your-email>` 是你的Docker邮箱地址.
+* `<your-registry-server>` 是你的私有 Docker 仓库的 FQDN .
+* `<your-name>` 是你的 Docker 用户名.
+* `<your-pword>` 是你的 Docker 密码.
+* `<your-email>` 是你的 Docker 邮箱地址.
 
 <!--
 ## Understanding your Secret
@@ -185,9 +185,9 @@ Notice that the secret data contains the authorization token from your
 
 在这里`.dockercfg`的值是一个base64加密的数据。
 
-把这一串base64加密的数据复制赋值给`secret64`.
+把这一串base64加密的数据复制给`secret64`这个文件.
 
-**注意**: 确保`secret64`的值没有分割是完整的一行.
+**注意**: 确保`secret64`的内容是没有换行的完整的一行.
 
 想知道`.dockercfg`的值是什么意思，只要将数据转换成我们可读的格式即可：
 
@@ -225,21 +225,21 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
     kubectl get pod private-reg
 -->
 
-## 使用你的 Secret 创建Pod
+## 使用你的 Secret 创建 Pod
 
-下面是一个需要访问你的 Secrete　数据的　Pod　配置文件：
+下面是一个需要读取你的 Secrete　数据的　Pod　配置文件：
 
 {% include code.html language="yaml" file="private-reg-pod.yaml" ghlink="/docs/tasks/configure-pod-container/private-reg-pod.yaml" %}
 
-复制`private-reg-pod.yaml` 的内容到你的名为`my-private-reg-pod.yaml`的文件.
+复制`private-reg-pod.yaml` 的内容到名为`my-private-reg-pod.yaml`的文件.
 在这个文件里，覆盖`<your-private-image>`为私有仓库的镜像路径。
 
 比如　Docker　Hub　的私有镜像:
 
     janedoe/jdoe-private:v1
 
-要从私有仓库拉取镜像，Kubernetes　需要验证信息。配置文件里的`imagePullSecrets`
-就是　Kubernetes 从名为`regsecret`获取验证信息的 Secret 名字。
+要从私有仓库拉取镜像，Kubernetes　需要验证信息。配置文件里的`imagePullSecrets`的值`regsecret`
+就是　Kubernetes 获取验证信息的 Secret 的名字。
 
 创建 Pod 来使用你的 Secret, 并验证 Pod 是否运行：
 
