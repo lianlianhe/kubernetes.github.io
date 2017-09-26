@@ -356,7 +356,7 @@ topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 -->
 
-### OVN(开发的虚拟网络)
+### OVN(开放的虚拟网络)
 
 OVN是Open vSwitch社区开发的开源网络虚拟化解决方案。它可以创建逻辑交换机、路由器，有状态ACLs，负载均衡等来构建不同的虚拟网络拓扑。该项目具有特定的Kubernetes插件，文档在[ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)。
 
