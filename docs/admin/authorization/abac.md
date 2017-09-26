@@ -21,7 +21,7 @@ title: ABAC 模式
 <!--
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
 -->
-基于属性的访问控制（ABAC）定义了访问控制范例，其中通过使用将属性组合在一起的策略来向用户授予访问权限。
+基于属性的访问控制（Attribute-based access control - ABAC）定义了访问控制范例，其中通过使用将属性组合在一起的策略来向用户授予访问权限。
 
 {% endcapture %}
 
@@ -35,13 +35,14 @@ For mode `ABAC`, also specify `--authorization-policy-file=SOME_FILENAME`.-->
 基于 `ABAC` 模式，可以这样指定策略文件 `--authorization-policy-file=SOME_FILENAME`。
 <!--
 The file format is [one JSON object per line](http://jsonlines.org/).  There
-should be no enclosing list or map, just one map per line.-->
+should be no enclosing list or map, just one map per line.
+-->
 此文件是 JSON 格式[每行都是一个JSON对象](http://jsonlines.org/)，不应存在封闭的列表或映射，每行只有一个映射。
 
 <!--
 Each line is a "policy object".  A policy object is a map with the following
 properties:-->
-每一行都是一个 "策略对象",策略对象是具有以下映射的属性:
+每一行都是一个 "策略对象"，策略对象是具有以下映射的属性:
 <!--
   - Versioning properties:
     - `apiVersion`, type string; valid values are "abac.authorization.kubernetes.io/v1beta1". Allows versioning and conversion of the policy format.
@@ -91,7 +92,7 @@ properties:-->
         - 通配符:
           - `*` 匹配所有非资源请求。
           - `/foo/*` 匹配`/foo/`的所有子路径。
-    - `readonly`，键入 boolean，如果为 true，则表示该策略仅适用于 get，list 和 watch 匹配资源的操作。
+    - `readonly`，键入 boolean，如果为 true，则表示该策略仅适用于 get，list 和 watch 操作。
 <!--
 **NOTES:** An unset property is the same as a property set to the zero value for its type
 (e.g. empty string, 0, false). However, unset should be preferred for
@@ -143,7 +144,8 @@ Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点进行协商客户端/服
 <!--
 When using ABAC authorization, those special resources have to be explicitly
 exposed via the `nonResourcePath` property in a policy (see [examples](#examples) below):-->
-当使用 ABAC 授权时，这些特殊资源必须明确通过策略中的 `nonResourcePath` 属性暴露出来(参见下面的[examples](#examples)):
+当使用 ABAC 授权时，这些特殊资源必须明确通过策略中的 `nonResourcePath` 属性暴露出来(参见下面的[例子](#examples)):
+
 <!--
 * `/api`, `/api/*`, `/apis`, and `/apis/*` for API version negotiation.
 * `/version` for retrieving the server version via `kubectl version`.
@@ -169,7 +171,7 @@ up the verbosity:-->
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}
     ```
  <!--2. Kubelet can read any pods:-->
- 2. Kubelet 可以读取任何pod:
+ 2. Kubelet 可以读取任何 Pod:
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}
@@ -181,7 +183,7 @@ up the verbosity:-->
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
     ```
  <!--4. Bob can just read pods in namespace "projectCaribou":-->
- 4. Bob 可以在命名空间“projectCaribou"中读取 pod:
+ 4. Bob 可以在命名空间"projectCaribou"中读取 Pod:
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}
@@ -218,16 +220,17 @@ system:serviceaccount:<namespace>:default
 <!--
 For example, if you wanted to grant the default service account in the
 kube-system full privilege to the API, you would add this line to your policy
-file:-->
+file:
+-->
 例如，如果要将 API 的 kube-system 完整权限中的默认服务帐户授予，则可以将此行添加到策略文件中:
-
 
 ```json
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
 ```
 <!--
-The apiserver will need to be restarted to pickup the new policy lines.-->
-需要重新启动 apitorver 以获取新的策略行.
+The apiserver will need to be restarted to pickup the new policy lines.
+-->
+需要重新启动 apiserver 以获取新的策略行.
 
 {% endcapture %}
 {% include templates/concept.md %}

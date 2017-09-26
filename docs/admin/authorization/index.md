@@ -40,7 +40,8 @@ Kubernetes 提供通用的 REST API 请求。这意味着 Kubernetes 授权可�
 -->
 ## 确定请求是允许还是被拒绝
 <!--
-Kubernetes authorizes API requests using the API server. It evaluates all of the request attributes against all policies and allows or denies the request. All parts of an API request must be allowed by some policy in order to proceed. This means that permissions are denied by default.-->
+Kubernetes authorizes API requests using the API server. It evaluates all of the request attributes against all policies and allows or denies the request. All parts of an API request must be allowed by some policy in order to proceed. This means that permissions are denied by default.
+-->
 Kubernetes 使用 API​​ 服务器授权 API 请求。它根据所有策略评估所有请求属性，并允许或拒绝请求。某些策略必须允许 API 请求的所有部分继续进行，这意味着默认情况下是拒绝权限。
 <!--
 (Although Kubernetes uses the API server, access controls and policies that depend on specific fields of specific kinds of objects are handled by Admission Controllers.)-->
@@ -48,7 +49,8 @@ Kubernetes 使用 API​​ 服务器授权 API 请求。它根据所有策略�
 (虽然 Kubernetes 使用 API ​​服务器，访问控制和依赖特定类型对象的特定领域策略由 Admission 控制器处理。)
 
 <!--
-When multiple authorization modules are configured, each is checked in sequence, and if any module authorizes the request, then the request can proceed. If all modules deny the request, then the request is denied (HTTP status code 403).-->
+When multiple authorization modules are configured, each is checked in sequence, and if any module authorizes the request, then the request can proceed. If all modules deny the request, then the request is denied (HTTP status code 403).
+-->
 当配置多个授权模块时，按顺序检查每个模块，如果有任何模块授权请求，则可以继续执行该请求。如果所有模块拒绝请求，则拒绝该请求(HTTP状态代码403)。
 <!--
 ## Review Your Request Attributes
@@ -89,7 +91,8 @@ Kubernetes 仅查看以下API请求属性:
 -->
 ## 确定请求动词
 <!--
-To determine the request verb for a resource API endpoint, review the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:-->
+To determine the request verb for a resource API endpoint, review the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
+-->
 要确定资源 API 端点的请求动词，请查看所使用的HTTP动词以及请求是否对单个资源或资源集合进行操作:
 <!--
 HTTP verb | request verb

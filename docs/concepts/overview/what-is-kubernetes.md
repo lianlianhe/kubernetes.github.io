@@ -1,22 +1,16 @@
 <!--
 ---
-assignees:
+approvers:
 - bgrant0607
 - mikedanese
 title: What is Kubernetes?
-redirect_from:
-- "/docs/whatisk8s/"
-- "/docs/whatisk8s.html"
 ---
 -->
 ---
-assignees:
+approvers:
 - bgrant0607
 - mikedanese
 title: 认识 Kubernetes?
-redirect_from:
-- "/docs/whatisk8s/"
-- "/docs/whatisk8s.html"
 ---
 
 {% capture overview %}
@@ -26,7 +20,7 @@ redirect_from:
 
 {% capture body %}
 <!--
-Kubernetes is an [open-source platform for automating deployment, scaling, and operations of application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) across clusters of hosts, providing container-centric infrastructure.
+Kubernetes is an [open-source platform designed to automate deploying, scaling, and operating application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations).
 
 With Kubernetes, you are able to quickly and efficiently respond to customer demand:
 
@@ -37,7 +31,7 @@ With Kubernetes, you are able to quickly and efficiently respond to customer dem
 
 Our goal is to foster an ecosystem of components and tools that relieve the burden of running applications in public and private clouds.
 -->
-Kubernetes 是一个跨主机集群的 [开源的容器调度平台，它可以自动化应用容器的部署、扩展和操作](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) , 提供以容器为中心的基础架构。
+Kubernetes 是一个 [开源平台，旨在提供自动部署、扩展和运行应用程序容器](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations)。
 
 使用 Kubernetes, 您可以快速高效地响应客户需求:
 
@@ -192,11 +186,11 @@ Kubernetes 提供了很多的功能，总会有新的场景受益于新特性。
 [Annotations](/docs/user-guide/annotations/) 使用户能够以自定义的描述信息来修饰资源，以适用于自己的工作流，并为管理工具提供检查点状态的简单方法。
 
 <!--
-Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://git.k8s.io/community/contributors/devel/scheduler.md), with [their own APIs](https://git.k8s.io/community/contributors/design-proposals/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
+Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/scheduler.md), with [their own APIs](https://git.k8s.io/community/contributors/design-proposals/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
 
 This [design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/principles.md) has enabled a number of other systems to build atop Kubernetes.
 -->
-此外，[Kubernetes 控制面 (Controll Plane)](/docs/admin/cluster-components) 是构建在相同的 [APIs](/docs/api/) 上面，开发人员和用户都可以用。用户可以编写自己的控制器， [调度器](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md)等等，如果这么做，根据新加的[自定义 API](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) ，可以扩展当前的通用 [CLI 命令行工具](/docs/user-guide/kubectl-overview/)。
+此外，[Kubernetes 控制面 (Controll Plane)](/docs/admin/cluster-components) 是构建在相同的 [APIs](/docs/api/) 上面，开发人员和用户都可以用。用户可以编写自己的控制器， [调度器](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/scheduler.md)等等，如果这么做，根据新加的[自定义 API](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) ，可以扩展当前的通用 [CLI 命令行工具](/docs/user-guide/kubectl-overview/)。
 
 这种 [设计](https://git.k8s.io/community/contributors/design-proposals/principles.md) 使得许多其他系统可以构建在 Kubernetes 之上。
 
