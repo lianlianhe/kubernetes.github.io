@@ -159,7 +159,7 @@ Hello shell demo
 When you are finished with your shell, enter `exit`.
 -->
 
-当完成工作后，可以通过输出 `exit` 退出 shell 。 
+当完成工作后，可以通过输入 `exit` 退出 shell 。 
 
 <!--
 ## Running individual commands in a Container
@@ -170,7 +170,7 @@ variables in the running Container:
 
 ## 在容器中运行单个命令
 
-在普通的命令窗口中(而不是 shell ) ，列出运行容器中的环境变量：
+在普通的命令窗口中(而不是容器中的 shell ) ，列出运行容器中的环境变量：
 
 ```shell
 kubectl exec shell-demo env
@@ -204,7 +204,7 @@ shell to the main-app Container.
 
 ## 当 Pod 中有多个容器时打开一个 shell
 
-如果 Pod 中有多个容器，使用 `--container` 或 `-c` 在 `kubectl exec` 命名中指定一个容器。例如，假设你有一个 Pod 叫 my-pod ，并且这个 Pod 中有两个容器，分别叫做 main-app 和 helper-app 。下面的命令将会打开 main-app 容器的 shell 。
+如果 Pod 中有多个容器，使用 `--container` 或 `-c` 在 `kubectl exec` 命令中指定一个容器。例如，假设你有一个 Pod 叫 my-pod ，并且这个 Pod 中有两个容器，分别叫做 main-app 和 helper-app 。下面的命令将会打开 main-app 容器的 shell 。
 
 ```shell
 kubectl exec -it my-pod --container main-app -- /bin/bash
