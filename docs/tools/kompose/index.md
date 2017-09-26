@@ -11,7 +11,7 @@ title: Kompose 概览
 `kompose` 是一个将`docker-compose`迁移到 **Kubernetes** 的工具，`kompose` 会把Docker Compose文件翻译成Kubernetes资源文件。
 <!--`kompose` is a convenience tool to go from local Docker development to managing your application with Kubernetes. Transformation of the Docker Compose format to Kubernetes resources manifest may not be exact, but it helps tremendously when first deploying an application on Kubernetes.
 -->
-`kompose` 是从本地Docker管理到使用Kubernetes管理你的应用程序的便利工具。Docker的转换撰写格式到Kubernetes资源清单可能不是精确的，但会起到参考作用，尤其是初次在Kubernetes上部署应用程序时。
+`kompose` 是从本地Docker管理到使用Kubernetes管理你的应用程序的便利工具。Docker的转换撰写格式到Kubernetes资源清单可能不是精确的，但会起到参考作用，尤其是初次在Kubernetes上部署应用程序。
 
 ## 用例说明
 <!--

@@ -22,7 +22,7 @@ title: Translate a Docker Compose File to Kubernetes Resources
 
 <!--If you have a Docker Compose `docker-compose.yml` or a Docker Distributed Application Bundle `docker-compose-bundle.dab` file, you can convert it into Kubernetes deployments and services like this:
 -->
-如果你有一个Docker Compose的`docker-compose.yml`文件或者一个`docker-compose-bundle.dab`文件，可以通过kompose命令将它们生成为Kubernetes的deplyment、service的资源文件，如下所示：
+如果你有一个Docker Compose的`docker-compose.yml`文件或者一个Docker分布式应用捆绑包的`docker-compose-bundle.dab`文件，可以通过kompose命令将它们生成为Kubernetes的deplyment、service的资源文件，如下所示：
 ```console
 $ kompose -f docker-compose.yml convert
 WARN: Unsupported key networks - ignoring
@@ -67,7 +67,7 @@ sudo mv ./kompose /usr/local/bin/kompose
 <!--Currently Kompose supports to transform either Docker Compose file (both of v1 and v2) and [experimental Distributed Application Bundles](https://blog.docker.com/2016/06/docker-app-bundle/) into Kubernetes and OpenShift objects.
 There is a couple of sample files in the `examples/` directory for testing.
 You will convert the compose or dab file to Kubernetes or OpenShift objects with `kompose convert`. -->
-目前，Kompose支持将Docker Compose文件（v1，v2）和[分布式应用捆绑包](https://blog.docker.com/2016/06/docker-app-bundle/)转换成Kubernetes对象和OpenShift对象。
+目前，Kompose支持将Docker Compose文件（v1，v2版本）和[分布式应用捆绑包](https://blog.docker.com/2016/06/docker-app-bundle/)转换成Kubernetes对象和OpenShift对象。
 以下是一个在`examples/`路径下的测试例子，这个例子讲会通过`kompose convert`把compose和dab文件转换成相应的Kubernetes和OpenShift对象。
 
 
@@ -115,7 +115,7 @@ db-svc.yaml         docker-compose-bundle.dab  docker-voting.yml  redis-svc.yaml
 ```
 
 <!--You can also provide multiple docker-compose files at the same time:-->
-您也可以一次性同时转换多个docker-compose 文件，如下所示：
+您也可以一次性同时转换多个docker-compose文件，如下所示：
 ```console
 $ kompose -f docker-compose.yml -f docker-guestbook.yml convert
 file "frontend-service.yaml" created
@@ -138,7 +138,7 @@ redis-master-deployment.yaml
 ```
 
 <!--When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be over ridden by subsequent file.-->
-当提供多个docker-compose文件时，配置将被合并。 任何常见的配置都将被后续文件覆盖。
+当提供多个docker-compose文件时，配置将被合并。任何常见的配置都将被后续文件覆盖。
 
 <!--Using `--bundle, --dab` to specify a DAB file as below:-->
 使用 `--bundle, --dab`去解析一个DAB文件，如下所示：
@@ -186,7 +186,7 @@ INFO file "redis-imagestream.yaml" created
 ```
 
 <!--It also supports creating buildconfig for build directive in a service. By default, it uses the remote repo for the current git branch as the source repo, and the current branch as the source branch for the build. You can specify a different source repo and branch using ``--build-repo`` and ``--build-branch`` options respectively.-->
-它还支持在服务中为build指令创建buildconfig。 默认情况下，它使用远程repo作为源repo的当前git分支，当前分支作为构建的源分支。 您可以使用“--build-repo”和“--build-branch”选项分别指定不同的源代码和分支。
+Kompose还支持在服务中为build指令创建buildconfig。 默认情况下，它使用远程repo作为源repo的当前git分支，当前分支作为构建的源分支。 您可以使用“--build-repo”和“--build-branch”选项分别指定不同的源代码和分支。
 
 ```console
 $ kompose --provider openshift --file buildconfig/docker-compose.yml convert
@@ -197,11 +197,11 @@ INFO file "foo-imagestream.yaml" created
 INFO file "foo-buildconfig.yaml" created
 ```
 
-**Note**: If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+<!--**Note**: If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 . -->
 
 **注意**：如果您使用``oc create -f``手动推送Openshift组件，则需要确保在buildconfig工件之前推送镜像组件，以解决这个Openshift问题: https://github.com/openshift/origin/issues/4518 。
 
-## Kompose up
+## Kompose安装
 
 <!--Kompose supports a straightforward way to deploy your "composed" application to Kubernetes or OpenShift via `kompose -up`. -->
 Kompose支持直接通过`kompose up` 命令完成 "composed" 应用部署。
@@ -241,12 +241,14 @@ po/frontend-2768218532-cs5t5       1/1           Running       0            4m
 po/redis-master-1432129712-63jn8   1/1           Running       0            4m
 po/redis-slave-2504961300-nve7b    1/1           Running       0            4m
 ```
-Note:
+
+<!--Note:
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
 - Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead.
+-->
 注意：
-－ 您必须有一个正在运行的Kubernetes集群，并具有预配置的kubectl上下文。
-－ 只有deployments和service这两种资源类型可以部署，如果您需要其他种类的资源，可通过'kompose convert'和'kubectl create -f' 命令进行替换。
+- 您必须有一个正在运行的Kubernetes集群，并具有预配置的kubectl上下文。
+- 只有deployments和service这两种资源类型可以部署，如果您需要其他种类的资源，可通过'kompose convert'和'kubectl create -f' 命令进行替换。
 
 
 ### OpenShift
@@ -288,7 +290,7 @@ is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1
 <!--Note:
 - You must have a running OpenShift cluster with a pre-configured `oc` context (`oc login`) -->
 注意事项：
-－ 您必须具有运行的OpenShift集群，并具有预配置的“oc”上下文（“oc login”）
+- 您必须具有运行的OpenShift集群，并具有预配置的“oc”上下文（“oc login”）
 
 ## Kompose 卸载
 
@@ -307,10 +309,12 @@ INFO Successfully deleted deployment: frontend
 <!--Note:
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.-->
 注意事项：
-－ 您必须具有运行的Kubernetes集群，并具有预配置的kubectl上下文
-## Alternate formats
+- 您必须具有运行的Kubernetes集群，并具有预配置的kubectl上下文.
+## 转换
 
-The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) objects, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) charts.
+<!--The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) objects, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) charts.
+-->
+默认的`kompose`转换将会生成Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) 和 [Services](/docs/concepts/services-networking/service/)的在yaml文件，只要加上`-j`即可生成json格式文件，您也可以选择生成[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) 对象, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) 图。
 
 ```console
 $ kompose convert -j
@@ -319,7 +323,7 @@ file "web-svc.json" created
 file "redis-deployment.json" created
 file "web-deployment.json" created
 ```
-<!--The `*-deployment.json` files contain the Deployment objects. -->s
+<!--The `*-deployment.json` files contain the Deployment objects. -->
 `*-deployment.json`文件包含部署对象
 
 ```console
@@ -375,7 +379,7 @@ docker-compose
 
 <!--Currently `kompose` does not support some Docker Compose options, which are listed on the [conversion](http://kompose.io/conversion/) document. -->
 目前`kompose`不支持一些Docker Compose选项，它们在[conversion]（http://kompose.io/conversion/）文档中列出。
-For example:
+例如:
 
 ```console
 $ cat nginx.yml
@@ -393,13 +397,15 @@ WARN Unsupported key cap_add - ignoring
 WARN Unsupported key dockerfile - ignoring
 ```
 
-## Labels
+## 标签
 
-`kompose` supports Kompose-specific labels within the `docker-compose.yml` file in order to explicitly define a service's behavior upon conversion.
+<!--`kompose` supports Kompose-specific labels within the `docker-compose.yml` file in order to explicitly define a service's behavior upon conversion. -->
+`kompose`支持
 
-- kompose.service.type defines the type of service to be created.
 
-For example:
+<!--- kompose.service.type defines the type of service to be created. -->
+- kompose.service.type定义要创建服务的类型。
+例如:
 
 ```yaml
 version: "2"
@@ -415,12 +421,16 @@ services:
       kompose.service.type: nodeport
 ```
 
-- kompose.service.expose defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
+<!--- kompose.service.expose defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
     - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
     - For the OpenShift provider, a route is created.
 
 For example:
-
+-->
+- kompose.service.expose定义服务是否需要从集群外部访问。如果该值设置为“true”，提供者将自动设置端点，并且对于任何其他值，该值被设置为主机名。如果在服务中定义多个端口，则第一个端口被选择为公开的。
+    - 针对Kubernetes provider, 会创建一个ingress资源并初始化ingress controller。
+    - 针对OpenShift provider, 会创建一个路由。
+例如：
 ```yaml
 version: "2"
 services:
@@ -438,7 +448,8 @@ services:
      - "6379"
 ```
 
-The currently supported options are:
+<!--The currently supported options are: -->
+目前支持的选项如下：
 
 | Key                  | Value                               |
 |----------------------|-------------------------------------|
@@ -446,9 +457,11 @@ The currently supported options are:
 | kompose.service.expose| true / hostname |
 
 
-## Restart
+## 重启
 
-If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what heppens on the `restart` value.
+<!--If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what heppens on the `restart` value.
+-->
+如果您想在没有控制器的情况下创建pods，您可以使用docker-compose的`restart`命令。`restart` 参数如下表所示：
 
 | `docker-compose` `restart` | object created    | Pod `restartPolicy` |
 |----------------------------|-------------------|---------------------|
@@ -457,7 +470,8 @@ If you want to create normal pods without controllers you can use `restart` cons
 | `on-failure`               | Pod               | `OnFailure`         |
 | `no`                       | Pod               | `Never`             |
 
-**Note**: controller object could be `deployment` or `replicationcontroller`, etc.
+<!--**Note**: controller object could be `deployment` or `replicationcontroller`, etc. -->
+**注意**: controller object可以是`deployment` 或者 `replicationcontroller`。
 
 ```yaml
 version: '2'
@@ -470,4 +484,8 @@ services:
 ```
 
 #### Warning about DeploymentConfig
-If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time.
+<!--If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time. -->
+如果Docker Compose文件又一个为服务指定的卷，那么部署(Kubernetes)或DeploymentConfig(OpenShift)策略将改为“重新创建”，而不是“RollingUpdate”(默认)。这样做是为了避免在同一时间访问卷的多个实例。
+
+
+
