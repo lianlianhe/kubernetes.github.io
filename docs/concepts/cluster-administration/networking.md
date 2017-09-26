@@ -33,9 +33,9 @@ default.  There are 4 distinct networking problems to solve:
 {:toc}
 -->
 
-Kubernetes对网络的处理方式与docker有些不同，有4个不同的网络问题需要解决：
+Kubernetes 对网络的处理方式与 docker 有些不同，有4个不同的网络问题需要解决：
 
-1. 高度耦合的容器到容器之间的通信：解决[pods](/docs/concepts/workloads/pods/pod/)       	和`localhost`的通信。
+1. 高度耦合的容器到容器之间的通信：解决[pods](/docs/concepts/workloads/pods/pod/) 和`localhost`的通信。
 2. 抽象的pod到pod之间的通信：本文档的重点。
 3. pod到service之间的通信：涵盖的[服务](/docs/concepts/services-networking/service/)。
 4. 集群外部与内部组件之间的通信：涵盖的[服务](/docs/concepts/services-netwoking/service/)。
