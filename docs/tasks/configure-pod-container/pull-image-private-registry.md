@@ -21,7 +21,6 @@ private Docker registry or repository.
 
 {% capture steps %}
 -->
-
 ---
 title: 从私有仓库拉取镜像
 ---
@@ -42,7 +41,6 @@ title: 从私有仓库拉取镜像
 {% endcapture %}
 
 {% capture steps %}
-
 <!--
 ## Log in to Docker
 
@@ -70,7 +68,6 @@ The output contains a section similar to this:
 **Note:** If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
 {: .note}
 -->
-
 ## 登录到 Docker
 
     docker login
@@ -95,7 +92,6 @@ The output contains a section similar to this:
 
 **注意:** 如果你使用了Docker保存验证信息, 你不会看到`auth`而是`credsStore`和一样的值。
 {: .note}
-
 <!--
 ## Create a Secret that holds your authorization token
 
@@ -110,7 +106,6 @@ where:
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
 -->
-
 ## 创建一个Secret来保存你的验证口令
 
 创建一个名为`regsecret`的Secret:
@@ -123,7 +118,6 @@ where:
 * `<your-name>` 是你的Docker用户名.
 * `<your-pword>` 是你的Docker密码.
 * `<your-email>` 是你的Docker邮箱地址.
-
 <!--
 ## Understanding your Secret
 
@@ -144,10 +138,9 @@ The output is similar to this:
       ...
     type: kubernetes.io/dockercfg
 -->
-
 ## 理解你的 Secret
 
-想要知道你刚刚创建的 Secret 是什么，可以先看看 YAML 格式的 Secret：
+想要了解你刚刚创建的 Secret 是什么，可以先看看 YAML 格式的 Secret：
 
     kubectl get secret regsecret --output=yaml
 
@@ -162,7 +155,6 @@ The output is similar to this:
       name: regsecret
       ...
     type: kubernetes.io/dockercfg
-
 <!--
 The value of the `.dockercfg` field is a base64 representation of your secret data.
 
@@ -182,7 +174,6 @@ The output is similar to this:
 Notice that the secret data contains the authorization token from your
 `config.json` file.
 -->
-
 在这里`.dockercfg`的值是一个base64加密的数据。
 
 把这一串base64加密的数据复制赋值给`secret64`.
@@ -198,7 +189,6 @@ Notice that the secret data contains the authorization token from your
     {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}
 
 其实 secret 数据包含的就是你的`config.json`文件的验证口令。
-
 <!--
 ## Create a Pod that uses your Secret
 
@@ -224,7 +214,6 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
     kubectl create -f my-private-reg-pod.yaml
     kubectl get pod private-reg
 -->
-
 ## 使用你的 Secret 创建Pod
 
 下面是一个需要访问你的 Secrete　数据的　Pod　配置文件：
