@@ -27,7 +27,7 @@ title: 从私有仓库拉取镜像
 
 {% capture overview %}
 
-这篇教程指导如何创建Pod并使用Secret从私有Docker仓库或者镜像源拉取镜像。
+这个教程指导如何创建一个 Pod 使用 Secret 从私有镜像或者镜像源拉取镜像。
 
 {% endcapture %}
 
@@ -35,8 +35,8 @@ title: 从私有仓库拉取镜像
 
 * {% include task-tutorial-prereqs.md %}
 
-* 要完成这个实验，你需要有一个
-[Docker ID](https://docs.docker.com/docker-id/) 和密码。
+* 要完成这个使用，您需要有一个
+[Docker ID](https://docs.docker.com/docker-id/) 和密码.
 
 {% endcapture %}
 
@@ -68,19 +68,19 @@ The output contains a section similar to this:
 **Note:** If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
 {: .note}
 -->
-## 登录到 Docker
+## 登陆到Docker
 
     docker login
 
-然后输入你Docker的用户名和密码。
+出现提示符时，输入你的 Docker 用户名和密码。
 
-登录过程会创建或者更新`config.json`文件，在这里会保存验证的口令。
+登陆过程会创建或者更新 `config.json` 文件，这个文件包含了验证口令。
 
-查看`config.json`文件：
+查看 `config.json` 文件内容:
 
     cat ~/.docker/config.json
 
-输出包含类似这么的一段：
+输出会有类似这样的一段内容：
 
     {
         "auths": {
@@ -90,7 +90,7 @@ The output contains a section similar to this:
         }
     }
 
-**注意:** 如果你使用了Docker保存验证信息, 你不会看到`auth`而是`credsStore`和一样的值。
+**注意:** 如果你使用了 Docker 的证书存储功能，您可能不会看到 'auth' 的字眼，而是 `credsStore` ， 而它的值就是存储的名字。
 {: .note}
 <!--
 ## Create a Secret that holds your authorization token
@@ -106,18 +106,18 @@ where:
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
 -->
-## 创建一个Secret来保存你的验证口令
+## 创建一个 Secret 来保存您的验证口令
 
-创建一个名为`regsecret`的Secret:
+创建一个名为 `regsecret` 的 Secret :
 
     kubectl create secret docker-registry regsecret --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 
 在这里:
 
-* `<your-registry-server>` 是你的私有Docker仓库的FQDN.
-* `<your-name>` 是你的Docker用户名.
-* `<your-pword>` 是你的Docker密码.
-* `<your-email>` 是你的Docker邮箱地址.
+* `<your-registry-server>` 是你的私有仓库的FQDN.
+* `<your-name>` 是你的 Docker 用户名.
+* `<your-pword>` 是你的 Docker  密码.
+* `<your-email>` 是你的 Docker 邮箱.
 <!--
 ## Understanding your Secret
 
@@ -137,10 +137,15 @@ The output is similar to this:
       name: regsecret
       ...
     type: kubernetes.io/dockercfg
+
+The value of the `.dockercfg` field is a base64 representation of your secret data.
+
+Copy the base64 representation of the secret data into a file named `secret64`.
+
 -->
 ## 理解你的 Secret
 
-想要了解你刚刚创建的 Secret 是什么，可以先看看 YAML 格式的 Secret：
+想要知道你刚刚创建的 Secret 是什么东西，可以看看 YAML 格式的 Secret :
 
     kubectl get secret regsecret --output=yaml
 
@@ -155,11 +160,12 @@ The output is similar to this:
       name: regsecret
       ...
     type: kubernetes.io/dockercfg
+
+`.dockercfg` 的值是一个经过 base64 加密的数据。
+
+把这串 base64 加密的数据复制到一个名为 `secret64` 的文件里.
+
 <!--
-The value of the `.dockercfg` field is a base64 representation of your secret data.
-
-Copy the base64 representation of the secret data into a file named `secret64`.
-
 **Important**: Make sure there are no line breaks in your `secret64` file.
 
 To understand what is in the `.dockercfg` field, convert the secret data to a
@@ -174,13 +180,9 @@ The output is similar to this:
 Notice that the secret data contains the authorization token from your
 `config.json` file.
 -->
-在这里`.dockercfg`的值是一个base64加密的数据。
+**重要**: 确保你的 `secret64` 的文件内容没有任何换行。
 
-把这一串base64加密的数据复制赋值给`secret64`.
-
-**注意**: 确保`secret64`的值没有分割是完整的一行.
-
-想知道`.dockercfg`的值是什么意思，只要将数据转换成我们可读的格式即可：
+想知道 `.dockercfg` 的内容是什么意思，只要将 secret 数据转换成可读格式即可：
 
     base64 -d secret64
 
@@ -188,7 +190,7 @@ Notice that the secret data contains the authorization token from your
 
     {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}
 
-其实 secret 数据包含的就是你的`config.json`文件的验证口令。
+注意到 secret 数据其实包含了你的 `config.json` 文件里的验证口令。
 <!--
 ## Create a Pod that uses your Secret
 
@@ -213,37 +215,57 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 
     kubectl create -f my-private-reg-pod.yaml
     kubectl get pod private-reg
--->
-## 使用你的 Secret 创建Pod
 
-下面是一个需要访问你的 Secrete　数据的　Pod　配置文件：
+-->
+## 创建一个 Pod 来使用你的 Secret
+
+下面是一个需要读取你的 Secret 数据的 Pod 的配置文件：
 
 {% include code.html language="yaml" file="private-reg-pod.yaml" ghlink="/docs/tasks/configure-pod-container/private-reg-pod.yaml" %}
 
-复制`private-reg-pod.yaml` 的内容到你的名为`my-private-reg-pod.yaml`的文件.
-在这个文件里，覆盖`<your-private-image>`为私有仓库的镜像路径。
+把 `private-reg-pod.yaml` 的内容复制到你自己名为 `my-private-reg-pod.yaml` 的文件。
+在你的文件里，将 `<your-private-image>` 覆盖为私有仓库里的镜像地址。
 
-比如　Docker　Hub　的私有镜像:
+Docker Hub 的私有镜像例子：
 
     janedoe/jdoe-private:v1
 
-要从私有仓库拉取镜像，Kubernetes　需要验证信息。配置文件里的`imagePullSecrets`
-就是　Kubernetes 从名为`regsecret`获取验证信息的 Secret 名字。
+要从私有镜像拉取镜像， Kubernetes 需要有验证口令。这里 `imagePullSecrets` 告诉 Kubernets 应该从名为
+`regsecret` 的 Secret 里获取验证口令。
 
-创建 Pod 来使用你的 Secret, 并验证 Pod 是否运行：
+创建一个 Pod 来使用你的 Secret, 并验证是否运行成功：
 
     kubectl create -f my-private-reg-pod.yaml
     kubectl get pod private-reg
 
+<!--
 {% endcapture %}
 
 {% capture whatsnext %}
 
-* 了解更多关于[Secrets](/docs/concepts/configuration/secret/).
-* 了解更多关于[使用私有仓库](/docs/concepts/containers/images/#using-a-private-registry).
-* 阅读 [kubectl 创建 secret docker-registry](/docs/user-guide/kubectl/v1.6/#-em-secret-docker-registry-em-).
-* 阅读 [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
-* 在这个文件[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core)查看 `imagePullSecrets` 内容。
+* Learn more about [Secrets](/docs/concepts/configuration/secret/).
+* Learn more about
+[using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
+* See [kubectl create secret docker-registry](/docs/user-guide/kubectl/v1.6/#-em-secret-docker-registry-em-).
+* See [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
+* See the `imagePullSecrets` field of
+[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
+
+{% endcapture %}
+
+{% include templates/task.md %}
+-->
+{% endcapture %}
+
+{% capture whatsnext %}
+
+* 了解更多关于 [Secrets](/docs/concepts/configuration/secret/).
+* 了解更多关于
+[如何使用私有仓库](/docs/concepts/containers/images/#using-a-private-registry).
+* 查看 [kubectl 创建 secret docker 仓库](/docs/user-guide/kubectl/v1.6/#-em-secret-docker-registry-em-).
+* 查看 [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
+* 查看 [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core) 的 `imagePullSecrets` 段
+.
 
 {% endcapture %}
 
