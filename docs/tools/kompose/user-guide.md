@@ -17,7 +17,7 @@ title: Translate a Docker Compose File to Kubernetes Resources
 更多关于Kompose信息，请访问官方网站[http://kompose.io](http://kompose.io/)。 
 
 <!--`kompose` is a convenience tool to go from local Docker development to managing your application with Kubernetes. Transformation of the Docker Compose format to Kubernetes resources manifest may not be exact, but it helps tremendously when first deploying an application on Kubernetes. -->
-`kompose` 是从本地Docker管理到使用Kubernetes管理你的应用程序的便利工具。 Docker的转换撰写格式到Kubernetes资源清单可能不是精确的，但是当首次在Kubernetes上部署应用程序时，它会起到一定作用。
+`kompose` 是从本地Docker管理到使用Kubernetes管理你的应用程序的便利工具。 Docker的转换撰写格式到Kubernetes资源清单可能不是精确的，但会起到参考作用，尤其是初次在Kubernetes上部署应用程序。
 ## 用例说明
 
 <!--If you have a Docker Compose `docker-compose.yml` or a Docker Distributed Application Bundle `docker-compose-bundle.dab` file, you can convert it into Kubernetes deployments and services like this:
@@ -186,7 +186,7 @@ INFO file "redis-imagestream.yaml" created
 ```
 
 <!--It also supports creating buildconfig for build directive in a service. By default, it uses the remote repo for the current git branch as the source repo, and the current branch as the source branch for the build. You can specify a different source repo and branch using ``--build-repo`` and ``--build-branch`` options respectively.-->
-Kompose还支持在服务中为build指令创建buildconfig。 默认情况下，它使用远程repo作为源repo的当前git分支，当前分支作为构建的源分支。 您可以使用“--build-repo”和“--build-branch”选项分别指定不同的源代码和分支。
+Kompose还支持在服务中为build指令创建buildconfig。默认情况下，它使用远程仓库分作为源仓库并获得当前git分支，当前分支作为构建的源分支。您可以使用“--build-repo”和“--build-branch”选项分别指定不同的源代码和分支。
 
 ```console
 $ kompose --provider openshift --file buildconfig/docker-compose.yml convert
@@ -223,7 +223,7 @@ INFO Successfully created deployment: redis-slave
 INFO Successfully created deployment: frontend
 
 <!--Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods' for details. -->
-您的应用将会在Kubernetes部署，您可以通过运行'kubectl get deployment,svc,pods' 获得更详细的信息
+您的应用将会在Kubernetes部署，您可以通过运行'kubectl get deployment,svc,pods' 获得更详细的信息。
 $ kubectl get deployment,svc,pods
 NAME                               DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
 deploy/frontend                    1             1             1            1           4m
@@ -309,12 +309,12 @@ INFO Successfully deleted deployment: frontend
 <!--Note:
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.-->
 注意事项：
-- 您必须具有运行的Kubernetes集群，并具有预配置的kubectl上下文.
+- 您必须具有运行的Kubernetes集群，并具有预配置的kubectl上下文。
 ## 转换
 
 <!--The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) objects, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) charts.
 -->
-默认的`kompose`转换将会生成Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) 和 [Services](/docs/concepts/services-networking/service/)的在yaml文件，只要加上`-j`即可生成json格式文件，您也可以选择生成[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) 对象, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) 图。
+默认的`kompose`转换将会生成Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) 和 [Services](/docs/concepts/services-networking/service/)的在yaml文件，只要加上`-j`即可生成json格式文件，您也可以选择生成[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) 对象, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), 或者 [Helm](https://github.com/helm/helm) 图。
 
 ```console
 $ kompose convert -j
@@ -471,7 +471,7 @@ services:
 | `no`                       | Pod               | `Never`             |
 
 <!--**Note**: controller object could be `deployment` or `replicationcontroller`, etc. -->
-**注意**: controller object可以是`deployment` 或者 `replicationcontroller`。
+**注意**: controller object可以是`Deployment` 或者 `ReplicationController`。
 
 ```yaml
 version: '2'
@@ -483,7 +483,7 @@ services:
     restart: "on-failure"
 ```
 
-#### Warning about DeploymentConfig
+####DeploymentConfig注意事项
 <!--If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time. -->
 如果Docker Compose文件又一个为服务指定的卷，那么部署(Kubernetes)或DeploymentConfig(OpenShift)策略将改为“重新创建”，而不是“RollingUpdate”(默认)。这样做是为了避免在同一时间访问卷的多个实例。
 
