@@ -4,7 +4,7 @@
 
 如果您还没有自己的 `Github` 账户, 可以按下面的方式注册一个。Kubernetes 中文社区的文档都是在 Github 完成翻译协作的，因此注册账户是必须步骤。
 
-注：由于上游的 Merge 工作量很大，而且大家的翻译已经在 K8SMeetup 已经有初步 Review。因此，向上游提交 `PR` 尽可能多个文件一起提交，不建议单文件提交。
+注：为避免向上游社区提交的 `PR` 长时间不处理，不能及时 `Merge`。这里要求提交 `PR` 的译者及时回复。如果对上游 review 两周都没有回复，表示本人允许其他译者在其基础上重新修改提交 `PR`。另外由于上游的 Merge 工作量很大，而且大家的翻译已经在 K8SMeetup 已经有初步 Review。因此，向上游提交 `PR` 尽可能多个文件一起提交，不建议单文件提交。
 
 提交PR后一定要记得更新[任务表](https://docs.google.com/spreadsheets/d/1FDFCv9RK5nSMgLXhPrJ5k7r5QvHnNEFnXbvoFiM8v20/edit#gid=1015862274) `Upstream Pull Request link`,方便我们 `Review` 跟进。
 
