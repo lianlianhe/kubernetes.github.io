@@ -1,6 +1,6 @@
 <!--
 ---
-assignees:
+approvers:
 - erictune
 - lavalamp
 - deads2k
@@ -9,7 +9,7 @@ title: Overview
 ---
 -->
 ---
-assignees:
+approvers:
 - erictune
 - lavalamp
 - deads2k
@@ -59,17 +59,17 @@ Kubernetes reviews only the following API request attributes:
 -->
 Kubernetes 仅查看以下API请求属性:
 <!--
- * **user** - The `user` string provided during authentication
- * **group** - The list of group names to which the authenticated user belongs
- * **"extra"** - A map of arbitrary string keys to string values, provided by the authentication layer
- * **API** - Indicates whether the request is for an API resource
+ * **user** - The `user` string provided during authentication.
+ * **group** - The list of group names to which the authenticated user belongs.
+ * **"extra"** - A map of arbitrary string keys to string values, provided by the authentication layer.
+ * **API** - Indicates whether the request is for an API resource.
  * **Request path** - Path to miscellaneous non-resource endpoints like `/api` or `/healthz`.
  * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see **Determine the request verb** below.
- * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests
- * **Resource** - The ID or name of the resource that is being accessed (for resource requests only)
+ * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests.
+ * **Resource** - The ID or name of the resource that is being accessed (for resource requests only).
 --* For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
- * **Subresource** - The subresource that is being accessed (for resource requests only)
- * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only)
+ * **Subresource** - The subresource that is being accessed (for resource requests only).
+ * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
  * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/api/).
 -->
 * **user**  - 验证期间提供的 `user` 字符串
@@ -133,44 +133,15 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
  ..* When specified "RBAC" (Role-Based Access Control) uses the "rbac.authorization.k8s.io" API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
  ..* As of 1.6 RBAC mode is in beta.
  ..* To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
- * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/admin/authorization/webhook/)
- * **Custom Modules** - You can create custom modules for using with Kubernetes. To learn more, see **Custom Modules** below.
- -->
+ * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/admin/authorization/webhook/).
+-->
 * **ABAC模式**  - 基于属性的访问控制(ABAC)定义了访问控制范例，通过使用将属性组合在一起的策略来授予用户访问权限。策略可以使用任何类型的属性(用户属性，资源属性，对象，环境属性等)。要了解有关使用ABAC模式的更多信息，请参阅[ABAC模式](/docs/admin/authorization/abac/)
 * **RBAC模式**  - 基于角色的访问控制(RBAC)是一种根据企业内个人用户的角色来调整对计算机或网络资源的访问的方法。在这种情况下，访问是单个用户执行特定任务(例如查看，创建或修改文件)的能力。要了解有关使用RBAC模式的更多信息，请参阅[RBAC模式](/docs/admin/authorization/rbac/)
 *当指定 "RBAC"(基于角色的访问控制)使用 "rbac.authorization.k8s.io" API组来驱动授权决定时，允许管理员通过Kubernetes API动态配置权限策略.
 .. *截至1.6 RBAC模式是测试版.
 .. *要启用RBAC，请使用 `--authorization-mode=RBAC` 启动 apiserver.
 * **Webhook模式**  -  WebHook 是HTTP回调:发生事件时发生的HTTP POST; 通过HTTP POST简单的事件通知. 实施 WebHooks 的 Web 应用程序将在某些事情发生时向URL发送消息. 要了解有关使用Webhook模式的更多信息，请参阅[Webhook模式](/docs/admin/authorization/webhook/)
-* **自定义模块**  - 您可以创建使用Kubernetes的自定义模块. 要了解更多信息，请参阅下面的**自定义模块**。
-<!--
-### Custom Modules-->
-### 自定义模块
-<!--
-Other implementations can be developed fairly easily. The APIserver calls the Authorizer interface:-->
-可以相当容易地开发其他实现,APIserver 调用 Authorizer 接口：
 
-```go
-type Authorizer interface {
-  Authorize(a Attributes) error
-}
-```
-<!--
-to determine whether or not to allow each API action.
-
-An authorization plugin is a module that implements this interface.
-Authorization plugin code goes in `pkg/auth/authorizer/$MODULENAME`.
-
-An authorization module can be completely implemented in go, or can call out
-to a remote authorization service.  Authorization modules can implement
-their own caching to reduce the cost of repeated authorization calls with the
-same or similar arguments.  Developers should then consider the interaction
-between caching and revocation of permissions.-->
-以确定是否允许每个API操作.
-
-授权插件是实现此接口的模块.授权插件代码位于 `pkg/auth/authorizer/$MODULENAME` 中。
-
-授权模块可以完全实现，也可以拨出远程授权服务。 授权模块可以实现自己的缓存，以减少具有相同或相似参数的重复授权调用的成本。 开发人员应该考虑缓存和撤销权限之间的交互。
 <!--
 #### Checking API Access-->
 #### 检查API访问
@@ -237,11 +208,11 @@ You can choose more than one authorization module. If one of the modes is `Alway
 您的策略中必须包含一个标志，以指出您的策略包含哪个授权模块:
 
 可以使用以下标志:
- - `--authorization-mode=ABAC` 基于属性的访问控制(ABAC)模式允许您使用本地文件配置策略。
- - `--authorization-mode=RBAC` 基于角色的访问控制(RBAC)模式允许您使用Kubernetes API创建和存储策略.
- - `--authorization-mode=Webhook` WebHook是一种HTTP回调模式，允许您使用远程REST管理授权。
- - `--authorization-mode=AlwaysDeny` 此标志阻止所有请求. 仅使用此标志进行测试。
- - `--authorization-mode=AlwaysAllow` 此标志允许所有请求. 只有在您不需要API请求授权的情况下才能使用此标志。
+ * `--authorization-mode=ABAC` 基于属性的访问控制(ABAC)模式允许您使用本地文件配置策略。
+ * `--authorization-mode=RBAC` 基于角色的访问控制(RBAC)模式允许您使用Kubernetes API创建和存储策略.
+ * `--authorization-mode=Webhook` WebHook是一种HTTP回调模式，允许您使用远程REST管理授权。
+ * `--authorization-mode=AlwaysDeny` 此标志阻止所有请求. 仅使用此标志进行测试。
+ * `--authorization-mode=AlwaysAllow` 此标志允许所有请求. 只有在您不需要API请求授权的情况下才能使用此标志。
 
 您可以选择多个授权模块. 如果其中一种模式为 `AlwaysAllow`，则覆盖其他模式，并允许所有API请求。
 <!--

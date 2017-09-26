@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -34,7 +34,7 @@ Kubernetes concepts.
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
-* [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
+* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
@@ -506,7 +506,7 @@ Watch the termination of the Pods in the StatefulSet.
 观察 StatefulSet 中的 Pods 变为终止状态。
 
 ```shell
-get pods -w -l app=zk
+kubectl get pods -w -l app=zk
 ```
 
 <!--
@@ -1026,14 +1026,14 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 
 <!--
 The [ZooKeeper documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 
-documentation indicates that "You will want to have a supervisory process that 
+indicates that "You will want to have a supervisory process that 
 manages each of your ZooKeeper server processes (JVM)." Utilizing a watchdog 
 (supervisory process) to restart failed processes in a distributed system is a 
 common pattern. When deploying an application in Kubernetes, rather than using 
 an external utility as a supervisory process, you should use Kubernetes as the 
 watchdog for your application.
 -->
-[ZooKeeper documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 文档指出“你将需要一个监管程序用于管理每个 ZooKeeper 服务进程（JVM）”。在分布式系统中，使用一个看门狗（监管程序）来重启故障进程是一种常用的模式。
+[ZooKeeper 文档](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 指出“你将需要一个监管程序用于管理每个 ZooKeeper 服务进程（JVM）”。在分布式系统中，使用一个看门狗（监管程序）来重启故障进程是一种常用的模式。
 
 <!--
 ### Handling Process Failure 
@@ -1458,8 +1458,7 @@ kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-dae
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-ixsl, kube-proxy-kubernetes-minion-group-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
 node "kubernetes-minion-group-ixsl" drained
-{% endraw %}
-```
+{% endraw %}```
 
 <!--
 The `zk-1` Pod can not be scheduled. As the `zk` StatefulSet contains a 
@@ -1505,8 +1504,7 @@ WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or
 WARNING: Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog; Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4
 There are pending pods when an error occurred: Cannot evict pod as it would violate the pod's disruption budget.
 pod/zk-2
-{% endraw %}
-```
+{% endraw %}```
 
 <!--
 Use `CRTL-C` to terminate to kubectl. 
