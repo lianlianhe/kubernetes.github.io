@@ -17,12 +17,12 @@ title: Translate a Docker Compose File to Kubernetes Resources
 更多关于Kompose信息，请访问官方网站[http://kompose.io](http://kompose.io/)。 
 
 <!--`kompose` is a convenience tool to go from local Docker development to managing your application with Kubernetes. Transformation of the Docker Compose format to Kubernetes resources manifest may not be exact, but it helps tremendously when first deploying an application on Kubernetes. -->
-`kompose` 是从本地Docker管理到使用Kubernetes管理你的应用程序的便利工具。 Docker的转换撰写格式到Kubernetes资源清单可能不是精确的，但会起到参考作用，尤其是初次在Kubernetes上部署应用程序。
+`kompose` 是从本地Docker管理到使用Kubernetes管理您的应用程序的便利工具。 Docker的转换撰写格式到Kubernetes资源清单可能不是精确的，但会起到参考作用，尤其是初次在Kubernetes上部署应用程序。
 ## 用例说明
 
 <!--If you have a Docker Compose `docker-compose.yml` or a Docker Distributed Application Bundle `docker-compose-bundle.dab` file, you can convert it into Kubernetes deployments and services like this:
 -->
-如果你有一个Docker Compose的`docker-compose.yml`文件或者一个Docker分布式应用捆绑包的`docker-compose-bundle.dab`文件，可以通过kompose命令将它们生成为Kubernetes的deplyment、service的资源文件，如下所示：
+如果您有一个Docker Compose的`docker-compose.yml`文件或者一个Docker分布式应用捆绑包的`docker-compose-bundle.dab`文件，可以通过kompose命令将它们生成为Kubernetes的deplyment、service的资源文件，如下所示：
 ```console
 $ kompose -f docker-compose.yml convert
 WARN: Unsupported key networks - ignoring
@@ -295,7 +295,7 @@ is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1
 ## Kompose 卸载
 
 <!--Once you have deployed "composed" application to Kubernetes, `kompose down` will help you to take the application out by deleting its deployments and services. If you need to remove other resources, use the 'kubectl' command. -->
-一经在Kubernetes部署 "composed"应用，`kompose down`将会帮您删除应用相关的deployments和services。如果你需要删除其他资源类型，可使用'kubectl'命令。
+一经在Kubernetes部署 "composed"应用，`kompose down`将会帮您删除应用相关的deployments和services。如果您需要删除其他资源类型，可使用'kubectl'命令。
 
 ```console
 $ kompose --file docker-guestbook.yml down
@@ -427,9 +427,9 @@ services:
 
 For example:
 -->
-- kompose.service.expose定义服务是否需要从集群外部访问。如果该值设置为“true”，提供者将自动设置端点，并且对于任何其他值，该值被设置为主机名。如果在服务中定义多个端口，则第一个端口被选择为公开的。
+- kompose.service.expose定义服务是否需要从集群外部访问。如果该值设置为“true”，provider将自动设置端点，包括其他的一些诸如hostname的value一样，都会被自动设置。如果在服务中定义多个端口，则第一个端口被选择为公开的。
     - 针对Kubernetes provider, 会创建一个ingress资源并初始化ingress controller。
-    - 针对OpenShift provider, 会创建一个路由。
+    - 针对OpenShift provider, 会创建一个route。
 例如：
 ```yaml
 version: "2"
@@ -485,7 +485,7 @@ services:
 
 ####DeploymentConfig注意事项
 <!--If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time. -->
-如果Docker Compose文件又一个为服务指定的卷，那么部署(Kubernetes)或DeploymentConfig(OpenShift)策略将改为“重新创建”，而不是“RollingUpdate”(默认)。这样做是为了避免在同一时间访问卷的多个实例。
+如果Docker Compose文件有一个为服务指定的卷，那么部署(Kubernetes)或DeploymentConfig(OpenShift)策略将改为“重新创建”，而不是“RollingUpdate”(默认)。这样做是为了避免在同一时间访问卷的多个实例。
 
 
 
