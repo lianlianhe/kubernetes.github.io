@@ -1,6 +1,11 @@
 ---
 approvers:
 - chenopis
+cn-approvers:
+- brucehex
+cn-review:
+- zjj2wry
+- xiaosuiba
 title: Kubernetes API
 ---
 <!--
@@ -14,7 +19,7 @@ title: The Kubernetes API
 <!--
 Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/api-conventions.md).
 -->
-总体 API 约定在 [API 约定文档](https://git.k8s.io/community/contributors/devel/api-conventions.md)中有描述。
+总体 API 规范在 [API 规范文档](https://git.k8s.io/community/contributors/devel/api-conventions.md)中描述。
 
 <!--
 API endpoints, resource types and samples are described in [API Reference](/docs/reference).
@@ -26,7 +31,7 @@ API 端点，资源类型和样例在[API 参考](/docs/reference)中描述。
 Remote access to the API is discussed in the [access doc](/docs/admin/accessing-the-api).
 -->
 
-在[访问文档](/docs/admin/accessing-the-api)中讨论了对 API 的远程调用。
+对 API 的远程调用的讨论可参考[访问文档](/docs/admin/accessing-the-api)。
 
 <!--
 The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](/docs/user-guide/kubectl) command-line tool can be used to create, update, delete, and get API objects.
@@ -37,7 +42,7 @@ Kubernetes API 也是系统的声明式配置模式的基础。可以使用[Kube
 Kubernetes also stores its serialized state (currently in [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)) in terms of the API resources.
 -->
 
-Kubernetes 还存储其序列化状态(目前存储在 [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)的 API 资源。
+Kubernetes 还存储了和 API 资源相关的序列化状态(目前存储在 [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/))。
 
 <!--
 Kubernetes itself is decomposed into multiple components, which interact through its API.
@@ -64,13 +69,13 @@ What constitutes a compatible change and how to change the API are detailed by t
 <!--
 Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
 -->
-使用[Swagger v1.2](http://swagger.io/) 和 [OpenAPI](https://www.openapis.org/)记录完整的 API 详细信息。Kubernetes apiserver(又名 "Master")公开了一个 API，可用于检索位于 `/swaggerapi` 的 Swagger v1.2 Kubernetes API 规范。您还可以通过将`--enable-swagger-ui=true`标志传递给 apiserver 来启用 UI 浏览 “/swagger-ui” 上的 API 文档。
+使用 [Swagger v1.2](http://swagger.io/) 和 [OpenAPI](https://www.openapis.org/) 记录完整的 API 详细信息。Kubernetes apiserver(又名 "Master")公开了一个 API，可用于检索位于 `/swaggerapi` 的 Swagger v1.2 Kubernetes API 规范。您还可以通过传递 `--enable-swagger-ui=true` 标志给 apiserver 以启用 UI 浏览 `/swagger-ui` 上的 API 文档。
 
 <!--
 Starting with Kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 -->
 
-从 Kubernetes 1.4 开始， OpenAPI 规范也可以在[`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json)中找到。当我们从 Swagger v1.2 转换到 OpenAPI（又名 Swagger v2.0）时，一些诸如 kubectl 和 swagger-ui 的工具仍在使用 v1.2 规范。OpenAPI 规范是截止到 Kubernetes 1.5的 Beta 版。
+从 Kubernetes 1.4 开始， OpenAPI 规范也可以在[`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json)中找到。当我们从 Swagger v1.2 转换到 OpenAPI（又名 Swagger v2.0）时，一些诸如 kubectl 和 swagger-ui 的工具仍在使用 v1.2 规范。OpenAPI 规范从 Kubernetes 1.5的 Beta 版开始启用。
 
 <!--
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
@@ -86,7 +91,7 @@ To make it easier to eliminate fields or restructure resource representations, K
 multiple API versions, each at a different API path, such as `/api/v1` or
 `/apis/extensions/v1beta1`.
 -->
-为了更容易地消除字段或重组资源表示，Kubernetes支持多个 API 版本，每个都有不同的 API 路径，例如`/api/v1`或`/apis/extensions/v1beta1`。
+为了更容易地消除字段或重组资源表示，Kubernetes 支持多个 API 版本，每个都有不同的 API 路径，例如 `/api/v1` 或 `/apis/extensions/v1beta1`。
 
 
 <!--
@@ -105,7 +110,7 @@ software versioning.
 Different API versions imply different levels of stability and support.  The criteria for each level are described
 in more detail in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  They are summarized here:
 -->
-不同的 API 版本意味着不同程度的稳定性和支持。描述每个级别的标准在[API 变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)中有更详细的说明。它们总结如下：
+不同的 API 版本意味着不同程度的稳定性和支持。描述每个级别的标准在[API 变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)中有更详细的说明。总结如下：
 
 <!--
 - Alpha level:
@@ -152,7 +157,7 @@ in more detail in the [API Changes documentation](https://git.k8s.io/community/c
 To make it easier to extend the Kubernetes API, we implemented [*API groups*](https://git.k8s.io/community/contributors/design-proposals/api-group.md).
 The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
 -->
-为了更容易地扩展 Kubernetes API，我们实现了 [*API 组*](https://git.k8s.io/community/contributors/design-proposals/api-group.md)。API 组在REST 路径和序列化对象的 `apiVersion` 字段中指定。
+为了更容易地扩展 Kubernetes API，我们实现了 [*API 组*](https://git.k8s.io/community/contributors/design-proposals/api-group.md)。API 组在 REST 路径和序列化对象的 `apiVersion` 字段中指定。
 
 <!--
 Currently there are several API groups in use:
@@ -164,7 +169,7 @@ Currently there are several API groups in use:
 -->
 目前有几个 API 组正在使用中：
 
-1. "核心" (通常称为"遗产", 由于没有明确的组名称) 组， REST 路径 `/api/v1` 并没有被指定为 `apiVersion` 字段中的一部分。例如 `apiVersion: v1`。
+1. "核心" (通常称为"遗产", 由于没有明确的组名称) 组， 位于 REST 的路径 `/api/v1` 并没有被指定为 `apiVersion` 字段中的一部分。例如 `apiVersion: v1`。
 1. 命名组在 REST 路径 `/apis/$GROUP_NAME/$VERSION`,并使用`apiVersion:$GROUP_NAME/$VERSION`(例如 `apiVersion: batch/v1`)。支持的 API 组的完整列表可以在 [Kubernetes API 参考](/docs/reference/)中看到。
 
 <!--
@@ -179,7 +184,7 @@ There are two supported paths to extending the API with [custom resources](/docs
 使用[自定义资源](/docs/concepts/api-extension/custom-resources/)扩展 API 有两个支持的路径：
 
 1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) 适用于具有非常基本 CRUD 需求的用户。
-1. 即将推出: 用户需要完整的 Kubernetes API 语义可以实现自己的 apiserver 并使用 [aggregator](https://git.k8s.io/community/contributors/design-proposals/aggregated-api-servers.md)使用客户无缝连接。
+1. 即将推出: 需要完整 Kubernetes API 语义的用户可以实现自己的 apiserver 并使用 [aggregator](https://git.k8s.io/community/contributors/design-proposals/aggregated-api-servers.md)以使客户端进行无缝连接。
 <!--
 ## Enabling API groups
 -->
@@ -192,14 +197,14 @@ The flag accepts comma separated set of key=value pairs describing runtime confi
 
 ## 启用 API 组
 
-默认情况下启用某些资源或 API 组。可以在 apiserver 上通过设置  `--runtime-config` 来启用或禁用它们。 `--runtime-config` 接受逗号分隔的值。例如: 禁用 batch/v1, 设置`--runtime-config=batch/v1=false`, 启用 batch/v2alpha1, 设置 `--runtime-config=batch/v2alpha1`。
-该标志接受逗号分隔的一组 key=value 键值对，描述了 apiserver 的运行时配置。
+某些资源或 API 组已默认启用。可以在 apiserver 上通过设置  `--runtime-config` 来启用或禁用它们。 `--runtime-config` 接受逗号分隔的值。例如: 要禁用 batch/v1, 请设置 `--runtime-config=batch/v1=false`, 启用 `batch/v2alpha1`, 要设置 `--runtime-config=batch/v2alpha1`。
+该标志接受一组描述 `apiserver` 运行时配置的键值对（`key=value`），以逗号分隔。
 
 <!--
 IMPORTANT: Enabling or disabling groups or resources requires restarting apiserver and controller-manager
 to pick up the `--runtime-config` changes.
 -->
-重要信息: 启用或禁用组或资源需要重新启动 apiserver 和 controller-manager 来接收`--runtime-config`的更改。
+重要信息: 启用或禁用组或资源需要重新启动 apiserver 和 controller-manager 以获取 `--runtime-config` 的变更。
 <!--
 ## Enabling resources in the groups
 -->
@@ -211,5 +216,5 @@ apiserver. `--runtime-config` accepts comma separated values. For ex: to disable
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`
 -->
 
-默认情况下，DaemonSets、Deployments、Horizo​​ntalPodAutoscalers、Ingress、Job和ReplicaSets都被启用。
-可以通过在API服务器上设置 `--runtime-config` 来启用其他扩展资源。 `--runtime-config`接受逗号分隔的值。 例如: 禁用部署和入口，设置`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`。
+默认情况下，DaemonSets、Deployments、Horizo​​ntalPodAutoscalers、Ingress、Job 和 ReplicaSets 都被启用。
+可以通过在 API 服务器上设置 `--runtime-config` 来启用其他扩展资源。 `--runtime-config`接受逗号分隔的值。 例如: 禁用部署和入口，设置`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`。
