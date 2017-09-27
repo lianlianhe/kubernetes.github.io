@@ -3,7 +3,7 @@ approvers:
 - chenopis
 cn-approvers:
 - brucehex
-cn-review:
+cn-reviewers:
 - zjj2wry
 - xiaosuiba
 title: Kubernetes API
@@ -75,7 +75,7 @@ Complete API details are documented using [Swagger v1.2](http://swagger.io/) and
 Starting with Kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 -->
 
-从 Kubernetes 1.4 开始， OpenAPI 规范也可以在[`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json)中找到。当我们从 Swagger v1.2 转换到 OpenAPI（又名 Swagger v2.0）时，一些诸如 kubectl 和 swagger-ui 的工具仍在使用 v1.2 规范。OpenAPI 规范从 Kubernetes 1.5的 Beta 版开始启用。
+从 Kubernetes 1.4 开始， OpenAPI 规范也可以在[`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json)中找到。当我们从 Swagger v1.2 转换到 OpenAPI（又名 Swagger v2.0）时，一些诸如 kubectl 和 swagger-ui 的工具仍在使用 v1.2 规范。OpenAPI 规范从 Kubernetes 1.5 的 Beta 版开始启用。
 
 <!--
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
@@ -97,7 +97,7 @@ multiple API versions, each at a different API path, such as `/api/v1` or
 <!--
 We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes - all descriptions below cover both formats.
 -->
-我们在选择在 API 级别而不是在资源或字段级别进行版本定位，以确保 API 提供清晰、一致的系统资源和行为视图，并且能够控制对终端对实验性 API 的访问。JSON 和 Protobuf 序列化模式遵循相同的模式更改准则 - 以下所有描述都涵盖了这两种格式。
+我们在选择在 API 级别而不是在资源或字段级别进行版本定位，以确保 API 提供清晰、一致的系统资源和行为视图，并且能够控制对即将停用的和实验性 API 的访问。JSON 和 Protobuf 序列化模式遵循相同的模式更改准则 - 以下所有描述都涵盖了这两种格式。
 
 <!--
 Note that API versioning and Software versioning are only indirectly related.  The [API and release
@@ -135,7 +135,7 @@ in more detail in the [API Changes documentation](https://git.k8s.io/community/c
 -->
 - Alpha 级别:
   - 版本名称包含 `alpha` (例如 `v1alpha1`).
-  - 实验性支持(May be buggy)  启用该功能可能会显示错误，默认禁用。
+  - 实验性支持(May be buggy)  启用该功能可能会出现错误，默认禁用。
   - 功能的支持可能随时丢弃，恕不另行通知。
   - API 可能在以后的软件版本中以不兼容的方式更改，恕不另行通知。
   - 建议仅在短期测试集群中使用，因为漏洞的风险增加和缺乏长期的支持。
@@ -197,7 +197,7 @@ The flag accepts comma separated set of key=value pairs describing runtime confi
 
 ## 启用 API 组
 
-某些资源或 API 组已默认启用。可以在 apiserver 上通过设置  `--runtime-config` 来启用或禁用它们。 `--runtime-config` 接受逗号分隔的值。例如: 要禁用 batch/v1, 请设置 `--runtime-config=batch/v1=false`, 启用 `batch/v2alpha1`, 要设置 `--runtime-config=batch/v2alpha1`。
+某些资源或 API 组已默认启用。可以在 apiserver 上通过设置  `--runtime-config` 来启用或禁用它们。 `--runtime-config` 接受逗号分隔的值。例如: 要禁用 batch/v1, 请设置 `--runtime-config=batch/v1=false`, 要启用 `batch/v2alpha1`, 请设置 `--runtime-config=batch/v2alpha1`。
 该标志接受一组描述 `apiserver` 运行时配置的键值对（`key=value`），以逗号分隔。
 
 <!--
