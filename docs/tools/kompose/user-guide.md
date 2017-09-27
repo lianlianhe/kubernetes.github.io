@@ -486,6 +486,3 @@ services:
 ####DeploymentConfig注意事项
 <!--If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time. -->
 如果Docker Compose文件有一个为服务指定的卷，那么部署(Kubernetes)或DeploymentConfig(OpenShift)策略将改为“重新创建”，而不是“RollingUpdate”(默认)。这样做是为了避免在同一时间访问卷的多个实例。
-
-
-
