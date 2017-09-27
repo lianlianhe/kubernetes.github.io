@@ -314,7 +314,7 @@ INFO Successfully deleted deployment: frontend
 
 <!--The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) objects, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) charts.
 -->
-默认的`kompose`转换将会生成Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) 和 [Services](/docs/concepts/services-networking/service/)的在yaml文件，只要加上`-j`即可生成json格式文件，您也可以选择生成[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) 对象, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), 或者 [Helm](https://github.com/helm/helm) 图。
+默认的`kompose`转换将会生成Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) 和 [Services](/docs/concepts/services-networking/service/)的在yaml文件，只要加上`-j`即可生成json格式文件，您也可以选择生成[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) 对象, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), 或者 [Helm](https://github.com/helm/helm) charts。
 
 ```console
 $ kompose convert -j
@@ -351,7 +351,8 @@ file "web-daemonset.yaml" created
 <!--If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) simply do:
 `*-daemonset.yaml`  -->
 
-`*-daemonset.yaml`文件包含Daemon Set对象,如果要生成与[Helm]（https://github.com/kubernetes/helm）一起使用的图表，只需执行以下操作：
+`*-daemonset.yaml`文件包含Daemon Set对象。
+如果要生成与[Helm]（https://github.com/kubernetes/helm）一起使用的图表，只需执行以下操作：
 `*-daemonset.yaml`.
 
 ```console
