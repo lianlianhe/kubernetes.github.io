@@ -4,12 +4,10 @@ assignees:
 - ahmetb
 cn-approvers:
 - xiaosuiba
+cn-reviewers:
+- markthink
 ---
----
-title: "Example: Deploying Cassandra with Stateful Sets"
-assignees:
-- ahmetb
----
+
 
 {% capture overview %}
 <!--
