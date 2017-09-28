@@ -1,20 +1,10 @@
 <!--
 ---
 title: Kubernetes Object Management
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-overview/"
-- "/docs/concepts/tools/kubectl/object-management-overview.html"
-- "/docs/user-guide/working-with-resources/"
-- "/docs/user-guide/working-with-resources.html"
 ---
 -->
 ---
 title: Kubernetes 对象管理
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-overview/"
-- "/docs/concepts/tools/kubectl/object-management-overview.html"
-- "/docs/user-guide/working-with-resources/"
-- "/docs/user-guide/working-with-resources.html"
 ---
 
 {% capture overview %}
@@ -123,9 +113,9 @@ name. The file specified must contain a full definition of the object
 in YAML or JSON format.-->
 在命令式对象配置中，`kubectl` 命令指定操作(创建，替换等)，可选标志和至少一个文件名称。指定的文件必须包含对象的完整定义以 YAML 或 JSON 格式。
 
-<!--See the [resource reference](https://kubernetes.io/docs/resources-reference/v1.6/)
+<!--See the [resource reference](https://kubernetes.io/docs/resources-reference/{{page.version}}/)
 for more details on object definitions.-->
-请参阅[参考资源](https://kubernetes.io/docs/resources-reference/v1.6/)
+请参阅[参考资源](https://kubernetes.io/docs/resources-reference/{{page.version}}/)
 查看有关对象定义的更多细节。
 <!--
 **Warning:** The imperative `replace` command replaces the existing
@@ -276,13 +266,13 @@ Disadvantages compared to imperative object configuration:
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 -->
 -  [使用命令式的命令管理 Kubernetes 对象](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
  -  [使用对象配置管理 Kubernetes 对象(必要)](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
  -  [使用对象配置(声明式)管理 Kubernetes 对象](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
- -  [Kubectl 命令参考](/docs/user-guide/kubectl/v1.6/)
- -  [Kubernetes 对象模式参考](/docs/resources-reference/v1.6/)
+ -  [Kubectl 命令参考](/docs/user-guide/kubectl/{{page.version}}/)
+ -  [Kubernetes 对象模式参考](/docs/resources-reference/{{page.version}}/)
 {% comment %}
 {% endcomment %}
 {% endcapture %}

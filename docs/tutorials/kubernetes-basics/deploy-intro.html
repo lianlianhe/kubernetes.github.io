@@ -39,7 +39,10 @@ title: 使用 kubectl 创建部署
               <!--
                 <h3>Kubernetes Deployments</h3>
                 <p>
-                Once you have a running Kubernetes cluster, you can deploy your containerized applications on top of it. To do so, you create a Kubernetes <b>Deployment</b>. The Deployment is responsible for creating and updating instances of your application. Once you've created a Deployment, the Kubernetes master schedules the application instances that the Deployment creates onto individual Nodes in the cluster.
+                Once you have a running Kubernetes cluster, you can deploy your containerized applications on top of it.
+                To do so, you create a Kubernetes <b>Deployment</b> configuration. The Deployment instructs Kubernetes
+                how to create and update instances of your application. Once you've created a Deployment, the Kubernetes
+                master schedules mentioned application instances onto individual Nodes in the cluster.
                 </p>
 
                 <p>Once the application instances are created, a Kubernetes Deployment Controller continuously monitors those instances. If the Node hosting an instance goes down or is deleted, the Deployment controller replaces it. <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p>
@@ -48,7 +51,9 @@ title: 使用 kubectl 创建部署
 -->
 <h3>Kubernetes 部署</h3>
 				<p>
-				一旦运行了 Kubernetes 集群，您可以在其上部署容器化应用程序。为此，您可以创建一个 Kubernetes <b>Deployment</b>。Deployment 负责创建和更新应用程序实例。创建 Deployment 后， Kubernetes master 会将 Deployment 创建的应用程序实例调度到集群中的各个节点。
+				一旦运行了 Kubernetes 集群，您可以在其上部署容器化应用程序。
+        为此，您可以创建一个 Kubernetes <b>部署(Deployment)</b> 配置。部署指示 Kubernetes 如何创建和更新应用程序实例。
+        一旦你创建了一个部署， Kubernetes 主(Master)调度器(schedule)会将部署创建的应用程序实例调度到集群中的单个节点。
 				</p>
 
 				<p>创建应用程序实例后，Kubernetes 部署控制器会持续监视这些实例。如果托管它的节点不可用或删除，则部署控制器将替换实例。 <b>这提供了一种解决机器故障或维护的自愈机制。</b></p>

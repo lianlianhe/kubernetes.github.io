@@ -19,7 +19,7 @@ but is not allowed to use more CPU than its limit.
 -->
 
 ---
-标题: 给容器和Pod分配CPU资源
+title: 给容器和Pod分配CPU资源
 ---
 
 {% capture overview %}

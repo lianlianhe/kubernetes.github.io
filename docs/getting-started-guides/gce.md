@@ -13,15 +13,13 @@ The example below creates a Kubernetes cluster with 4 worker node Virtual Machin
 * TOC
 {:toc}
 -->
-
 ---
-分配者：
+approvers:
 - brendandburns
 - jbeda
 - mikedanese
 - thockin
-
-标题： 在 Google 计算引擎上运行 Kubernetes
+title: 在 Google 计算引擎上运行 Kubernetes
 ---
 
 下面的例子创建了4个工作节点虚拟机和一个主虚拟机（例如，你的集群里有5个虚拟机）。这个集群从你的工作平台建立和控制（或者你方便的任何地方）。

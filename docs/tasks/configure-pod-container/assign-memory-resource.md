@@ -43,7 +43,7 @@ kube-system  heapster  10.11.240.9   <none>       80/TCP   6d
 -->
 
 ---
-标题: 给容器和Pod分配内存资源
+title: 给容器和Pod分配内存资源
 ---
 
 {% capture overview %}

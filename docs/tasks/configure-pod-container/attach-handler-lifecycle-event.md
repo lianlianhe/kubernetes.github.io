@@ -1,6 +1,3 @@
----
-标题: 给容器生命周期设置操作事件
----
 <!--
 ---
 title: Attach Handlers to Container Lifecycle Events
@@ -25,7 +22,9 @@ Container is terminated.
 
 {% capture steps %}
 -->
-
+---
+title: 给容器生命周期设置操作事件
+---
 {% capture overview %}
 
 这篇教程指导如何给容器生命周期设置操作事件。Kubernetes支持预启动和预结束事件。

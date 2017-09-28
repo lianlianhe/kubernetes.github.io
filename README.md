@@ -1,6 +1,6 @@
 # K8SMeetup 翻译流程与翻译校稿规范
 
-time：2017-07-13 update：2017-08-30 author：xiaolong@caicloud.io
+time：2017-07-13 update：2017-09-19 author：xiaolong@caicloud.io
 
 翻译背景: 分析之前很多的翻译为什么做不好，就是因为迭代太快，版本跟不上，旧的文件没翻译完，新旧文件又混一起。没有一个适合的版本管理流程，这也是我们不建议大家从官网直接提取文件的原因。
 
@@ -116,6 +116,29 @@ Kubernetes 文档由若干 `md` 和 `html` 文档构成,翻译即是将原始 `m
 * **可扩展**: 它是模块化、可插拔、可挂载、可组合的，支持各种形式的扩展
 * **自修复**: 它可以自保持应用状态、可自重启、自复制、自缩放的，通过声明式语法提供了强大的自修复能力
 ```
+
+注意： 在页头增加元数据 `metadata`, `cn-approvers` 写上译者的 `github` 用户名，如果有多个译者写个多个译者的 `github` 用户名，`cn-review` 写上帮忙 `review` 的其他译者，同样也支持多个 `review` 译者。文章有更新，`cn-approvers-update` 也需要加上更新的译者用户名，示例如下：
+
+```
+---
+title: 通过聚合层扩展 kubernetes API
+approvers:
+- lavalamp
+- cheftako
+- chenopis
+cn-approvers:
+- rootsongjc
+- xxx
+cn-approvers-update:
+- rootsongjc
+- xxx
+cn-reviewers:
+- markthink
+- xxx
+---
+```
+
+注：加入元数据，方便上游跟踪文件的译者、更新译者与 `review` 译者。对于文章的 `review` 作者由译者负责更新 `cn-reviewers` 字段内容。
 
 ### 翻译规范
 
