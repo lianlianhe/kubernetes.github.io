@@ -1,18 +1,12 @@
 ---
 approvers:
 - pipejakob
+cn-approvers:
+- xiaosuiba
+cn-reviewers:
+- shirdrn
 title: 将 kubeadm 集群从 1.6 升级到 1.7
 ---
-<!--
-
----
-approvers:
-- pipejakob
-title: Upgrading kubeadm clusters from 1.6 to 1.7
----
-
--->
-
 
 {% capture overview %}
 
@@ -78,10 +72,10 @@ You need to have a Kubernetes cluster running version 1.6.x.
 
 <!--
 2. Restart kubelet.
-
-       sudo systemctl restart kubelet
 -->
 2. 重启 kubelet。
+
+       systemctl restart kubelet
 
 <!--
 3. Delete the `kube-proxy` DaemonSet.
@@ -167,10 +161,10 @@ You need to have a Kubernetes cluster running version 1.6.x.
 
 <!--
 2. Restart kubelet.
-
-       sudo systemctl restart kubelet
 -->
-2. 重启  kubelet。
+2. 重启 kubelet。
+
+       systemctl restart kubelet
 
 {% endcapture %}
 
