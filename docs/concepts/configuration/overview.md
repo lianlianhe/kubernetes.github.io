@@ -5,6 +5,10 @@ title: 配置最佳实践
 redirect_from:
 - "/docs/user-guide/config-best-practices/"
 - "/docs/user-guide/config-best-practices.html"
+cn-approvers:
+- rootsongjc
+cn-reviewers:
+- shidrdn
 ---
 
 {% capture overview %}
@@ -75,9 +79,9 @@ This is a living document. If you think of something that is not on this list bu
 
   You can also use this process to ensure that at least one replica works before creating lots of them:
 
-    1. Create a replication controller without specifying replicas (this will set replicas=1);
-    2. Create a service;
-    3. Then scale up the replication controller.
+      1. Create a replication controller without specifying replicas (this will set replicas=1);
+      2. Create a service;
+      3. Then scale up the replication controller.
 
 - Don't use `hostPort` unless it is absolutely necessary (for example: for a node daemon). It specifies the port number to expose on the host. When you bind a Pod to a `hostPort`, there are a limited number of places to schedule a pod due to port conflicts— you can only schedule as many such Pods as there are nodes in your Kubernetes cluster.
 
