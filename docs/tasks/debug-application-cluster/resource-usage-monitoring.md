@@ -11,6 +11,8 @@ approvers:
 - mikedanese
 cn-approvers:
 - xuyang02965
+cn-reviewers:
+- xiaosuiba
 title: 对计算、存储和网络资源进行监控的工具
 ---
 
