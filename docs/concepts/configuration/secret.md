@@ -4,7 +4,8 @@ approvers:
 cn-approvers：
 - rootsongjc
 cn-reviewers:
-- 
+- markthink
+- xuyuan02965
 title: Secret
 ---
 
@@ -14,7 +15,7 @@ Objects of type `secret` are intended to hold sensitive information, such as pas
 
 -->
 
-`Secret` 对象类型用来保存敏感信息，例如密码、OAuth 令牌和 ssh key。将这些信息放在 `secret` 中比放在 `pod` 的定义中或者 docker 镜像中来说更加安全和灵活。参阅 [Secret 设计文档](https://git.k8s.io/community/contributors/design-proposals/secrets.md) 获取更多详细信息。
+`Secret` 对象类型用来保存敏感信息，例如密码、OAuth 令牌和 ssh key。将这些信息放在 `secret` 中比放在 `pod` 的定义或者 docker 镜像中来说更加安全和灵活。参阅 [Secret 设计文档](https://git.k8s.io/community/contributors/design-proposals/secrets.md) 获取更多详细信息。
 
 * TOC
 {:toc}
@@ -182,7 +183,7 @@ Create the secret using [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create
 
 -->
 
-数据字段是一个映射。它的键必须匹配 [DNS_SUBDOMAIN](https://git.k8s.io/community/contributors/design-proposals/identifiers.md)，前导点也是可以的。这些值可以是任意数据，使用 base64 进行编码。
+数据字段是一个映射。它的键必须匹配 [`DNS_SUBDOMAIN`](https://git.k8s.io/community/contributors/design-proposals/identifiers.md)，前导点也是可以的。这些值可以是任意数据，使用 base64 进行编码。
 
 使用  [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create) 创建 secret：
 
@@ -201,7 +202,7 @@ Secrets can be retrieved via the `kubectl get secret` command. For example, to r
 
 -->
 
-**编码注意：** secret 数据的序列化 JSON 和 YAML 值使用 base64 编码成字符串。换行符在这些字符串中无效，必须省略。当在Darwin/OS X上使用 `base64` 实用程序时，用户应避免使用 `-b` 选项来拆分长行。另外，对于 Linux用户如果 `-w` 选项不可用的话，应该添加选项 `-w 0` 到 `base64` 命令或管道 `base64 | tr -d '\n' ` 。
+**编码注意：** secret 数据的序列化 JSON 和 YAML 值使用 base64 编码成字符串。换行符在这些字符串中无效，必须省略。当在 Darwin/OS X 上使用 `base64` 实用程序时，用户应避免使用 `-b` 选项来拆分长行。另外，对于 Linux 用户如果 `-w` 选项不可用的话，应该添加选项 `-w 0` 到 `base64` 命令或管道 `base64 | tr -d '\n' ` 。
 
 #### 解码 Secret
 
@@ -356,9 +357,9 @@ For example, you can specify a default mode like this:
 将会发生什么呢：
 
 - `username` secret 存储在 `/etc/foo/my-group/my-username` 文件中而不是 `/etc/foo/username` 中。
-- `password` secret 没有被影射
+- `password` secret 没有被映射
 
-如果使用了 `spec.volumes[].secret.items`，只有在 `items` 中指定的 key 被影射。要使用 secret 中所有的 key，所有这些都必须列在 `items` 字段中。所有列出的密钥必须存在于相应的 secret 中。否则，不会创建卷。
+如果使用了 `spec.volumes[].secret.items`，只有在 `items` 中指定的 key 被映射。要使用 secret 中所有的 key，所有这些都必须列在 `items` 字段中。所有列出的密钥必须存在于相应的 secret 中。否则，不会创建卷。
 
 **Secret 文件权限**
 
@@ -397,7 +398,7 @@ You can also use mapping, as in the previous example, and specify different perm
 
 请注意，JSON 规范不支持八进制符号，因此使用 256 值作为 0400 权限。如果您使用 yaml 而不是 json 作为 pod，则可以使用八进制符号以更自然的方式指定权限。
 
-您还可以是用映射，如上一个示例，并为不同的文件指定不同的权限，如下所示：
+您还可以使用映射，如上一个示例，并为不同的文件指定不同的权限，如下所示：
 
 ```yaml
 apiVersion: v1
@@ -476,7 +477,7 @@ This is an example of a pod that uses secrets from environment variables:
 
 **挂载的 secret 被自动更新**
 
-当已经在 volume 中消被消费的 secret 被更新时，被映射的 key 也将被更新。
+当已经在 volume 中被消费的 secret 被更新时，被映射的 key 也将被更新。
 
 Kubelet 在周期性同步时检查被挂载的 secret 是不是最新的。但是，它正在使用其基于本地 ttl 的缓存来获取当前的 secret 值。结果是，当 secret 被更新的时刻到将新的 secret 映射到 pod 的时刻的总延迟可以与 kubelet 中的secret 缓存的 kubelet sync period + ttl 一样长。
 
@@ -485,7 +486,7 @@ Kubelet 在周期性同步时检查被挂载的 secret 是不是最新的。但�
 将 secret 作为 pod 中的环境变量使用：
 
 1. 创建一个 secret 或者使用一个已存在的 secret。多个 pod 可以引用同一个 secret。
-2. 在每个容器中修改您想要使用 secret key 的 Pod 定义，为要使用的每个 secret key  添加一个环境变量。消费secret key 的环境变量应填充 secret 的名称，并键入 `env[x].valueFrom.secretKeyRef`。
+2. 修改 Pod 定义，为每个要使用 secret 的容器添加对应 secret key 的环境变量。消费secret key 的环境变量应填充 secret 的名称，并键入 `env[x].valueFrom.secretKeyRef`。
 3. 修改镜像并／或者命令行，以便程序在指定的环境变量中查找值。
 
 ```yaml
@@ -603,7 +604,7 @@ Secrets used to populate environment variables via `envFrom` that have keys that
 
 -->
 
-每个 secret 的大小限制为1MB。这是为了防止创建非常大的 secret 会耗尽 apiserver 和 kubelet 的内存。然而，创建许多较小的 secret 也可能耗尽内存。更全面得限制 secret 对内存使用的更全面的限制是计划中的功能。
+每个 secret 的大小限制为1MB。这是为了防止创建非常大的 secret 会耗尽 apiserver 和 kubelet 的内存。然而，创建许多较小的 secret 也可能耗尽内存。更全面得限制 secret 对内存使用的功能还在计划中。
 
 Kubelet 仅支持从 API server 获取的 Pod 使用 secret。这包括使用 kubectl 创建的任何 pod，或间接通过 replication controller 创建的 pod。它不包括通过 kubelet `--manifest-url` 标志，其 `--config` 标志或其 REST API 创建的pod（这些不是创建 pod 的常用方法）。
 
@@ -635,7 +636,7 @@ Create a secret containing some ssh keys:
 
 ### Secret 与 Pod 生命周期的联系
 
-通过 API 创建的 Pod 时，不会检查应用的 secret 是否存在。一旦 Pod 被调度，kubelet 就会尝试获取该 secret 的值。如果获取不到该 secret，或者暂时无法与 API server 建立连接，kubelet 将会定期重试。Kubelet 将会报告关于 pod 的事件，并解释它无法启动的原因。一旦获取的 secret，kubelet将创建并装载一个包含它的卷。在安装所有pod的卷之前，都不会启动 pod 的容器。
+通过 API 创建 Pod 时，不会检查应用的 secret 是否存在。一旦 Pod 被调度，kubelet 就会尝试获取该 secret 的值。如果获取不到该 secret，或者暂时无法与 API server 建立连接，kubelet 将会定期重试。Kubelet 将会报告关于 pod 的事件，并解释它无法启动的原因。一旦获取到 secret，kubelet将创建并装载一个包含它的卷。在所有 pod 的卷被挂载之前，都不会启动 pod 的容器。
 
 ## 使用案例
 
@@ -915,7 +916,7 @@ For improved performance over a looping `get`, clients can design resources that
 
 当部署与 secret API 交互的应用程序时，应使用诸如 [RBAC](https://kubernetes.io/docs/admin/authorization/rbac/) 之类的 [授权策略](https://kubernetes.io/docs/admin/authorization/) 来限制访问。
 
-Secret 的重要性通常不尽相同，其中许多可能只对 Kubernetes 集群内（例如 service account 令牌）和对外部系统造成影响。即使一个应用程序可以理解其期望的与之交互的 secret 的权力，但是同一命名空间中的其他应用程序也可以使这些假设无效。
+Secret 中的值对于不同的环境来说重要性可能不同，例如对于 Kubernetes 集群内部（例如 service account 令牌）和集群外部来说就不一样。即使一个应用程序可以理解其期望的与之交互的 secret 有多大的能力，但是同一命名空间中的其他应用程序却可能不这样认为。
 
 由于这些原因，在命名空间中 `watch` 和 `list`  secret 的请求是非常强大的功能，应该避免这样的行为，因为列出 secret 可以让客户端检查所有 secret 是否在该命名空间中。在群集中`watch` 和 `list` 所有 secret 的能力应该只保留给最有特权的系统级组件。
 
