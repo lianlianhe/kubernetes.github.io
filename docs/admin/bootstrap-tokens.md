@@ -18,7 +18,7 @@ title: 使用启动引导令牌（Bootstrap Tokens）认证
 <!-- work, via RBAC policy, with the [Kubelet TLS -->
 <!-- Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) system. -->
 启动引导令牌是一种简单的持有者令牌（Bearer Token），这种令牌是在新建集群或者在现有集群中添加新加新节点时使用的。
-它被设计成能够支持 [`kubeadm`](/docs/admin/kubeadm/)，但是也可以被用在其他 context 中以便用户在
+它被设计成能够支持 [`kubeadm`](/docs/admin/kubeadm/)，但是也可以被用在其他案例中以便用户在
 不使用 `kubeadm` 的情况下启动集群。它也被设计成可以通过 RBAC 策略，结合 [Kubelet TLS
 Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
@@ -31,8 +31,8 @@ Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 <!-- controller. -->
 启动引导令牌被定义成一个特定类型的 secrets(`bootstrap.kubernetes.io/token`)，并存在于
 `kube-system` 命名空间中。然后这些 secrets 会被 API 服务器上的启动引导的认证器读取。
-过期的令牌与 TokenCleaner 会被控制管理器一起清除。令牌也会被用于创建特定 configmap 的签名，
-而这个 configmap 会通过启动引导签名控制器在 "discovery" 过程中使用。
+控制器管理器中的控制器TokenCleaner能够删除过期的令牌。在节点发现的过程中Kubernetes会使用特殊的ConfigMap对象。
+控制器管理器中的BootstrapSigner控制器也会使用启动引导令牌为这类对象生成签名信息。
 
 <!-- Currently, Bootstrap Tokens are **alpha** but there are no large breaking -->
 <!-- changes expected. -->
@@ -50,14 +50,14 @@ Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 <!-- information.  It is used when referring to a token without leaking the secret -->
 <!-- part used for authentication. The second part is the "Token Secret" and should -->
 <!-- only be shared with trusted parties. -->
-令牌的第一部分是 "Token ID" ，它是公共信息。它被用于引用一个用于认证的令牌而不会泄漏令牌的保密部分。
-第二部分是 "Token Secret"，它应该只能被信任方共享。
+令牌的第一部分是 "Token ID" ，它是公共信息。用于引用某个令牌，并确保不会泄露认证所使用的秘密信息。
+第二部分是 "令牌秘密（Token Secret）"，它应该被共享给收信的第三方。
 
 <!-- ## Enabling Bootstrap Tokens -->
 ## 启用启动引导令牌
 
 <!-- All features for Bootstrap Tokens are disabled by default in Kubernetes v1.6. -->
-所有启动引导令牌的特性在 Kubernetes v1.6 版本中默认都是禁用的。
+所有与启动引导令牌相关的特性在 Kubernetes v1.6 版本中默认都是禁用的。
 
 <!-- You can enable the Bootstrap Token authenticator with the -->
 <!-- `--experimental-bootstrap-token-auth` flag on the API server.  You can enable -->
@@ -66,7 +66,7 @@ Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 <!-- `--controllers=*,tokencleaner,bootstrapsigner`.  This is done automatically when -->
 <!-- using `kubeadm`. -->
 你可以在 API 服务器上通过 `--experimental-bootstrap-token-auth` 参数启用启动引导令牌。
-你可以在控制管理器上通过 `--controllers` 参数，比如 `--controllers=*,tokencleaner,bootstrapsigner` 来启用启动引导令牌。
+你可以设置控制管理器的 --controllers 参数来启用启动引导令牌相关的控制器，例如 --controllers=*,tokencleaner,bootstrapsigner 。
 在使用 `kubeadm` 时，这是自动完成的。
 
 <!-- Tokens are used in an HTTPS call as follows: -->
@@ -82,7 +82,7 @@ Authorization: Bearer 07401b.f395accd246ae52d
 <!-- Each valid token is backed by a secret in the `kube-system` namespace.  You can -->
 <!-- find the full design doc -->
 <!-- [here](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md). -->
-每个合法的令牌是通过一个 `kube-system` 命名空间中的 secret 隐藏的。
+每个合法的令牌背后对应着 `kube-system` 命名空间中的某个 Secret 对象。
 你可以从 [这里](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md) 找到完整设计文档。
 
 <!-- Here is what the secret looks like.  Note that `base64(string)` indicates the -->
@@ -117,7 +117,7 @@ secret 的类型必须是 `bootstrap.kubernetes.io/token` ，而且名字必须�
 
 <!-- The `usage-bootstrap-*` members indicate what this secret is intended to be used -->
 <!-- for.  A value must be set to `true` to be enabled. -->
- `usage-bootstrap-*` 成员表示这个 secret 的用途。启用时，值必须设置为 `true`。
+`usage-bootstrap-*` 成员表示这个 secret 的用途。启用时，值必须设置为 `true`。
 
 <!-- `usage-bootstrap-authentication` indicates that the token can be used to -->
 <!-- authenticate to the API server.  The authenticator authenticates as -->
@@ -135,7 +135,7 @@ secret 的类型必须是 `bootstrap.kubernetes.io/token` ，而且名字必须�
 <!-- The `expiration` data member lists a time after which the token is no longer -->
 <!-- valid.  This is encoded as an absolute UTC time using RFC3339.  The TokenCleaner -->
 <!-- controller will delete expired tokens. -->
-`expiration` 数据成员列举了令牌在失效后的时间。这是遵循 RFC3339 进行编码的 UTC 时间。
+`expiration` 数据成员显示了令牌在失效后到现在的时间。这是遵循 RFC3339 进行编码的 UTC 时间。
 TokenCleaner 控制器会删除过期的令牌。
 
 <!-- ## Token Management with `kubeadm` -->
