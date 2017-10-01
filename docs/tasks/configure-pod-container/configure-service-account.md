@@ -7,6 +7,10 @@ title: 配置Pod的Service Account
 redirect_from:
 - "/docs/user-guide/service-accounts/"
 - "/docs/user-guide/service-accounts.html"
+cn-approvers:
+- rootsongjc
+cn-reviewers:
+- rootsongjc
 ---
 <!--
 A service account provides an identity for processes that run in a Pod.
