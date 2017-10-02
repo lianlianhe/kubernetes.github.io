@@ -1,7 +1,7 @@
 ---
 approvers:
 - mikedanese
-cn-approvers：
+cn-approvers:
 - rootsongjc
 cn-reviewers:
 - markthink
