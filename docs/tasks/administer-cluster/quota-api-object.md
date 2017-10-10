@@ -1,6 +1,3 @@
-<!-----
-title: Configure Quotas for API Objects
------>
 ---
 title: 配置API对象（API Object）的配额（Quota）
 ---
@@ -187,11 +184,11 @@ kubectl delete namespace quota-object-example
 <!--### For cluster administrators-->
 ### 集群管理员可以参考的配置配额方面的文档
 
-<!--* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-memory-request-limit/)-->
-* [为名字空间配置默认的内存请求和限制](/docs/tasks/administer-cluster/default-memory-request-limit/)
+<!--* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)-->
+* [为名字空间配置默认的内存请求和限制](/docs/tasks/administer-cluster/memory-default-namespace/)
 
-<!--* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-cpu-request-limit/)-->
-* [为名字空间配置默认的CPU请求和限制](/docs/tasks/administer-cluster/default-cpu-request-limit/)
+<!--* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)-->
+* [为名字空间配置默认的CPU请求和限制](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
 <!--* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)-->
 * [为名字空间配置最小和最大的内存约束](/docs/tasks/administer-cluster/memory-constraint-namespace/)
