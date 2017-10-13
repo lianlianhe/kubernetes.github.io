@@ -60,9 +60,9 @@ Perform common application management tasks, such as rolling updates, injecting 
 Run Jobs using parallel processing.
 -->
 
-#### 运行工作
+#### 运行 Jobs
 
-使用并行来处理正在运行的工作。
+使用并行来处理正在运行 Jobs。
 
 <!--
 #### Accessing Applications in a Cluster
@@ -120,9 +120,9 @@ Learn common tasks for administering a cluster.
 Configure components in a cluster federation.
 -->
 
-#### 管理联盟
+#### 管理联邦
 
-在集群联盟中配置组件。
+在集群联邦中配置组件。
 
 <!--
 #### Managing Stateful Applications
@@ -130,9 +130,9 @@ Configure components in a cluster federation.
 Perform common tasks for managing Stateful applications, including upgrading from PetSets and scaling, deleting, and debugging StatefulSets.
 -->
 
-#### 管理 Stateful 应用
+#### 管理有状态应用
 
-执行管理 Stateful 应用的常见任务，包括从PetSet升级，扩展，删除和调试 StatefulSets。
+执行管理有状态应用的常见任务，包括从PetSet升级，扩展，删除和调试 StatefulSets。
 
 <!--
 #### Cluster Daemons
