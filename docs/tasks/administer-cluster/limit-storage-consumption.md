@@ -1,7 +1,12 @@
 ---
 cn-approvers:
 - xiaosuiba
+cn-reviewers:
+- zjj2wry
 title: 限制存储使用量
+<!--
+title: Limit Storage Consumption
+-->
 ---
 
 {% capture overview %}
@@ -13,7 +18,7 @@ The following resources are used in the demonstration: [ResourceQuota](/docs/con
 [LimitRange](/docs/tasks/administer-cluster/memory-default-namespace/),
 and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 -->
-本示例展示了一种在命名空间中限制存储使用量的简便方法。
+本示例展示了一种在 namespace 中限制存储使用量总和的简便方法。
 
 演示使用了下列资源：[ResourceQuota](/docs/concepts/policy/resource-quotas/)、[LimitRange](/docs/tasks/administer-cluster/memory-default-namespace/) 和 [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/)。
 
@@ -35,7 +40,7 @@ and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 The cluster-admin is operating a cluster on behalf of a user population and the admin wants to control
 how much storage a single namespace can consume in order to control cost.
 -->
-集群管理员正代表一个用户群体操作集群。管理员希望控制单个命名空间能够使用的存储数量，以此来控制成本。
+集群管理员正代表一个用户群体操作集群。管理员希望控制单个 namespace 能够使用的存储数量，以此来控制成本。
 
 <!--
 The admin would like to limit:
@@ -46,9 +51,9 @@ The admin would like to limit:
 -->
 管理员希望限制：
 
-1. 命名空间中的 persistent volume claim 的数量
+1. Namespace 中的 persistent volume claim 的数量
 2. 每个 claim 可以请求的存储数量
-3. 命名空间可以拥有的存储总量
+3. Namespace 可以拥有的存储总量
 
 <!--
 ## LimitRange to limit requests for storage
@@ -60,7 +65,7 @@ Adding a `LimitRange` to a namespace enforces storage request sizes to a minimum
 via `PersistentVolumeClaim`. The admission controller that enforces limit ranges will reject any PVC that is above or below
 the values set by the admin.
 -->
-添加 `LimitRange` 到命名空间将限制存储请求大小处于最小和最大值之间。存储通过 `PersistentVolumeClaim` 进行请求。应用了限制范围的准入控制器会拒绝任何大于或小于管理员设置值的 PVC 请求。
+添加 `LimitRange` 到 namespace 将限制存储请求大小处于最小和最大值之间。存储通过 `PersistentVolumeClaim` 进行请求。应用了 limit range 的准入控制器会拒绝任何大于或小于管理员设置值的 PVC 请求。
 
 <!--
 In this example, a PVC requesting 10Gi of storage would be rejected because it exceeds the 2Gi max.
@@ -95,14 +100,14 @@ AWS EBS volumes have a 1Gi minimum requirement.
 Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed
 either maximum value will be rejected.
 -->
-管理员可以限制命名空间中 PVC 的数量及其容量的总大小。任何超过最大值的新 PVC 请求都将被拒绝。
+管理员可以限制 namespace 中 PVC 的数量及其容量的总大小。任何超过最大值的新 PVC 请求都将被拒绝。
 
 <!--
 In this example, a 6th PVC in the namespace would be rejected because it exceeds the maximum count of 5. Alternatively,
 a 5Gi maximum quota when combined with the 2Gi max limit above, cannot have 3 PVCs where each has 2Gi. That would be 6Gi requested
  for a namespace capped at 5Gi.
 -->
-本例中，命名空间中第 6 个 PVC 请求将被拒绝，因为它超过了 5 个最大数量的限制。又或者对于拥有 5Gi 配额最大值和 2Gi 最大值限制的命名空间，不能拥有 3 个 2Gi 大小的 PVC。因为那会向具有 5Gi 上限的命名空间请求 6Gi 的存储。
+本例中， namespace 中第 6 个 PVC 请求将被拒绝，因为它超过了 5 个最大数量的限制。又或者对于拥有 5Gi 配额最大值和 2Gi 最大值限制的 namespace，不能拥有 3 个 2Gi 大小的 PVC。因为那会向具有 5Gi 上限的 namespace 请求 6Gi 的存储。
 
 ```
 apiVersion: v1
@@ -129,7 +134,7 @@ A limit range can put a ceiling on how much storage is requested while a resourc
 consumed by a namespace through claim counts and cumulative storage capacity. The allows a cluster-admin to plan their
 cluster's storage budget without risk of any one project going over their allotment.
 -->
-限制范围可以为存储的请求数量设置上限，而资源配额可以通过 claim 数量和存储总大小有效的限制命名空间使用的存储。这使得集群管理员可以规划集群的存储预算而不用担心任何单个项目超出自己的配额。
+Limit range 可以为存储的请求数量设置上限，而资源配额可以通过 claim 数量和存储总大小有效的限制 namespace 使用的存储。这使得集群管理员可以规划集群的存储预算而不用担心任何单个项目超出它们的配额。
 
 {% endcapture %}
 
