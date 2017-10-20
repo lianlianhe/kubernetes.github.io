@@ -42,7 +42,7 @@ cluster nodes _provided your cluster runs in a supported environment and is conf
 To create an external load balancer, add the following line to your
 [service configuration file](/docs/user-guide/services/operations/#service-configuration-file):
  -->
-创建外部负载均衡器时，把下面几行添加到 [service 配置文件](/docs/user-guide/services/operations/#service-configuration-file)中:
+创建外部负载均衡器时，请把下面几行添加到 [服务配置文件](/docs/user-guide/services/operations/#service-configuration-file)中:
 
 ```json
     "type": "LoadBalancer"
@@ -51,7 +51,7 @@ To create an external load balancer, add the following line to your
 <!--
 Your configuration file might look like:
  -->
-配置文件类似与：
+配置文件类似于：
 
 ```json
     {
@@ -100,7 +100,7 @@ resource (in the case of the example above, a replication controller named
 For more information, including optional flags, refer to the
 [`kubectl expose` reference](/docs/user-guide/kubectl/v1.6/#expose).
  -->
-更多信息，包括可选的参数，参考 [`kubectl expose` 手册](/docs/user-guide/kubectl/{{page.version}}/#expose)。
+更多信息（包括可选的参数）参考 [`kubectl expose` 手册](/docs/user-guide/kubectl/{{page.version}}/#expose)。
 
 <!--
 ## Finding your IP address
@@ -138,7 +138,7 @@ which should produce output like this:
 <!--
 The IP address is listed next to `LoadBalancer Ingress`.
 -->
-IP 地址会显示在 `LoadBalancer Ingress` 后面。
+IP 地址会显示在 `LoadBalancer Ingress` 右侧。
 
 <!--
 ## Preserving the client source IP
@@ -151,7 +151,7 @@ container will *not be the original source IP* of the client. To enable
 preservation of the client IP, the following fields can be configured in the
 service spec (supported in GCE/GKE environments):
  -->
-因为对于这个功能的代码实现的关系，目标容器看到的源 IP *不是客户端的源 IP*。如需要保留客户端源 IP，
+因为对于这个特性的代码实现的关系，目标容器看到的源 IP *不是客户端的源 IP*。如需要保留客户端源 IP，
 可以配置一下这些服务的 spec 字段（GCE/GKE 环境中可支持）：
 
 <!--
@@ -170,19 +170,19 @@ effect when type is set to "LoadBalancer" and externalTrafficPolicy is set
 to "Local".
  -->
 * `service.spec.externalTrafficPolicy` - 如果这个服务需要将外部流量路由到
-本地节点或者集群级别的端点，那么需要指明该参数。有两种选项："Cluster"（默认）和 "Local"。
+本地节点或者集群级别的端点，那么需要指明该参数。存在两种选项："Cluster"（默认）和 "Local"。
 "Cluster" 隐藏源 IP 地址，可能会导致第二跳（second hop）到其他节点，但是全局负载效果较好。"Local"
 保留客户端源 IP 地址，避免 LoadBalancer 和 NodePort 类型服务的第二跳，但是可能会导致负载不平衡。
-* `service.spec.healthCheckNodePort` - 定义服务的健康检查的 nodePort (端口号)。
-如果没有声明，服务 API 后端会用分配的 nodePort 创建健康检查 NodePort。如果客户端
-声明了 nodePort，就会使用用户定义的 nodePort。这只有当类型被设置成 "LoadBalancer" 并且
+* `service.spec.healthCheckNodePort` - 定义服务的 healthCheckNodePort (数字端口号)。
+如果没有声明，服务 API 后端会用分配的 nodePort 创建 healthCheckNodePort。如果客户端
+指定了 nodePort，则会使用用户自定义值。这只有当类型被设置成 "LoadBalancer" 并且
 externalTrafficPolicy 被设置成 "Local" 时，才会生效。
 
 <!--
 This feature can be activated by setting `externalTrafficPolicy` to "Local" in the
 Service Configuration file.
  -->
-这个功能可用通过将服务的配置文件中的 `externalTrafficPolicy` 参数设置为 "Local" 来激活。
+可用通过将服务的配置文件中的 `externalTrafficPolicy` 参数设置为 "Local" 来激活这个特性。
 
 ```json
     {
@@ -208,7 +208,7 @@ Service Configuration file.
 <!--
 ### Feature availability
 -->
-### 功能可用性
+### 功能特性可用性
 
 <!--
 | k8s version | Feature support |
@@ -217,7 +217,7 @@ Service Configuration file.
 | 1.5 - 1.6 | Supports Beta Annotations |
 | <1.5 | Unsupported |
 -->
-| k8s 版本 | 支持功能 |
+| k8s 版本 | 特性功能 |
 | :---------: |:-----------:|
 | 1.7+ | 支持全 API 字段 |
 | 1.5 - 1.6 | 支持 Beta Annotations |
@@ -228,8 +228,8 @@ Below you could find the deprecated Beta annotations used to enable this feature
 prior to its stable version. Newer Kubernetes versions may stop supporting these
 after v1.7. Please update existing applications to use the fields directly.
  -->
-下面可以找到已经被废弃的，在老版本中用于开启这个功能的 Beta 注释（annotation） 。
-新版本的 Kubernetes 将会在 v1.7 后停止支持。请更新现有应用直接使用字段（field）。
+可以在下面找到已经被废弃的 Beta 注释（annotation），它们用于在老版本中开启这个功能。
+新版本的 Kubernetes 将会在 v1.7 后停止支持这些注释。请更新现有应用直接使用字段（field）。
 
 <!--
 * `service.beta.kubernetes.io/external-traffic` annotation <-> `service.spec.externalTrafficPolicy` field
@@ -254,7 +254,7 @@ compared to the `service.spec.externalTrafficPolicy` field. The values match as 
 <!--
 **Note that this feature is not currently implemented for all cloudproviders/environments.**
  -->
-**注意这个功能目前并未在所有云平台/环境中实现。**
+**注意这个特性目前并未在所有云平台/环境中实现。**
 
 {% endcapture %}
 
@@ -270,12 +270,15 @@ It is important to note that the datapath for this functionality is provided by 
  -->
 非常需要注意的是，这个功能的数据路径（datapath）是由 Kubernetes 集群的外部负载均衡器提供的。
 
-<!-- When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster
+<!--
+When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster
 and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes VMs.
 The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed),
-firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object. -->
-当服务类型被设置为 `LoadBalancer` 时，Kubernetes 提供的功能等同于 `type=<ClusterIP>` 在集群中对于 pod 的功能，并且通过对（Kubernetes 外部的）负载均衡入口编程来
-实现对 Kubernetes 虚拟机的扩展。Kubernetes 服务控制器自动创建外部负载均衡器，健康检查（如果需要的话），防火墙规则（如果需要的话）并且从云平台活动外部 IP 同时把它存到服务对象中。
+firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
+-->
+当服务类型被设置为 `LoadBalancer` 时，Kubernetes 提供的功能等同于 `type=<ClusterIP>` 在集群中对于 pod 的功能，
+并且通过使用 Kubernetes 虚拟机入口对负载均衡器（Kubernetes 外部的）编程来对其进行扩展。
+Kubernetes 服务控制器自动创建外部负载均衡器，健康检查（如果需要的话），防火墙规则（如果需要的话）并且获取云服务提供商分配的外部 IP 并将其存入服务对象中。
 
 <!--
 ## Caveats and Limitations when preserving source IPs
@@ -286,7 +289,7 @@ firewall rules (if needed) and retrieves the external IP allocated by the cloud 
 GCE/AWS load balancers do not provide weights for their target pools. This was not an issue with the old LB
 kube-proxy rules which would correctly balance across all endpoints.
  -->
-GCE/AWS 负载均衡器不为目标池提供权重。这对于旧的负载均衡 kube-proxy 规则而言说不是问题，旧的负载均衡规则依然能正确地平衡所有端点的流量。
+GCE/AWS 负载均衡器不为目标池提供权重。这对于旧的负载均衡 kube-proxy 规则而言不是问题，旧的负载均衡规则依然能正确地平衡所有端点的流量。
 
 <!--
 With the new functionality, the external traffic will not be equally load balanced across pods, but rather
@@ -301,7 +304,7 @@ pods on each node).
 We can, however, state that for NumServicePods << NumNodes or NumServicePods >> NumNodes, a fairly close-to-equal
 distribution will be seen, even without weights.
  -->
-然而，即使没有权重，我们可以声明 pod 数量（NumServicePods） << 节点数（NumNodes）或者 pod 数量（NumServicePods） >> 节点数（NumNodes），一个最近即将发布的版本会支持这个功能。
+然而，在 pod 数量（NumServicePods） << 节点数（NumNodes）或者 pod 数量（NumServicePods） >> 节点数（NumNodes）的情况下，即使没有权重策略，我们也可以看到非常接近公平分发的场景。
 
 <!--
 Once the external load balancers provide weights, this functionality can be added to the LB programming path.
