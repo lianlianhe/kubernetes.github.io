@@ -351,7 +351,7 @@ for production and development, and you apply memory constraints to each namespa
 * 集群中每个节点拥有 2 GB 内存。您不希望任何 Pod 请求超过 2 GB 的内存，因为集群中没有节点能支持这个请求。
 
 * 集群被生产部门和开发部门共享。
-您希望能够允许生产负载使用最多 8 GB 的内存而将开发负载限制为 512 MB。您可以为生产环境和开发环境创建单独的 namespace，并对每个 namespace 应用内存限制。
+您希望生产负载最多使用 8 GB 的内存而将开发负载限制为 512 MB。这种情况下，您可以为生产环境和开发环境创建单独的 namespace，并对每个 namespace 应用内存限制。
 
 <!--
 ## Clean up
