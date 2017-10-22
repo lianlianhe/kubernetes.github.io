@@ -1,13 +1,10 @@
 ---
+cn-approvers:
+- xiaosuiba
+cn-reviewers:
+- brucehex
 title: 更改 PersistentVolume 的回收策略
 ---
-<!--
-
----
-title: Change the Reclaim Policy of a PersistentVolume
----
-
--->
 
 {% capture overview %}
 <!--
