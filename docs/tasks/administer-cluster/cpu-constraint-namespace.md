@@ -1,12 +1,13 @@
 ---
 cn-approvers:
 - xiaosuiba
+cn-reviewers:
+- shirdrn 
+title: 为 Namespace 配置最小和最大 CPU 限制
+---
 <!--
 title: Configure Minimum and Maximum CPU Constraints for a Namespace
 -->
-title: 为 Namespace 配置最小和最大 CPU 限制
----
-
 
 {% capture overview %}
 
@@ -17,7 +18,7 @@ and Pods in a namespace. You specify minimum and maximum CPU values in a
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 -->
-本文展示了如何设置 namespace 中容器和 Pod 使用的 CPU 资源的最小和最大值。您可以设置 [LimitRange](/docs/api-reference/{{page.version}}/#limitrange-v1-core) 对象中 CPU 的最小和最大值。如果 Pod 没有符合 LimitRange 施加的限制，那么它就不能在 namespace 中创建
+本文展示了如何设置 namespace 中容器和 Pod 使用的 CPU 资源的最小和最大值。您可以设置 [LimitRange](/docs/api-reference/{{page.version}}/#limitrange-v1-core) 对象中 CPU 的最小和最大值。如果 Pod 没有符合 LimitRange 施加的限制，那么它就不能在 namespace 中创建。
 
 {% endcapture %}
 
@@ -45,7 +46,7 @@ Each node in your cluster must have at least 1 CPU.
 Create a namespace so that the resources you create in this exercise are
 isolated from the rest of your cluster.
 -->
-请创建一个 namespace，这样您在本练习中创建的资源就可以和集群中其余资源相互隔离
+请创建一个 namespace，这样您在本练习中创建的资源就可以和集群中其余资源相互隔离。
 
 ```shell
 kubectl create namespace constraints-cpu-example
