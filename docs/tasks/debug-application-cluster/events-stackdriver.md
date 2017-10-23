@@ -2,11 +2,17 @@
 approvers:
 - crassirostris
 - piosz
-<!--
-title: Events in Stackdriver
--->
 title: Stackdriver 中的事件
 ---
+
+<!--
+---
+approvers:
+- crassirostris
+- piosz
+title: Events in Stackdriver
+---
+-->
 
 
 
@@ -19,7 +25,7 @@ for debugging your application in the [Application Introspection and Debugging
 section.
 -->
 
-Kubernetes 事件可以展示集群内发生的情况，例如调度器做了什么决定，或为什么某些 pod 被从节点中驱逐。可以在 [应用程序自检和调试](/docs/tasks/debug-application-cluster/debug-application-introspection/) 部分中阅读更多关于使用事件调试应用程序的信息。
+Kubernetes 事件（event）是一种对象（object），用于展示集群内发生的情况，例如调度器做了什么决定，或为什么某些 pod 被从节点中驱逐。可以在 [应用程序自检和调试](/docs/tasks/debug-application-cluster/debug-application-introspection/) 部分中阅读更多关于使用事件调试应用程序的信息。
 
 <!--
 Since events are API objects, they are stored in the apiserver on master. To
@@ -29,7 +35,7 @@ and aggregation capabilities, a third party solution should be installed
 to capture events.
 -->
 
-由于事件是 API object，因此他们存储在 master apiserver 上。为了避免填满 master 的磁盘，会执行一个保留策略：删除最新事件一小时以前的事件。为了提供更长的历史和聚合功能，应该安装第三方解决方案来捕获事件。 
+由于事件是 API 对象，因此他们存储在 Kuberenetes 主节点（master）上的 apiserver 中。为了避免填满主节点的磁盘，会执行一个保留策略：删除最新事件一小时以前的事件。为了提供更长的历史和聚合能力，应该安装第三方解决方案来捕获事件。 
 
 
 <!--
@@ -48,7 +54,7 @@ upgrade). In most cases it's fine to use events for purposes like setting up
 of the potential inaccuracy.
 -->
 
-**注意：** 并不保证集群中发生的所有事件都会导出到 Stackdriver 。一种可能的情况是，event exporter 没有运行时（例如在重启或升级时），事件将不会被导出。在大多数情况下，事件可以用来设置 [metrics][sdLogMetrics] 和 [alerts][sdAlerts] ,但您应该了解潜在的不准确性。
+**注意：** 并不保证集群中发生的所有事件都会导出到 Stackdriver 。一种可能的场景是，当事件导出器（ event exporter ）没有运行时（例如在重启或升级时），事件将不会被导出。在大多数情况下，事件可以用来设置 [metrics][sdLogMetrics] 和 [alerts][sdAlerts] ,但您应该了解潜在的不准确性。
 
 [sdLogMetrics]: https://cloud.google.com/logging/docs/view/logs_based_metrics
 [sdAlerts]: https://cloud.google.com/logging/docs/view/logs_based_metrics#creating_an_alerting_policy
@@ -75,7 +81,7 @@ average, approximately 100Mb RAM and 100m CPU is needed.
 
 ### Google Container Engine
 
-在 Google Container Engine (GKE) 中，如果启用了 cloud logging ，则默认会将 event exporter 部署到 1.7 及更高版本集群的 master 服务器。为了防止干扰正常的工作，event exporter 并没有设置资源，只是尽力保证 QOS ，这意味着在资源不足的情况下，它将第一个被杀死。如果想导出所有事件，请确保给 event exporter pod 分配足够的资源。这可能因为负载情况而不同，但平均而言，大约需要 100Mb RAM 和 100m CPU。
+在 Google Container Engine (GKE) 中，如果启用了 cloud logging ，则默认会将事件导出器部署到 1.7 及更高版本集群的 master 服务器。为了避免影响系统负载，事件导出器并没有设置资源，只是尽力保证 QOS ，这意味着在资源不足的情况下，它将第一个被杀死。如果想持续导出所有事件，请确保给事件导出器 pod 分配足够的资源。这会因负载情况而不同，但平均而言，大约需要 100Mb RAM 和 100m CPU。
 
 <!--
 ### Deploying to the Existing Cluster
@@ -85,7 +91,7 @@ Deploy event exporter to your cluster using the following command:
 
 ### 在现有集群中部署
 
-使用如下命令将 event exporter 部署到集群：
+使用如下命令将事件导出器部署到集群：
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/event-exporter-deploy.yaml
@@ -100,7 +106,7 @@ pod will not be evicted from the node, you can additionally set up resource
 requests. As mentioned earlier, 100Mb RAM and 100m CPU should be enough.
 -->
 
-由于 event exporter 需要访问 Kubernetes API ，因此它需要这样做的权限。如下是使用 RBAC 授权的部署。它创建了一个 service account 和 cluster role binding，以允许 event exporter 读取事件。为了确保 event exporter 不会从节点中逐出，可以另外设置资源需求。如前所述，100Mb RAM 和 100m CPU 应该足够了。
+由于事件导出器需要访问 Kubernetes API ，因此它需要相应的权限。如下是使用 RBAC 授权的部署。它创建了一个 service account 和 cluster role binding，以允许事件导出器读取事件。为了确保事件导出器不会从节点中逐出，可以另外设置资源需求。如前所述，100Mb RAM 和 100m CPU 应该足够了。
 
 
 {% include code.html language="yaml" file="event-exporter-deploy.yaml" ghlink="/docs/tasks/debug-application-cluster/event-exporter-deploy.yaml" %}
