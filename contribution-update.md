@@ -1,6 +1,22 @@
 # K8SMeetup 中文翻译社区每周文章更新汇编
 
 
+### 第 13 周：2017-10-16 ~~ 2017-10-22 - 有效合并 4 篇
+
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/access-cluster-services](https://k8smeetup.github.io/docs/tasks/administer-cluster/access-cluster-services) by [xiaosuiba](https://github.com/xiaosuiba)
+
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/change-pv-reclaim-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/change-pv-reclaim-policy) by [xiaosuiba](https://github.com/xiaosuiba)
+
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-7](https://k8smeetup.github.io/docs/tasks/administer-cluster/kubeadm-upgrade-1-7) by [xiaosuiba](https://github.com/xiaosuiba)
+
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/out-of-resource](https://k8smeetup.github.io/docs/tasks/administer-cluster/out-of-resource) by [xiaosuiba](https://github.com/xiaosuiba)
+
+
+### 第 12 周：2017-10-09 ~~ 2017-10-15 - 有效合并 1 篇
+
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/quota-api-object](https://k8smeetup.github.io/docs/tasks/administer-cluster/quota-api-object) by [rootsongjc](https://github.com/rootsongjc)
+
+
 ### 第 11 周：2017-10-02 ~~ 2017-10-08 - 有效合并 2 篇
 
 [https://k8smeetup.github.io/docs/admin/bootstrap-tokens](https://k8smeetup.github.io/docs/admin/bootstrap-tokens) by [zhangqx2010](https://github.com/zhangqx2010)

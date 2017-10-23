@@ -1,7 +1,8 @@
 ---
-<!--
-title: Access Services Running on Clusters
--->
+cn-approvers:
+- xiaosuiba
+cn-reviewers:
+- brucehex
 title: 访问集群上运行的服务
 redirect_from:
 - "/docs/user-guide/accessing-the-cluster/"
@@ -166,7 +167,7 @@ If you haven't specified a name for your port, you don't have to specify *port_n
 <!--
 You may be able to put an apiserver proxy url into the address bar of a browser. However:
 -->
-你或许能够将 apiserver 代理的 url 放入浏览器的地址栏，然而：
+你或许能够将 apiserver 代理的 URL 放入浏览器的地址栏，然而：
 
 <!--
   - Web browsers cannot usually pass tokens, so you may need to use basic (password) auth.  Apiserver can be configured to accept basic auth,
@@ -175,7 +176,7 @@ You may be able to put an apiserver proxy url into the address bar of a browser.
     way that is unaware of the proxy path prefix.
 -->
   - Web 服务器不总是能够传递令牌，所以你可能需要使用基本（密码）认证。 Apiserver 可以配置为接受基本认证，但你的集群可能并没有这样配置。
-  - 某些 web 应用可能不能工作，特别是那些使用客户端侧 javascript 的应用，它们构造 url 的方式可能不能理解代理路径前缀。
+  - 某些 web 应用可能不能工作，特别是那些使用客户端侧 javascript 的应用，它们构造 URL 的方式可能不能理解代理路径前缀。
 
 {% endcapture %}
 
