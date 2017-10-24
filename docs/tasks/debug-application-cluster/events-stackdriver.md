@@ -132,7 +132,7 @@ For example, the following query will show events from the scheduler
 about pods from deployment `nginx-deployment`:
 -->
 
-可以使用 Stackdriver Logging 中的 [过滤机制](https://cloud.google.com/logging/docs/view/advanced_filters) 基于事件对象字段进行过滤。例如，以下查询将显示使用 `nginx-deployment` 部署 pod 的调度事件：
+可以使用 Stackdriver Logging 中的 [过滤机制](https://cloud.google.com/logging/docs/view/advanced_filters) 基于事件对象字段进行过滤。例如，以下查询将显示 `nginx-deployment` 部署中 pod 的调度事件：
 
 ```
 resource.type="gke_cluster"
