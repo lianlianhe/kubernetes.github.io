@@ -3,6 +3,7 @@
 approvers:
 - madhusudancs
 title: Set up Cluster Federation with Kubefed
+cn-approvers : NickSu86
 ---
 
 * TOC
@@ -23,18 +24,19 @@ using `kubefed`.
 approvers:
 - madhusudancs
 title: 使用 Kubefed 创建集群联邦
+cn-approvers : NickSu86
 ---
 
 * TOC
 {:toc}
 
-Kubernetes 的1.5和1.5以上版本提供了一个命令行工具[`kubefed`](/docs/admin/kubefed/) ，
-用于管理用户的集群联邦。`kubefed` 可以帮助你部署一个集群联邦的控制面板，用户可以通过
+Kubernetes 的1.5及以上版本提供了一个命令行工具[`kubefed`](/docs/admin/kubefed/) ，
+用于管理用户的集群联邦。`kubefed` 可以帮助你部署一个集群联邦的控制面板，您可以通过
 这个面板来添加或者删除一个联邦里面的集群。
 
 这篇教程指导如何使用 `kubefed` 来管理一个 Kubernetes 集群联邦。
 
-> 注意: `kubefed` 在 Kubernetes 1.6版本中仍然是一个测试功能.
+> 注意: `kubefed` 在 Kubernetes 1.6版本中仍然是一个 beta 功能.
 <!--
 ## Prerequisites
 
@@ -69,7 +71,7 @@ tar -xzvf kubernetes-client-windows-amd64.tar.gz
 
 ## 安装 `kubefed`
 
-使用下列命令下载对应的最新发现的客户包并解压：
+使用下列命令下载对应最新发行的客户端安装包并将安装包里的二进制文件解压出来：
 
 ```shell
 # Linux
@@ -102,11 +104,11 @@ sudo cp kubernetes/client/bin/kubectl /usr/local/bin
 sudo chmod +x /usr/local/bin/kubectl
 ```
 -->
-> 注意: 上述命令里的 URL 都是下载 `amd64` 的包，如果您需要其他架构的
-包， 请更换为对应的 URL ， 在这里列出了所有可用的发行版本，
-[release page](https://git.k8s.io/kubernetes/CHANGELOG.md#client-binaries-1).
+> 注意: 上述命令里的 URL 提供的都是适合 `amd64` 架构的包，如果您需要其他架构的
+包，请更换为对应的 URL ，在这里列出了所有可用的发行版本，
+[发布页面](https://git.k8s.io/kubernetes/CHANGELOG.md#client-binaries-1).
 
-复制解压出来的内容到你的环境变量 `$PATH` 里的一个路径，
+将解压出来的内容复制到你的环境变量 `$PATH` 里的随便一个路径，
 并设置可执行权限。
 
 ```shell
@@ -208,7 +210,7 @@ load balancers, you might need additional flags. Please see the
 
 如果您的主集群不是运行在一个云的环境，或者是这个环境不支持常见的云功能，比如负载均衡，
 那您可能还需要提供其他的参数。请查阅下面的内容
-[on-premises host clusters](#on-premises-host-clusters) 。
+[on-premises 主集群](#on-premises-host-clusters) 。
 
 <!--
 The following example command deploys a federation control plane with
@@ -240,8 +242,8 @@ yourself with the following command:
 kubectl create namespace default --context=fellowship
 ```
 -->
-下面的命令使用名字为 `fellowship` ， 主集群为 `rivendell` 和域名后缀
-为 `example.com.` 的参数，部署了一个联邦集群：
+下面的命令部署了一个联邦集群，名称为 fellowship，主集群上下
+文（host cluster context）为 rivendell，域名后缀为 example.com.：
 
 ```shell
 kubefed init fellowship \
@@ -251,15 +253,15 @@ kubefed init fellowship \
 ```
 
 `--dns-zone-name` 定义的联邦集群的域名后缀必须是一个属于您的已存在的域名，
-而且必须是受您的 DNS 提供商所管理的，而且结尾必须有个点号。
+而且必须是受您的 DNS 提供商所管理的，结尾必须有个点号。
 
-等联邦控制面板初始化完毕，查询命名空间：
+等联邦控制面板初始化完毕，查询 namespace ：
 
 ```shell
 kubectl get namespace --context=fellowship
 ```
 
-如果没有列出来 `default` 的命名空间(这是因为一个 Bug 
+如果没有列出来名字为 `default` 的 namespace (这是因为一个 Bug 
 [bug](https://github.com/kubernetes/kubernetes/issues/33292)). 
 请使用下列命令自己创建一个：
 
@@ -293,10 +295,10 @@ gcloud container node-pools create new-np \
 您的主集群里的节点必须有足够的权限来管理您所使用的 DNS 服务，比如说，
 如果您使用的集群是运行在 Google Compute Engine 上面，您必须启用 Google Cloud DNS API。
 
-默认，Google Container Engine (GKE) 集群里的节点创建的时候是不启用 Google Cloud DNS API 的，
+默认情况下，Google Container Engine (GKE) 集群里的节点创建时是不启用 Google Cloud DNS API 的，
 如果您需要使用一个 GKE 集群作为联邦主集群，请在创建的时候使用 `gcloud` 和正确的 `--scopes` 
-参数。您无法修改一个 GKE 集群来直接添加这个 scope ，但是可以创建一个新的节点群并删除旧的节点。
-*注意 这样会导致集群里的 Pod 被重新调度.*
+标签。您无法修改一个 GKE 集群来直接添加这个 scope ，但是可以创建一个新的节点群并删除旧的节点。
+*注意 这样会导致集群里的 Pod 被重新调度。*
 
 添加新的节点群，请运行下列命令:
 
@@ -327,15 +329,15 @@ kubectl config use-context fellowship
 
 where `fellowship` is the name of your federation.
 -->
-删除旧的节点群，运行:
+删除旧的节点群，请运行:
 
 ```shell
 gcloud container node-pools delete default-pool --cluster gke-cluster
 ```
 
-`kubefed init` 在主集群里配置联邦控制面板，还在您本地的 kubeconfig 添加联邦 API 服务的
-配置条目。注意，在 Kubernetes 1.6 版本中，`kubefed init` 并不会自动给新部署的集群联邦
-添加 context , 因此您需要手动配置，运行下面的命令：
+`kubefed init` 在主集群里配置联邦控制面板，并在您本地的 kubeconfig 添加联邦 API 服务的
+配置条目。注意，在 Kubernetes 1.6 beta 发行版本中，`kubefed init` 并不会自动将新部署的集群联邦的
+上下文配置为当前的内容, 因此您需要手动配置，运行下面的命令：
 
 ```shell
 kubectl config use-context fellowship
@@ -361,11 +363,11 @@ kubefed init fellowship \
     --apiserver-enable-token-auth=true
 ```
 -->
-### 基本和口令验证支持
+### 基本和令牌验证支持
 
-`kubefed init` 默认只会生成 TLS 证书和钥匙对用于跟联邦 API 服务验证，
+`kubefed init` 默认只会用于联邦 API 服务验证的 TLS 证书和密钥，
 并写入到本地的 kubeconfig 文件里面。如果您需要 debug 而启用基本验证
-或者口令验证，您可以通过传递 `--apiserver-enable-basic-auth` 或者 `--apiserver-enable-token-auth` 标签来实现。
+或者令牌验证，您可以通过传递 `--apiserver-enable-basic-auth` 或者 `--apiserver-enable-token-auth` 标签来实现。
 
 ```shell
 kubefed init fellowship \
@@ -404,7 +406,7 @@ kubefed init fellowship \
 一个联邦控制管理面板。而其中的一些参数是衍生自 `kubefed init` 的标签。
 然而用户也可以自己通过对应的标签来定义这些参数。
 
-您可以使用`--apiserver-arg-overrides` 这个标签来定义联邦 API 服务的参数，
+您即可以使用`--apiserver-arg-overrides` 这个标签来定义联邦 API 服务的参数，
 也可以使用`--controllermanager-arg-overrides` 来定义联邦控制管理服务的参数。
 
 ```shell
@@ -502,12 +504,12 @@ kubefed init fellowship \
 -->
 ### On-premises 主集群
 
-#### API 服务类似
+#### API 服务类型
 
-`kubefed init` 在主集群上以 Kubernetes [service](/docs/concepts/services-networking/service/) 
+`kubefed init` 在主集群上以 Kubernetes [服务](/docs/concepts/services-networking/service/) 
 的方式开放联邦的 API 服务。默认情况下，这个服务是作为[负载均衡服务](/docs/concepts/services-networking/service/#type-loadbalancer).
 大部分 on-premises 和 bare-metal 的环境和一些云环境，都缺乏负载均衡服务。
-因此 `kubefed init` 允许将联邦的 API 服务作为[`NodePort` service](/docs/concepts/services-networking/service/#type-nodeport)
+因此 `kubefed init` 允许将联邦的 API 服务作为[`NodePort` 服务](/docs/concepts/services-networking/service/#type-nodeport)
 在这样的环境里开放出来。这可以通过传递 `--api-server-service-type=NodePort` 标签来实现。
 您也可以传递 `--api-server-advertise-address=<IP-address>` 来指定公开的联邦 API 服务的地址。
 否则，主集群上的其中一个节点地址将会被作为默认地址。
@@ -545,18 +547,18 @@ that has the following configuration:
 
 联邦控制面板将它的数据存放在
 [`etcd`](https://coreos.com/etcd/docs/latest/).
-而[`etcd`](https://coreos.com/etcd/docs/latest/) 的数据必须存放在一个持久存储卷里
+而[`etcd`](https://coreos.com/etcd/docs/latest/) 的数据必须存放在一个PersistentVolume里
 才能确保在联邦控制面板重启之后能提供正确的操作。在支持
 [动态分配存储卷](/docs/concepts/storage/persistent-volumes/#dynamic)的主集群上,
 `kubefed init` 动态分配一个
-[`持久存储卷`](/docs/concepts/storage/persistent-volumes/#persistent-volumes)
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes)
 并绑定到一个
-[`持久卷请求`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 用于存储 [`etcd`](https://coreos.com/etcd/docs/latest/) 的数据。如果您的主集群不支持动态分配，
 您可以固定的分配一个
-[`持久存储卷`](/docs/concepts/storage/persistent-volumes/#persistent-volumes).
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes).
 `kubefed init` 创建一个有下面的配置的
-[`持久卷请求`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)：
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)：
 <!--
 ```yaml
 apiVersion: v1
@@ -621,11 +623,11 @@ to the federation control plane that it bootstraps. We are planning to
 support this in a future version of `kubefed`.
 -->
 想要固定的分配一个
-[`持久存储卷`](/docs/user-guide/persistent-volumes/#persistent-volumes),
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes),
 您就必须确保您所创建的
-[`持久存储卷`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
 有正确的存储类型，访问模式和
-[`持久卷请求`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 所需要的存储空间。
 
 或者，您也可以通过给 `kubefed init` 传递标签 `--etcd-persistent-storage=false`
@@ -641,7 +643,7 @@ kubefed init fellowship \
 ```
 
 `kubefed init` 仍然不支持往一个已建立的联邦控制面板连接一个已存在的
-[`持久卷请求`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 我们计划在将来的 `kubefed` 版本提供这方面的支持。
 
 <!--
@@ -723,7 +725,7 @@ section below.
 
 > 注意: 您在使用 `join` 命令时使用的名字将会作为待添加集群在这个联邦里的
 标识。这个名字必须符合这篇文章所描述的规则
-[标识](/docs/concepts/overview/working-with-objects/names/). 如果您的待添加集群的 context 
+[标识符文档](/docs/concepts/overview/working-with-objects/names/). 如果您的待添加集群的 context 
 符合这个规则，您可以在 join 命令里使用相同的名字。否则，您将需要使用一个不同
 的名字作为集群的标识。更多信息请查阅
 [命名规则和自定义](#naming-rules-and-customization)。
@@ -784,17 +786,17 @@ kubefed join gondor --host-cluster-context=rivendell --cluster-context=gondor_ne
 
 您提供给 `kubefed join` 的集群名字必须是一个有效的
 [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) 标签而且是符合
-这些规范的 [Identifiers doc](/docs/concepts/overview/working-with-objects/names/).
+[标识符文档](/docs/concepts/overview/working-with-objects/names/)所列举的规范.
 
 而且，联邦控制面板需要有被添加集群的验证信息以便管理。这些验证信息
 是从本地的 kubeconfig 获取的。`kubefed join` 使用这个集群的名字作为
 参数在本地的 kubeconfig 里查找集群的信息。如果找不到匹配的集群验证信息，
-它就会出错。
+它就会报错并退出。
 
-如果联邦里每个集群的名字不遵循[RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)
+如果联邦里的集群名字不遵循[RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)
 标签命名规则，这可能会造成错误。如果是这样的话，您可以通过给 `--cluster-context` 
 标签指定一个符合[RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)标签命名规则的名字。
-比如说，如果你要添加的集群的 context 为`gondor_needs-no_king` ， 那您可以这样添加
+比如说，如果你要添加的集群的 context 为`gondor_needs-no_king` ， 那可以这样添加
 这个集群：
 
 ```shell
@@ -854,15 +856,15 @@ In all other cases, you must update `kube-dns` configuration manually
 as described in the
 [Updating KubeDNS section of the admin guide](/docs/admin/federation/).
 -->
-### `kube-dns` configuration
+### `kube-dns` 配置
 
 每个被添加的集群里的 `kube-dns` 的配置必需更新，以便启用联邦服务发现功能。
 如果这个被添加的集群是1.5或者更高的版本，而您的 `kubefed` 是1.6或者更新，
 那这个配置在集群被添加时或者使用 `kubefed join` 或 `unjoin` 这样的命令的时候，
 会自动更新。
 
-无论如何，您都必须更新 `kube-dns` 的配置，详情请查阅
-[更新管理向导的 KubeDNS 章节](/docs/admin/federation/).
+除此之外，您都必须更新 `kube-dns` 的配置，详情请查阅
+[更新管理指南中的 KubeDNS 章节](/docs/admin/federation/).
 <!--
 ## Removing a cluster from a federation
 
@@ -898,9 +900,9 @@ kubectl delete ns federation-system
 -->
 ## 清除联邦控制面板
 
-要彻底的清除联邦控制面板，在目前的 `kubefed` 测试版本里并未完全实现。
-然而，目前而言，删除联邦系统对应的命名空间会删除所有的资源，除了自动分配
-给联邦集群的 etcd 服务的永久存储。您可以这样删除联邦的命名空间：
+在目前的 kubefed beta 版本里并未完全实现对联邦控制面板的彻底清理。
+然而，目前而言，删除联邦系统对应的 namespace 会删除所有的资源，除了自动分配
+给联邦集群的 etcd 服务的永久存储。您可以这样删除联邦的 namespace ：
 
 ```
 kubectl delete ns federation-system
