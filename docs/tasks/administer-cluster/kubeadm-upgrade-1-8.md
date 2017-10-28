@@ -39,7 +39,7 @@ Before proceeding:
 - 您需要有一个正常工作的 1.7.0 或更高版本的 `kubeadm` Kubernetes 集群，以进行此处描述的流程。
 - 请确保已经仔细阅读 [版本更新](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v180-beta1)。
 - 由于 `kubeadm upgrade` 不会升级 etcd，请确保已对其进行了备份。例如，您可以使用 `etcdctl backup` 命令完成这个工作。
-- 请注意，`kubeadm upgrade` 不会触及任何工作负载，只会针对 Kubernetes 内建（Kubernetes-internal）组件。作为最佳实践，您应该备份所有重要数据。例如任何应用层级的状态数据，如应用可能依赖的数据库（如 MySQL 或 MongoDB）等，在开始升级前必须对其进行备份。
+- 请注意，`kubeadm upgrade` 只会升级 Kubernetes 内建（Kubernetes-internal）组件，不会触及任何工作负载。作为最佳实践，您应该备份所有重要数据。例如任何应用层级的状态数据，如应用可能依赖的数据库（如 MySQL 或 MongoDB）等，在开始升级前必须对其进行备份。
 
 <!--
 Also, note that only one minor version upgrade is supported. That is, you can only upgrade from, say 1.7 to 1.8, not from 1.7 to 1.9.
@@ -52,7 +52,7 @@ Also, note that only one minor version upgrade is supported. That is, you can on
 <!--
 ## Upgrading your control plane
 -->
-## 升级控制平面
+## 升级控制平面（control plane）
 
 <!--
 You have to carry out the following steps by executing these commands on your master node:
@@ -268,10 +268,10 @@ $ kubeadm upgrade apply v1.8.0
   - API Server 是否可达，
   - 所有节点是否均处于 `Ready` 状态，并且
   - 控制平面处于健康状态
-- 应用版本偏移策略（version skew policy）。
+- 强制启用版本偏移策略（version skew policy）。
 - 保证控制平面镜像可用或可以拉取到机器上。
-- 升级控制平面组件，当任何一个组件启动失败时对其进行回退。
-- 应用新的 `kube-dns` 和 `kube-proxy` 清单文件并应用所有创建的必要 RBAC 规则。
+- 升级控制平面组件，当任何一个组件启动失败时对升级操作进行回退。
+- 应用新的 `kube-dns` 和 `kube-proxy` 清单文件并强制启用所有创建的必要 RBAC 规则。
 
 <!--
 5. Manually upgrade your Software Defined Network (SDN).
@@ -283,7 +283,7 @@ $ kubeadm upgrade apply v1.8.0
 -->
 5. 手动升级软件定义网络（Software Defined Network，SDN）。
 
-   当前您的容器网络接口提供商（Container Network Interface，CNI）可能有自己的升级指导。请查阅 [扩展](/docs/concepts/cluster-administration/addons/) 页面，找到您的 CNI 提供商并查看是否有必要的额外升级步骤。
+   当前您的容器网络接口提供商（Container Network Interface，CNI）可能有自己的升级指导。请查阅 [插件](/docs/concepts/cluster-administration/addons/) 页面，找到您的 CNI 提供商并查看是否有必要的额外升级步骤。
 
 <!--
 6. Add RBAC permissions for automated certificate rotation. In the future, kubeadm will perform this step automatically:
@@ -316,7 +316,7 @@ $ kubectl drain $HOST --ignore-daemonsets
 <!--
 When running this command against the master host, this error is expected and can be safely ignored (since there are static pods running on the master):
 -->
-在 master 节点执行这个命令时，将出现如预期的错误，这个错误可以安全的忽略（因为 master 节点上有 static pod 运行）：
+在 master 节点执行这个命令时，预计会出现这个错误，并且可以安全地将其忽略（因为 master 节点上有 static pod 运行）：
 
 ```shell
 node "master" already cordoned
@@ -367,7 +367,7 @@ $ kubectl uncordon $HOST
 <!--
 4. After upgrading `kubelet` on each host in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
 -->
-4. 在对所有集群节点的 `kubelet` 进行升级之后，请执行下列命令来验证是否所有节点都仍然可用（从任何地方，例如集群外部）：
+4. 在对所有集群节点的 `kubelet` 进行升级之后，请执行以下命令以确认所有节点又重新变为可用状态（从任何地方，例如集群外部）：
 
 ```shell
 $ kubectl get nodes
@@ -391,7 +391,7 @@ You can use `kubeadm upgrade` to change a running cluster with `x.x.x \-\-> x.x.
 -->
 如果 `kubeadm upgrade` 因某些原因失败并且不能回退（可能因为执行过程中意外的关闭了节点实例），您可以再次运行 `kubeadm upgrade`，因为其具有幂等性，所以最终应该能够保证集群的实际状态和您所定义的理想状态一致。
 
-您可以在使用 `kubeadm upgrade` 和 `x.x.x --> x.x.x` 改变运行集群的基础上传递 `--force` 标志，这可以用于恢复损坏状态。
+您可以使用 kubeadm upgrade 命令和 x.x.x --> x.x.x 及 --force 参数，以从损坏状态恢复。
 {% endcapture %}
 
 {% include templates/task.md %}
