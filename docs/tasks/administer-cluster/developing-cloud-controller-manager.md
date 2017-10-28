@@ -63,7 +63,7 @@ To build an out-of-tree cloud-controller-manager for your cloud, follow these st
 <!--
 Using existing out-of-tree cloud providers as an example may be helpful. You can find the list [here](/docs/tasks/administer-cluster/running-cloud-controller.md#examples).
 -->
-使用现有的 out-of-tree cloud provider 可能会有所帮助。您可以在 [这里](/docs/tasks/administer-cluster/running-cloud-controller.md#examples) 找到列表。
+使用现有的 out-of-tree cloud provider 可能会有所帮助。您可以在 [这里](/docs/tasks/administer-cluster/running-cloud-controller.md#示例) 找到列表。
 
 <!--
 ### In Tree
