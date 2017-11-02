@@ -4,6 +4,10 @@ approvers:
 - dawnchen
 cn-approvers:
 - xiaosuiba
+cn-reviwers:
+- pigletfly
+- zjj2wry
+- chentao1596
 title: 通过配置文件设置 Kubelet 参数
 ---
 <!--
@@ -19,8 +23,8 @@ set via an on-disk config file, as a substitute for command-line flags. In the
 future, most of the existing command-line flags will be deprecated in favor of
 providing parameters via a config file, which simplifies node deployment.
 -->
-在 Kubernetes 1.8 版本上，除了可以通过命令行标志外，还可以通过保存在硬盘的配置文件设置 Kubelet 的配置子集。
-将来，大部分现存的命令行标志都将被废弃，取而代之以配置文件的方式提供参数，以简化节点部署过程。
+在 Kubernetes 1.8 版本上，除了可以通过命令行参数外，还可以通过保存在硬盘的配置文件设置 Kubelet 的配置子集。
+将来，大部分现存的命令行参数都将被废弃，取而代之以配置文件的方式提供参数，以简化节点部署过程。
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -28,7 +32,7 @@ providing parameters via a config file, which simplifies node deployment.
 <!--
 - A v1.8 or higher Kubelet binary must be installed.
   -->
-- 需要安装 v1.8 版本及以上的 Kubelet 二进制文件。
+- 需要安装 1.8 版本或更高版本的 Kubelet 二进制文件。
 
 {% endcapture %}
 
@@ -74,7 +78,7 @@ containing the `kubelet` file. The Kubelet will then load the parameters defined
 by `KubeletConfiguration` from the `kubelet` file, rather than from their 
 associated command-line flags.
 -->
-启动 Kubelet，需要打开 `KubeletConfigFile` 特性开关并将其 `--init-config-dir` 标志设置为包含 `kubelet` 文件的文件夹路径。Kubelet 将从 `kubelet` 文件中读取由 `KubeletConfiguration` 定义的参数，而不是从参数相关的命令行标志中读取。
+启动 Kubelet，需要打开 `KubeletConfigFile` 特性开关（feature gate）并将其 `--init-config-dir` 标志设置为包含 `kubelet` 文件的文件夹路径。Kubelet 将从 `kubelet` 文件中读取由 `KubeletConfiguration` 定义的参数，而不是从参数相关的命令行标志中读取。
 
 {% endcapture %}
 
@@ -83,7 +87,7 @@ associated command-line flags.
 <!--
 ## Relationship to Dynamic Kubelet Config
 -->
-## 
+## 与动态 Kubelet 配置的关系
 
 <!--
 If you are using the [Dynamic Kubelet Configuration](/docs/tasks/administer-cluster/reconfigure-kubelet)
@@ -101,7 +105,7 @@ representations of the same structures. Today, the only pair is
 See [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet)
 for more information.
 -->
-请注意，`--init-config-dir` 文件的布局结构镜像了 ConfigMap 中用于动态 Kubelet 配置的数据结构；文件命名和 ConfigMap 的 key 相同，文件的内容是 ConfigMap 中相同数据结构的 JSON 或 YAML 表现形式。目前，唯一的配置对是 `kubelet:KubeletConfiguration`，但以后将添加更多的配置项。更多信息请查阅  [重新配置活动集群节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet)。
+请注意，`--init-config-dir` 文件的布局结构镜像了 ConfigMap 中用于动态 Kubelet 配置的数据结构；文件命名和 ConfigMap 的 key 相同，文件的内容是 ConfigMap 中相同数据结构的 JSON 或 YAML 表现形式。虽然以后可能会出现更多，但目前只有 kubelet:KubeletConfiguration 配置对。更多信息请查阅  [重新配置活动集群节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet)。
 
 {% endcapture %}
 
