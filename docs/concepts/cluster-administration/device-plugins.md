@@ -97,7 +97,7 @@ The general workflow of a device plugin includes the following steps:
 * Initialization. During this phase, the device plugin performs vendor specific
   initialization and setup to make sure the devices are in a ready state.
 -->
-* 初始化。在这个阶段，第三方资源将执行自身特定的初始化和配置操作，以确保设备正常运行。
+* 初始化。在这个阶段，设备插件将执行自身特定的初始化和配置操作，以确保设备正常运行。
 
 <!--
 * The plugin starts a gRPC service, with a Unix socket under host path
