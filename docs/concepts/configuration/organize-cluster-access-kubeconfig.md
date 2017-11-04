@@ -17,14 +17,14 @@ authentication mechanisms. The `kubectl` command-line tool uses kubeconfig files
 find the information it needs to choose a cluster and communicate with the API server
 of a cluster.
 -->
-kubeconfig 文件用于组织关于集群、用户、命名空间和认证机制的信息。命令行工具 `kubectl` 通过使用 kubeconfig 文件去查找它要选择的集群以及跟集群 API server 交互的信息。
+kubeconfig 文件用于组织关于集群、用户、命名空间和认证机制的信息。命令行工具 `kubectl` 从 kubeconfig 文件中得到它要选择的集群以及跟集群 API server 交互的信息。
 
 <!--
 **Note:** A file that is used to configure access to clusters is called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 -->
-**注意：** 用于配置集群访问信息的文件叫做 *kubeconfig 文件*，这是一种引用配置文件的通用方式，并不是说它就是名字叫做 `kubeconfig` 的文件。
+**注意：** 用于配置集群访问信息的文件叫作 *kubeconfig 文件*，这是一种引用配置文件的通用方式，并不是说它的文件名就是 `kubeconfig`。
 {: .note}
 
 <!--
@@ -33,13 +33,13 @@ You can specify other kubeconfig files by setting the `KUBECONFIG` environment
 variable or by setting the
 [`--kubeconfig`](/docs/user-guide/kubectl/{{page.version}}/) flag.
 -->
-默认情况下，`kubectl` 会从 `$HOME/.kube` 目录下查找文件 `config`。您可以通过设置环境变量 `KUBECONFIG` 或者通过设置 [`--kubeconfig`](/docs/user-guide/kubectl/{{page.version}}/) 去指定其它 kubeconfig 文件。
+默认情况下，`kubectl` 会从 `$HOME/.kube` 目录下查找文件名为 `config` 的文件。您可以通过设置环境变量 `KUBECONFIG` 或者通过设置 [`--kubeconfig`](/docs/user-guide/kubectl/{{page.version}}/) 去指定其它 kubeconfig 文件。
 
 <!--
 For step-by-step instructions on creating and specifying kubeconfig files, see
 [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 -->
-关于怎么样一步一步去创建和指定 kubeconfig 文件，请查看 [配置访问多个集群](/docs/tasks/access-application-cluster/configure-access-multiple-clusters)。
+关于怎么样一步一步去创建和配置 kubeconfig 文件，请查看 [配置访问多个集群](/docs/tasks/access-application-cluster/configure-access-multiple-clusters)。
 
 {% endcapture %}
 
@@ -71,7 +71,7 @@ With kubeconfig files, you can organize your clusters, users, and namespaces.
 And you can define contexts that enable users to quickly and easily switch between
 clusters and namespaces.
 -->
-使用 kubeconfig 文件，可以组织您的集群、用户和命名空间。并且，您还可以定义 context，以便快速轻松地在集群和命名空间之间进行切换。
+使用 kubeconfig 文件，可以组织您的集群、用户和命名空间的信息。并且，您还可以定义 context，以便快速轻松地在集群和命名空间之间进行切换。
 
 ## Context
 
@@ -82,7 +82,7 @@ the current context. The `kubectl` command-line tool communicates with the
 cluster and namespace listed in the current context. And it uses the
 credentials of the user listed in the current context.
 -->
-kubeconfig 文件可以包含 *context* 元素，每个 context 都是一个由（集群、命名空间、用户）描述的三元组。您可以使用 `kubectl config use-context` 去设置当前的 context。命令行工具 `kubectl` 与当前 context 中指定的集群和命名空间进行通信，并且使用当前 context 中列出的用户凭证。
+kubeconfig 文件可以包含 *context* 元素，每个 context 都是一个由（集群、命名空间、用户）描述的三元组。您可以使用 `kubectl config use-context` 去设置当前的 context。命令行工具 `kubectl` 与当前 context 中指定的集群和命名空间进行通信，并且使用当前 context 中包含的用户凭证。
 
 <!--
 ## The KUBECONFIG environment variable
@@ -123,7 +123,7 @@ kubectl config view
 As described previously, the output might be from a single kubeconfig file,
 or it might be the result of merging several kubeconfig files.
 -->
-如前所述，输出的内容可能来自单个 kubeconfig 文件，也可能是几个 kubeconfig 文件融合之后的结果。
+如前所述，输出的内容可能来自单个 kubeconfig 文件，也可能是多个 kubeconfig 文件融合之后的结果。
 
 <!--
 Here are the rules that `kubectl` uses when it merges kubeconfig files:
@@ -177,11 +177,11 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 
    An empty context is allowed at this point.
 -->
-1. 确定要使用的 context。根据下面链中的第一个找到的内容确 context：
+1. 确定要使用的 context 时按照以下顺序查找，直到找到一个可用的context：
     1. 如果命令行参数 `--context` 存在的话，使用它指定的值。
 	1. 使用融合 kubeconfig 文件之后的 `current-context` 。
 	
-   此时允许使用空的 context。	
+   如果还未找到可用的 context，此时允许使用空的 context。	
 
 <!--
 1. Determine the cluster and user. At this point, there might or might not be a context.
@@ -194,12 +194,12 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    The user and cluster can be empty at this point.
 -->
 1. 确定集群和用户。此时，可能存在 context，也可能没有。
-   根据下面链中的第一个找到的内容确定集群和用户。该链查找过程运行两次：一次为用户，一次用于集群：
+   按照以下顺序查找，直到找到一个可用的集群或用户。该链查找过程运行两次：一次用于查找用户，另一次用于查找集群：
    
-   1. 如果存在的话，使用命令行参数：`--user` 或者 `--cluster`。
-   1. 如果 context 非空，从 context 中取用户或者集群。
+   1. 如果存在命令行参数：`--user` 或者 `--cluster`，则使用它们指定的值。
+   1. 如果 context 非空，则从 context 中取用户或者集群。
    
-   此时用户和集群可以为空。
+   如果还未找到可用的用户或者集群，此时用户和集群可以为空。
 
 <!--
 1. Determine the actual cluster information to use. At this point, there might or
@@ -211,9 +211,9 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    1. If there is no server location, fail.
 -->
 1. 确定要使用的实际集群信息。此时，集群信息可能存在，也可能不存在。
-   根据此链构建集群信息，选择第一个获取到的内容：
+   按照以下顺序查找，选择第一个查找到的内容：
    
-   1. 如果存在的话，使用命令行参数：`--server`、`--certificate-authority` 和 `--insecure-skip-tls-verify`。
+   1. 如果存在命令行参数：`--server`、`--certificate-authority` 和 `--insecure-skip-tls-verify`，则使用它们指定的值。
    1. 融合 kubeconfig 文件后，如果有任何集群属性存在，都使用它们。
    1. 如果没有指定服务位置，则确定集群信息失败。
 
@@ -228,7 +228,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 -->
 1. 确定要使用的实际用户信息。除了每个用户只能使用一个身份验证技术之外，使用与构建集群信息相同的规则来构建用户信息：
 
-   1. 如果存在的话，使用命令行参数：`--client-certificate`、`--client-key`、`--username`、`--password` 和 `--token`。
+   1. 如果存在命令行参数：`--client-certificate`、`--client-key`、`--username`、`--password` 和 `--token`，使用它们指定的值。
    1. 融合 kubeconfig 文件后，使用 `user` 字段。
    1. 如果存在两种矛盾的身份验证技术，则确定用户信息失败。
 
