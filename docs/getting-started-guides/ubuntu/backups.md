@@ -1,4 +1,6 @@
 ---
+cn-approvers:
+- tianshapjq
 title: 备份
 ---
 <!--
@@ -15,14 +17,14 @@ the Canonical Distribution of Kubernetes. Backing up application specific data,
 normally stored in a persistent volume, is outside the scope of this
 document.
 -->
-Kubernetes 集群的状态保存在 etcd 数据存储区中。本页面将展示如何备份和恢复与 Canonical Distribution of Kubernetes 匹配的 etcd 数据。至于备份应用程序特定的数据则不在本文档范围内，这些数据通常存储在持久卷上。
+Kubernetes 集群的状态保存在 etcd 数据存储区中。本页展示了如何对标准Kubernetes发行版中的etcd进行备份和恢复。至于一些通常保存在持久卷上的应用数据备份并不在此文档进行说明。
 {% endcapture %}
 
 {% capture prerequisites %}
 <!--
 This page assumes you have a working Juju deployed cluster.
 -->
-本教程假设您已经拥有一个使用 Juju 部署的运行良好的集群。
+本页面假设您有一个 Juju 部署的集群。
 {% endcapture %}
 
 {% capture steps %}
@@ -43,7 +45,7 @@ etcd 的 `snapshot` 操作能够让操作员给正在运行的集群数据建立
 <!--
 - **param** target: destination directory to save the resulting snapshot archive.
 -->
-- **参数** target：用于存储 snapshot 结果数据的目录。
+- **参数** target：用于存储快照数据的目录。
 
 
 <!--
@@ -184,7 +186,7 @@ juju run-action new-etcd/0 restore
 <!--
 ## Known Limitations
 -->
-## 现有的不足
+## 已知的不足
 
 <!--
 #### Loss of PKI warning
