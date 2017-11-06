@@ -17,7 +17,7 @@ the Canonical Distribution of Kubernetes. Backing up application specific data,
 normally stored in a persistent volume, is outside the scope of this
 document.
 -->
-Kubernetes 集群的状态保存在 etcd 数据存储区中。本页展示了如何对标准Kubernetes发行版中的etcd进行备份和恢复。至于一些通常保存在持久卷上的应用数据备份并不在此文档进行说明。
+Kubernetes 集群的状态保存在 etcd 数据存储区中。本页展示了如何对标准 Kubernetes 发行版中的 etcd 进行备份和恢复。至于一些通常保存在持久卷上的应用数据备份并不在此文档进行说明。
 {% endcapture %}
 
 {% capture prerequisites %}
