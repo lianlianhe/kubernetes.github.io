@@ -6,7 +6,7 @@ approvers:
 <!--
 title: Controlling Access to the Kubernetes APIs
 --> 
-title: Kubernetes API的访问控制
+title: Kubernetes API 访问控制
 ---
 
 <!--
@@ -17,7 +17,9 @@ authorized for API access.
 When a request reaches the API, it goes through several stages, illustrated in the
 following diagram:
 --> 
-用户可以通过kubectl命令, 客户端库， 或者发送REST请求来[访问API](/docs/user-guide/accessing-the-cluster) 。kubernetes用户和[服务账号](/docs/tasks/configure-pod-container/configure-service-account/)都可以用于API访问时的授权。 当请求到达API时， 它会经历几个阶段，如下图所示：
+
+用户通过 `kubectl`、客户端库或者通过发送REST请求[访问API](/docs/user-guide/accessing-the-cluster)。 用户（自然人）和[Kubernetes服务账户](/docs/tasks/configure-pod-container/configure-service-account/) 都可以被授权进行API访问。
+请求到达API服务器后会经过几个阶段，具体说明如图：
 ![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
 <!--
 ## Transport Security
@@ -31,8 +33,10 @@ automatically written into your `$USER/.kube/config` when you create a cluster y
 using `kube-up.sh`.  If the cluster has multiple users, then the creator needs to share
 the certificate with other users.
 -->
-##  传输安全
+##  传输层安全
+
 在一个典型的 Kubernetes集群里， API 的侦听端口是443， TLS连接会被建立。 API server会提供一个证书。 这个证书是自签名的， 因此在`$USER/.kube/config`路径下会包含API server证书的根证书，你可以指定这个证书用来替换系统默认的根证书。 当你使用`kube-up.sh`来创建集群时，这个证书会自动写入到`$USER/.kube/config`目录下。 如果集群有多个用户， 那么集群创建者需要和其它用户共享这个证书。 
+
 <!--
 ## Authentication
 
