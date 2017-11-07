@@ -22,7 +22,7 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 ## DaemonSet Update Strategy
 
-DaemonSet has two update strategy types :
+DaemonSet has two update strategy types:
 
 * OnDelete: This is the default update strategy for backward-compatibility. With
   `OnDelete` update strategy, after you update a DaemonSet template, new
@@ -56,7 +56,7 @@ to 1) and `.spec.minReadySeconds` (default to 0) as well.
 ### Step 1: Checking DaemonSet `RollingUpdate` update strategy
 
 First, check the update strategy of your DaemonSet, and make sure it's set to 
-RollingUpdate:
+`RollingUpdate`:
 
 ```shell{% raw %}
 kubectl get ds/<daemonset-name> -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
@@ -159,7 +159,7 @@ causes:
 
 The rollout is stuck because new DaemonSet pods can't be scheduled on at least one
 node. This is possible when the node is 
-[running out of resources](/docs/concepts/cluster-administration/out-of-resource/).
+[running out of resources](/docs/tasks/administer-cluster/out-of-resource/).
 
 When this happens, find the nodes that don't have the DaemonSet pods scheduled on
 by comparing the output of `kubectl get nodes` and the output of:
