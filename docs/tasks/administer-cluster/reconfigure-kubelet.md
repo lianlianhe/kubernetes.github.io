@@ -31,7 +31,7 @@ will affect behavior. No documentation currently exists which plainly lists
 "safe to change" fields, but we plan to add it before this feature graduates
 from alpha.
 -->
-**警告：** 所有的 Kubelet 配置参数都可以动态修改，但并不是所有的修改都安全。此功能主要面向系统专家，他们需要对更改配置将对系统行为造成何种影响有深刻的认识。当前没有一个文件列出“对修改安全”的配置域，但我们计划在此功能从 alpha 阶段毕业时添加这个文件。
+**警告：** 所有的 Kubelet 配置参数都可以动态修改，但并不是所有的修改都安全。此功能适用于对配置更改会如何影响行为有深刻理解的系统专家。当前没有一个文件列出“对修改安全”的配置域，但我们计划在此功能从 alpha 阶段毕业时添加这个文件。
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -57,7 +57,7 @@ from alpha.
 <!--
 ### Basic Workflow Overview
 -->
-### 基本工作流概览
+### 基本工作流程概览
 
 <!--
 The basic workflow for configuring a Kubelet in a live cluster is as follows:
@@ -67,9 +67,9 @@ The basic workflow for configuring a Kubelet in a live cluster is as follows:
 2. Wrap this file in a ConfigMap and save it to the Kubernetes control plane.
 3. Update the Kubelet's correspoinding Node object to use this ConfigMap.
   -->
-  配置活动集群中的 kubelet 的基本工作流如下：
+  配置活动集群中的 kubelet 的基本工作流程如下：
 
-1. 编写一个包含 Kubelet 配置的 YAML 或  JSON 格式的配置文件。
+1. 编写一个包含 Kubelet 配置的 YAML 或 JSON 格式的配置文件。
 2. 用 ConfigMap 包装该文件并保存至 Kubernetes 控制平面。
 3. 更新 Kubelet 对应的节点对象以使用此 ConfigMap。
 
@@ -89,7 +89,7 @@ Some CLI flags do not have an associated configuration field, and will not be
 affected by the new configuration. These fields are defined by the KubeletFlags
 structure, [here](https://github.com/kubernetes/kubernetes/blob/master/cmd/kubelet/app/options/options.go).
 -->
-新的配置将完全覆盖旧配置；新配置中没有指定的字段将使用典型的默认值。某些 CLI 配置项没有与之关联的配置字段，也不会被新的配置所影响。这些字段在 KubeletFlags 结构体中进行了定义，请参考 [这个文档](https://github.com/kubernetes/kubernetes/blob/master/cmd/kubelet/app/options/options.go)。
+新的配置将完全覆盖旧配置；新配置中没有指定的字段将使用典型的默认值。某些 CLI 配置项没有与之关联的配置字段，也不会被新的配置所影响。这些字段在 KubeletFlags 结构体中进行了定义，请参考 [这个文件](https://github.com/kubernetes/kubernetes/blob/master/cmd/kubelet/app/options/options.go)。
 
 <!--
 The status of the Node's Kubelet configuration is reported via the `ConfigOK`
@@ -98,14 +98,14 @@ ConfigMap, you can observe this condition to confirm that the Node is using the
 intended configuration. A table describing the possible conditions can be found
 at the end of this article.
 -->
-节点 Kubelet 配置的状态通过节点状态中的 `ConfigOK` 状态进行报告。一旦使用这种新的 ConfigMap 对节点进行了升级，您就可以通过观察这个状态确认节点是否正在使用预期的配置。您可以在文章末尾找到描述所有可能状态的表格。
+节点 Kubelet 配置的状态通过节点状态中的 `ConfigOK` 状态进行报告。一旦使用新的 ConfigMap 对节点进行了升级，您就可以通过观察这个状态确认节点是否正在使用预期的配置。您可以在文章末尾找到描述所有可能状态的表格。
 
 <!--
 This document describes editing Nodes using `kubectl edit`.
 There are other ways to modify a Node's spec, including `kubectl patch`, for
 example, which facilitate scripted workflows.
 -->
-本文描述了通过 `kubectl edit` 编辑节点的方法。除此之外还有其它修改节点 spec 的方式，例如 `kubectl patch` 可用于通过脚本配置的工作流。
+本文描述了通过 `kubectl edit` 编辑节点的方法。除此之外还有其它修改节点 spec 的方式，例如 `kubectl patch` 可用于通过脚本配置的工作流程。
 
 <!--
 This document only describes a single Node consuming each ConfigMap. Keep in
@@ -206,7 +206,7 @@ Using your editor of choice, change one of the parameters in the
 <!--
 ### Push the configuration file to the control plane
 -->
-### 推动配置文件至控制平面
+### 推送配置文件至控制平面
 
 <!--
 Push the edited configuration file to the control plane with the
@@ -255,14 +255,14 @@ The `--append-hash` option appends a short checksum of the ConfigMap contents
 to the name. This is convenient for an edit->push workflow, as it will
 automatically, yet deterministically, generate new names for new ConfigMaps. 
 -->
-`--append-hash` 选项将 ConfigMap 内容的短校验和添加到其名称后面。这将为  edit->push 工作流带来便利，因为它将自动的、确切的为新的 ConfigMap 生成新的名称。
+`--append-hash` 选项将 ConfigMap 内容的短校验和添加到其名称后面。这将为   edit->push 工作流程带来便利，因为它将自动的、确切的为新的 ConfigMap 生成新的名称。
 
 <!--
 We use the `-o yaml` output format so that the name, namespace, and uid are all
 reported following creation. We will need these in the next step. We will refer
 to the name as CONFIG_MAP_NAME and the uid as CONFIG_MAP_UID.
 -->
-我们使用 `-o yaml` 输出格式以便随创建过程，报告 name、namespace 和 uid。在后续步骤中我们将需要这些值。我们将使用 CONFIG_MAP_NAME 指代 name，使用 CONFIG_MAP_UID 指代 uid。
+我们使用 -o yaml 输出格式，以便创建的时候输出 name、namespace 和 uid。在后续步骤中我们将需要这些值。我们将使用 CONFIG_MAP_NAME 指代 name，使用 CONFIG_MAP_UID 指代 uid。
 
 <!--
 ### Authorize your Node to read the new ConfigMap
@@ -305,7 +305,7 @@ be able to skip this step.
 Edit the Node's reference to point to the new ConfigMap with the
 following command:
 -->
-使用下列命令编辑节点配置，使其指向新的 ConfigMap。
+使用下列命令编辑节点的引用，使其指向新的 ConfigMap。
 
 ```
 kubectl edit node ${NODE_NAME}
