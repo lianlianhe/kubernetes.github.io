@@ -59,7 +59,7 @@ repository.
 Kubernetes documentation repository in your GitHub account. The copy
 is called a *fork*.
 -->
-1. 在右上角，点击 **Fork**。一个 Kubernetes 文档仓库的副本将会在您的 GitHub 账户下创建，这个副本叫做一个 *fork*。
+1. 在右上角，点击 **Fork**。这将在您的 GitHub 账户下创建一个 Kubernetes 文档仓库的副本，这个副本被称为一个 *fork*。
 
 <!--
 ## Making your changes
@@ -70,7 +70,7 @@ is called a *fork*.
 1. In your GitHub account, in your fork of the Kubernetes docs, create
 a new branch to use for your contribution.
 -->
-1. 在 GitHub 账户的 Kubernetes 文档 fork 下，创建一个用于您进行贡献的新分支。
+1. 在 GitHub 账户的 Kubernetes 文档 fork 下，创建一个用于进行贡献的新分支。
 
 <!--
 1. In your new branch, make your changes and commit them. If you want to
@@ -105,7 +105,7 @@ repository. This opens a page that shows the status of your pull request.
 To the right of **deploy/netlify**, click **Details**. This opens a staging
 site where you can verify that your changes have rendered correctly.
 -->
-1. 点击 **Show all checks**。等待 **deploy/netlify** 检查完成。在 **deploy/netlify** 的右边，点击 **Details**，将打开一个验证您的更改是否正确的预览站点。
+1. 点击 **Show all checks**。等待 **deploy/netlify** 检查完成。在 **deploy/netlify** 的右边点击 **Details** 将打开一个预览站点，您可以在此验证更改是否正确。
 
 <!--
 1. During the next few days, check your pull request for reviewer comments.
@@ -155,7 +155,7 @@ The staging site reflects the current state of what's been merged in the
 release branch, or in other words, what the docs will look like for the
 next upcoming release. It's automatically updated as new PRs get merged.
 -->
-Kubernetes 即将发布的版本的预览站点：[http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)。预览站点反映了将要合入到发布分支的内容的当前状态，换句话说，也就是接下来的版本的内容。当新的PR合入的时候，它会自动更新。
+Kubernetes 即将发布的版本的预览站点为：[http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)。预览站点反映了将要合入到发布分支的内容的当前状态，换句话说，也就是接下来的版本的内容。当新的PR合入的时候，它会自动更新。
 
 {% endcapture %}
 
