@@ -41,11 +41,11 @@ or be treated as an anonymous user.
 
 Kubernetes 集群中包含两类用户：一类是由 Kubernetes 管理的 service account，另一类是普通用户。
 
-普通用户被假定为由外部独立服务管理。管理员分发私钥，用户存储（如 Keystone 或 Google 帐户），甚至包含用户名和密码列表的文件。在这方面，Kubernetes 没有代表普通用户帐户的对象。无法通过 API 调用的方式向集群中添加普通用户。
+普通用户被假定为由外部独立服务管理。管理员分发私钥，用户存储（如 Keystone 或 Google 帐户），甚至包含用户名和密码列表的文件。在这方面，_Kubernetes 没有代表普通用户帐户的对象_。无法通过 API 调用的方式向集群中添加普通用户。
 
-相反，service account 是由 Kubernetes API 管理的帐户。它们都绑定到了特定的 namespace，并由 API server 自动创建，或者通过 API 调用手动创建。Service account 作为凭证而存储在 `Secret`，这些凭证同时被挂载到 pod 中，从而允许 pod 与 kubernetes API 之间的调用。
+相对的，service account 是由 Kubernetes API 管理的帐户。它们都绑定到了特定的 namespace，并由 API server 自动创建，或者通过 API 调用手动创建。Service account 关联了一套凭证，存储在 `Secret`，这些凭证同时被挂载到 pod 中，从而允许 pod 与 kubernetes API 之间的调用。
 
-API 请求被绑定到普通用户或 serivce account 上，或者作为匿名请求对待。这意味着集群内部或外部的每个进程，无论从在工作站上输入 `kubectl` 的人类用户到节点上的 kubelet，到控制平面的成员，都必须在向 API Server 发出请求时进行身份验证，或者被视为匿名用户。
+API 请求被绑定到普通用户或 serivce account 上，或者作为匿名请求对待。这意味着集群内部或外部的每个进程，无论从在工作站上输入 `kubectl` 的人类用户到节点上的 `kubelet`，到控制平面的成员，都必须在向 API Server 发出请求时进行身份验证，或者被视为匿名用户。
 
 <!--
 
@@ -83,7 +83,7 @@ can be accomplished using an [authenticating proxy](#authenticating-proxy) or th
 
 ## 认证策略
 
-Kubernetes 使用客户端证书、bearer token、身份验证代理或者 HTTP 基本身份验证等身份认证插件来对 API 请求进行身份验证。由于是向 API server 发送 HTTP 请求，插件会尝试将以下属性关联到请求上：
+Kubernetes 使用客户端证书、bearer token、身份验证代理或者 HTTP 基本身份验证等身份认证插件来对 API 请求进行身份验证。当有 HTTP 请求发送给 API server 时，插件会尝试将以下属性关联到请求上：
 
 * 用户名：标识最终用户的字符串。常用值可能是 `kube-admin` 或 `jane@example.com`。
 * UID：标识最终用户的字符串，比用户名更加一致且唯一。
@@ -162,7 +162,7 @@ token,user,uid,"group1,group2,group3"
 
 当在命令行上指定 `--token-auth-file=SOMEFILE` 选项时，API  server 从文件读取 bearer token。目前，token 会无限期地持续下去，并且不重新启动 API server 的话就无法更改令牌列表。
 
-token 文件是一个 csv 文件，每航至少包含三列：token、用户名、用户 uid，其次是可选的祖名。请注意，如果您有多个组，则该列必须使用双引号。
+token 文件是一个 csv 文件，每行至少包含三列：token、用户名、用户 uid，其次是可选的组名。请注意，如果您有多个组，则该列必须使用双引号。
 
 ```conf
 token,user,uid,"group1,group2,group3"
