@@ -3,6 +3,38 @@
 本文档只包含新增更新，[更新参考](contribution-update.md)。
 
 
+### 第 17 周：2017-11-13 ~~ 2017-11-19 - 有效合并 6 篇
+
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/reconfigure-kubelet](https://k8smeetup.github.io/docs/tasks/administer-cluster/reconfigure-kubelet) by [xiaosuiba](https://github.com/xiaosuiba)
+
+[https://k8smeetup.github.io/docs/tasks/inject-data-application/distribute-credentials-secure](https://k8smeetup.github.io/docs/tasks/inject-data-application/distribute-credentials-secure) by [lichuqiang](https://github.com/lichuqiang)
+
+[https://k8smeetup.github.io/docs/home/contribute/create-pull-request](https://k8smeetup.github.io/docs/home/contribute/create-pull-request) by [chentao1596](https://github.com/chentao1596)
+
+[https://k8smeetup.github.io/docs/tasks/manage-daemon/rollback-daemon-set](https://k8smeetup.github.io/docs/tasks/manage-daemon/rollback-daemon-set) by [lichuqiang](https://github.com/lichuqiang)
+
+[https://k8smeetup.github.io/docs/tasks/tls/certificate-rotation](https://k8smeetup.github.io/docs/tasks/tls/certificate-rotation) by [lichuqiang](https://github.com/lichuqiang)
+
+[https://k8smeetup.github.io/docs/tasks/inject-data-application/podpreset](https://k8smeetup.github.io/docs/tasks/inject-data-application/podpreset) by [lichuqiang](https://github.com/lichuqiang)
+
+
+### 第 16 周：2017-11-06 ~~ 2017-11-12 - 有效合并 7 篇
+
+[https://k8smeetup.github.io/docs/concepts/configuration/taint-and-toleration](https://k8smeetup.github.io/docs/concepts/configuration/taint-and-toleration) by [linyouchong](https://github.com/linyouchong)
+
+[https://k8smeetup.github.io/docs/getting-started-guides/ubuntu/backups](https://k8smeetup.github.io/docs/getting-started-guides/ubuntu/backups) by [tianshapjq](https://github.com/tianshapjq)
+
+[https://k8smeetup.github.io/docs/concepts/cluster-administration/cloud-providers](https://k8smeetup.github.io/docs/concepts/cluster-administration/cloud-providers) by [lichuqiang](https://github.com/lichuqiang)
+
+[https://k8smeetup.github.io/docs/concepts/containers/container-environment-variables](https://k8smeetup.github.io/docs/concepts/containers/container-environment-variables) by [lichuqiang](https://github.com/lichuqiang)
+
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/cpu-management-policies](https://k8smeetup.github.io/docs/tasks/administer-cluster/cpu-management-policies) by [lichuqiang](https://github.com/lichuqiang)
+
+[https://k8smeetup.github.io/docs/tasks/manage-hugepages/scheduling-hugepages](https://k8smeetup.github.io/docs/tasks/manage-hugepages/scheduling-hugepages) by [lichuqiang](https://github.com/lichuqiang)
+
+[https://k8smeetup.github.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters](https://k8smeetup.github.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters) by [lichuqiang](https://github.com/lichuqiang)
+
+
 ### 第 15 周：2017-10-30 ~~ 2017-11-05 - 有效合并 5 篇
 
 [https://k8smeetup.github.io/docs/concepts/cluster-administration/device-plugins](https://k8smeetup.github.io/docs/concepts/cluster-administration/device-plugins) by [tianshapjq](https://github.com/tianshapjq)
