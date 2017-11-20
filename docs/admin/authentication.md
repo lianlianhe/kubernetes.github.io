@@ -88,9 +88,9 @@ Kubernetes 使用客户端证书、bearer token、身份验证代理或者 HTTP 
 * 用户名：标识最终用户的字符串。常用值可能是 `kube-admin` 或 `jane@example.com`。
 * UID：标识最终用户的字符串，比用户名更加一致且唯一。
 * 组：一组将用户用常用组关联的字符串。
-* 其它字段：包含其他授权人信息的字符串列表的映射。
+* 额外字段：包含其他有用认证信息的字符串列表的映射。
 
-所有的值对于认证系统都是不透明得，只有 [授权人](/docs/admin/authorization/) 才能解释这些值的重要含义。
+所有的值对于认证系统都是不透明的，只有 [授权人](/docs/admin/authorization/) 才能解释这些值的重要含义。
 
 您可以一次性启用多种身份验证方式。通常使用至少以下两种认证方式：
 
@@ -129,9 +129,9 @@ See [APPENDIX](#appendix) for how to generate a client cert.
 
 ### X509 客户端证书
 
-通过将 `--client-ca-file=SOMEFILE` 选项传递给 API server 来启用客户端证书认证。引用的文件必须包含一个或多个证书颁发机构，用于验证呈现给 API server 的客户端证书。如果客户端证书已提交并验证，则使用主题的公用名称作为请求的用户名。从 Kubernetes 1.4开始，客户端证书还可以使用证书的组织字段来指示用户的组成员身份。要为用户包含多个组成员身份，请在证书中包含多个组织字段。
+通过将 `--client-ca-file=SOMEFILE` 选项传递给 API server 来启用客户端证书认证。引用的文件必须包含一个或多个证书颁发机构，用于验证提交给 API server 的客户端证书。如果客户端证书已提交并验证，则使 subject 的 common name（CN）作为请求的用户名。从 Kubernetes 1.4开始，客户端证书还可以使用证书的 orgnization 字段来指示用户的组成员身份。要为用户包含多个组成员身份，请在证书中包含多个组织字段。
 
-例如，试用 `openssl` 命令工具生成认证签名请求：
+例如，使用 `openssl` 命令工具生成用于生成签名请求的证书：
 
 ``` bash
 openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
@@ -160,7 +160,7 @@ token,user,uid,"group1,group2,group3"
 
 ### 静态 Token 文件
 
-当在命令行上指定 `--token-auth-file=SOMEFILE` 选项时，API  server 从文件读取 bearer token。目前，token 会无限期地持续下去，并且不重新启动 API server 的话就无法更改令牌列表。
+当在命令行上指定 `--token-auth-file=SOMEFILE` 选项时，API server 从文件读取 bearer token。目前，token 会无限期地持续下去，并且不重新启动 API server 的话就无法更改令牌列表。
 
 token 文件是一个 csv 文件，每行至少包含三列：token、用户名、用户 uid，其次是可选的组名。请注意，如果您有多个组，则该列必须使用双引号。
 
@@ -170,7 +170,7 @@ token,user,uid,"group1,group2,group3"
 
 <!--
 
-#### utting a Bearer Token in a Request
+#### Putting a Bearer Token in a Request
 
 When using bearer token authentication from an http client, the API
 server expects an `Authorization` header with a value of `Bearer
@@ -379,7 +379,7 @@ when granting permissions to service accounts and read capabilities for secrets.
 
 Service account 是使用签名的 bearer token 来验证请求的额自动启用的验证器。该插件包括两个可选的标志：
 
-* `--service-account-key-file`  一个包含签名 bearer token 的 PEM 编码文件。如果为指定，将使用 API server 的 TLS 私钥。
+* `--service-account-key-file`  一个包含签名 bearer token 的 PEM 编码文件。如果未指定，将使用 API server 的 TLS 私钥。
 * `--service-account-lookup` 如果启用，从 API 中删除掉的 token 将被撤销。
 
 Service account 通常 API server 自动创建，并通过 `ServiceAccount` [注入控制器](/docs/admin/admission-controllers/) 关联到集群中运行的 Pod 上。Bearer token 挂载到 pod 中众所周知的位置，并允许集群进程与 API server 通信。 帐户可以使用 `PodSpec` 的 `serviceAccountName` 字段显式地与Pod关联。
@@ -418,7 +418,7 @@ secrets:
 - name: jenkins-token-1yvwg
 ```
 
-创建出的 secret 中拥有 API server 的公共 CA 和前面的饿 JSON Web Token（JWT）。
+创建出的 secret 中拥有 API server 的公共 CA 和前面的 JSON Web Token（JWT）。
 
 ```bash
 $ kubectl get secret jenkins-token-1yvwg -o yaml
@@ -567,7 +567,7 @@ Setup instructions for specific systems:
 | `--oidc-issuer-url`     | 允许 API server 发现公共签名密钥的提供者的 URL。只接受使用 `https://` 的方案。通常是提供商的 URL 地址，不包含路径，例如“https://accounts.google.com” 或者 “https://login.salesforce.com”。这个 URL 应该指向下面的 .well-known/openid-configuration | 如果发现 URL 是 `https://accounts.google.com/.well-known/openid-configuration`，值应该是`https://accounts.google.com` | 是    |
 | `--oidc-client-id`      | 所有的 token 必须为其颁发的客户端 ID                  | kubernetes                               | 是    |
 | `--oidc-username-claim` | JWT声明使用的用户名。默认情况下，`sub` 是最终用户的唯一标识符。管理员可以选择其他声明，如` email` 或 `name`，具体取决于他们的提供者。不过，`email` 以外的其他声明将以发行者的 URL 作为前缀，以防止与其他插件命名冲突。 | sub                                      | 否    |
-| `--oidc-groups-claim`   | JWT声明试用的用户组。如果生命存在，它必须是一个字符串数组。          | groups                                   | 否    |
+| `--oidc-groups-claim`   | JWT声明使用的用户组。如果生命存在，它必须是一个字符串数组。          | groups                                   | 否    |
 | `--oidc-ca-file`        | 用来签名您的身份提供商的网络 CA 证书的路径。默认为主机的跟 CA。      | `/etc/kubernetes/ssl/kc-ca.pem`          | 否    |
 
 如果为 `--oidc-username-claim` 选择了除 `email` 以外的其他声明，则该值将以 `--oidc-issuer-url` 作为前缀，以防止与现有 Kubernetes 名称（例如 `system:users`）冲突。例如，如果提供商网址是 https://accounts.google.com，而用户名声明映射到 `jane`，则插件会将用户身份验证为：
@@ -1404,7 +1404,7 @@ x509 certificates to use for authentication as documented
 
 **已有的部署脚本** 在 `cluster/saltbase/salt/generate-cert/make-ca-cert.sh`。
 
-执行该脚本时需要船体两个参数。第一个参数是 API server 的 IP地址。第二个参数是 IP 形式的主题备用名称列表： `IP:<ip-address>` 或 `DNS:<dns-name>`。
+执行该脚本时需要传递两个参数。第一个参数是 API server 的 IP地址。第二个参数是 IP 形式的主题备用名称列表： `IP:<ip-address>` 或 `DNS:<dns-name>`。
 
 该脚本将生成三个文件： `ca.crt`、`server.crt` 和 `server.key`。
 
