@@ -18,7 +18,7 @@ This document serves both as a reference to the values, and as a coordination po
 Kubernetes 保留了 kubernetes.io 名字空间下的所有标签和注解。 本文描述了知名的
 kubernetes.io 标签和注解。
 
-本文既引用了相应的标签和注解值，也就如何对这些标签和注解赋值进行了说明。
+本文既作为这些标签和注解值的参考，也就这些标签和注解的赋值进行了说明。
 
 <!--
 **Table of contents:**
@@ -62,7 +62,7 @@ for example.
 
 用于：节点
 
-Kubelet 用 Go 中定义的 `runtime.GOARCH` 值来填充该标签。 这在混用 arm 和 x86 节点时很有用。
+Kubelet 用 Go 中定义的 `runtime.GOARCH` 值来填充该标签。 这在诸如混用 arm 和 x86 节点的情况下很有用。
 
 <!--
 ## beta.kubernetes.io/os
@@ -80,7 +80,7 @@ in your cluster (although currently Linux is the only OS supported by Kubernetes
 
 用于：节点
 
-Kubelet 用该 Go 中定义的 `runtime.GOOS` 值来填充该标签。 这在集群中存在不同操作系统的节点时很有用（尽管当前 Kubernetes只支持 Linux 操作系统）。
+Kubelet 用该 Go 中定义的 `runtime.GOOS` 值来填充该标签。 这在集群中存在不同操作系统的节点时很有用（尽管当前 Kubernetes 只支持 Linux 操作系统）。
 
 <!--
 ## kubernetes.io/hostname
@@ -157,13 +157,13 @@ not using a `cloudprovider`, but you should consider setting it on the nodes if 
 
 用于：节点、PersistentVolume
 
-用于节点： Kubelet 用 `cloudprovider` 中定义的区（zone）信息来填充该标签。 未使用 `cloudprovider` 时不会设置该标签，但如果该标签在你的拓扑中有意义的话，应该考虑设置。
+用于节点： Kubelet 用 `cloudprovider` 中定义的区域（zone）信息来填充该标签。 未使用 `cloudprovider` 时不会设置该标签，但如果该标签在你的拓扑中有意义的话，应该考虑设置。
 
 <!--
 On the PersistentVolume: The `PersistentVolumeLabel` admission controller will automatically add zone labels to PersistentVolumes,
 on GCE and AWS.
 -->
-用于 PersistentVolume：在 GCE 和 AWS 中，`PersistentVolumeLabel` 准入控制器会自动添加区标签。
+用于 PersistentVolume：在 GCE 和 AWS 中，`PersistentVolumeLabel` 准入控制器会自动添加区域标签。
 
 <!--
 Kubernetes will automatically spread the pods in a replication controller or service across nodes in a single-zone
@@ -178,7 +178,7 @@ different types of nodes, or different pod resource requirements), this might pr
 your pods across zones. If desired, you can use homogenous zones (same number and types of nodes) to reduce
 the probability of unequal spreading.
 -->
-这种安置是尽力而为的（best-effort）， 如果集群中的区是异构的 (例如：不同区之间的节点数量、节点类型或 pod 资源需求不同），可能使得 pod 在各区域间无法均匀分布。 如有需要，用户可以使用同质的区 (节点数量和类型相同) 来减小 pod 分布不均的可能性。
+这是一种尽力而为（best-effort）的处置方式， 如果集群中的区域是异构的 (例如：不同区域之间的节点数量、节点类型或 pod 资源需求不同），可能使得 pod 在各区域间无法均匀分布。 如有需要，用户可以使用同质的区域 (节点数量和类型相同) 来减小 pod 分布不均的可能性。
 
 <!--
 The scheduler (via the VolumeZonePredicate predicate) will also ensure that pods that claim a given volume
@@ -192,7 +192,7 @@ is that failures of nodes in different zones should be uncorrelated unless the e
 zones should typically avoid sharing a single network switch.  The exact mapping depends on your particular
 infrastructure - a three-rack installation will choose a very different setup to a multi-datacenter configuration.
 -->
-区和地域（region）的实际值无关紧要，两者的层次含义也没有严格的定义。 最终期望是，除非整个地域故障，否则某一区域节点的故障不应该影响到其他区域的节点。 例如，通常区域间应该避免共用同一个网络交换机。 具体的映射取决于特定的基础设备—— three-rack 设备所选择的设置与多数据中心截然不同。
+区域和地域（region）的实际值无关紧要，两者的层次含义也没有严格的定义。 最终期望是，除非整个地域故障，否则某一区域节点的故障不应该影响到其他区域的节点。 例如，通常区域间应该避免共用同一个网络交换机。 具体的规划取决于特定的基础设备—— three-rack 设备所选择的设置与多数据中心截然不同。
 
 <!--
 If `PersistentVolumeLabel` does not support automatic labeling of your PersistentVolumes, you should consider
