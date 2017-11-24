@@ -188,7 +188,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 
 #### 在请求中放置 Bearer Token
 
-当使用来自 http 客户端的 bearer token 时，API server 期望 `Authorization` header 中包含 `Bearer token` 的值。Bearer token 必须是一个字符串序列，只需使用 HTTP 的编码和引用功能就可以将其放入到 HTTP header 中。例如：如果 bearer token 是 `31ada4fd-adec-460c-809a-9e56ceb75269`，那么它将出现在 HTTP header 中，如下所示：
+当使用来自 http 客户端的 bearer token 时，API server 期望 `Authorization` header 中包含 `Bearer TOKEN 的值`。Bearer token 必须是一个字符串序列，只需使用 HTTP 的编码和引用功能就可以将其放入到 HTTP header 中。例如：如果 bearer token 是 `31ada4fd-adec-460c-809a-9e56ceb75269`，那么它将出现在 HTTP header 中，如下所示：
 
 ```http
 Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
@@ -237,7 +237,7 @@ how to manage these tokens with `kubeadm`.
 
 该功能仍处于 **alpha** 版本。
 
-为了简化新集群的初始化引导过程，Kubernetes 中包含了一个名为 *Bootstrap Token* 的动态管理的 bearer token。这些 token 使用 Secret 存储在 `kube-system` namespace 中，在那里它们可以被动态管理和创建。Controller Manager 中包含了一个 TokenCleaner 控制器，用于在 bootstrap token 过期时删除将其删除。
+为了简化新集群的初始化引导过程，Kubernetes 中包含了一个名为 *Bootstrap Token* 的动态管理的 bearer token 类型。这些 token 会作为 Secret 存储在 `kube-system` namespace 中，在那里它们可以被动态管理和创建。Controller Manager 中包含了一个 TokenCleaner 控制器，用于在 bootstrap token 过期时删除将其删除。
 
 这些 token 的形式是 `[a-z0-9]{6}.[a-z0-9]{16}`。第一部分是 Token ID，第二部分是 Token Secret。您在 HTTP header 中指定的 token 如下所示：
 
@@ -277,7 +277,7 @@ with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
 ### 静态密码文件
 
-通过将 `--basic-auth-file=SOMEFILE` 选项传递给 API server 来启用基本身份验证。目前，基本身份验证凭证将无限期地保留，并且密码在不重新启动API服务器的情况下无法更改。请注意，为了方便起见，目前支持基本身份验证，而上述模式更安全更容易使用。
+通过将 `--basic-auth-file=SOMEFILE` 选项传递给 API server 来启用基本身份验证。目前，基本身份验证凭证将无限期地保留，并且密码在不重新启动API服务器的情况下无法更改。请注意，为了方便起见，目前支持基本身份验证，而与此同时，我们会让上述更加安全的模式变得更易用。
 
 基本身份认证是一个 csv 文件，至少包含3列：密码、用户名和用户 ID。在 Kubernetes 1.6 和更高版本中，可以指定包含以逗号分隔的组名称的可选第四列。如果您有多个组，则必须将第四列值用双引号（“）括起来，请参阅以下示例：
 
@@ -285,7 +285,7 @@ with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 password,user,uid,"group1,group2,group3"
 ```
 
-当使用来自 HTTP 客户端的基本身份验证时，API server 需要` Authorization` header 中包含 `Basic BASE64ENCODED(USER:PASSWORD)` 的值。
+当使用来自 HTTP 客户端的基本身份验证时，API server 需要 ` Authorization` header 中包含 `Basic BASE64ENCODED(USER:PASSWORD)` 的值。
 
 <!--
 
@@ -377,7 +377,7 @@ when granting permissions to service accounts and read capabilities for secrets.
 
 ### Service Account Token
 
-Service account 是使用签名的 bearer token 来验证请求的额自动启用的验证器。该插件包括两个可选的标志：
+Service account 是使用签名的 bearer token 来验证请求的自动启用的验证器。该插件包括两个可选的标志：
 
 * `--service-account-key-file`  一个包含签名 bearer token 的 PEM 编码文件。如果未指定，将使用 API server 的 TLS 私钥。
 * `--service-account-lookup` 如果启用，从 API 中删除掉的 token 将被撤销。
@@ -404,7 +404,7 @@ spec:
         serviceAccountName: bob-the-bot
 ```
 
-Service account bearer token 在集群外使用也是完全有效的，并且可以用于为希望与 Kubernetes 通信的长期运行作业创建身份。要手动创建 service account，只需要使用 `kubectl create serviceaccount (NAME)` 命令。这将在当前的 namespace 和相关连的 secret 中创建一个 service account。
+Service account bearer token 在集群外使用也是完全有效的，并且可以用于为希望与 Kubernetes API通信的长期运行的作业创建身份。要手动创建 service account，只需要使用 `kubectl create serviceaccount (NAME)` 命令。这将在当前的 namespace 中创建一个 service account 和一个相关联的 secret。
 
 ```bash
 $ kubectl create serviceaccount jenkins
@@ -439,7 +439,7 @@ type: kubernetes.io/service-account-token
 
 Service account 验证时用户名 `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`，被指定到组 `system:serviceaccounts` 和 `system:serviceaccounts:(NAMESPACE)`。
 
-注意：由于 service account 的 token 存储在 secret 中，所以具有对这些 secret 的读取权限的任何用户都可以作为 service account 进行身份验证。授予 service account 权限和读取 secret 功能时要谨慎。
+注意：由于 service account 的 token 存储在 secret 中，所以具有对这些 secret 的读取权限的任何用户都能以 service account 的身份进行验证。授予 service account 权限和读取 secret 功能时要谨慎。
 
 <!--
 
@@ -461,7 +461,7 @@ is included in a request.
 
 ### OpenID Connect Token
 
-[OpenID Connect](https://openid.net/connect/) 是由 OAuth2 供应商提供的 OAuth2，特别是 Azure Active Directory、Salesforce 和 Google。对 OAuth2 协议的主要扩展是返回一个称作 [ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) 的格外字段。该 token 是一个 JSON Web Token (JWT) ，有服务器签名，具有众所周知的字段，如用户的电子邮件。
+[OpenID Connect](https://openid.net/connect/) 是一种 OAuth2，某些 OAuth2 供应商可以支持，特别是 Azure Active Directory、Salesforce 和 Google。对 OAuth2 协议的主要扩展是返回一个称作 [ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) 的格外字段。该 token 是一个 JSON Web Token (JWT) ，有服务器签名，具有众所周知的字段，如用户的电子邮件。
 
 为了识别用户，认证者使用 OAuth2 [token 响应](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse) 中的 `id_token`（而不是 `access_token`）作为 bearer token。请参阅 [上面](#putting-a-bearer-token-in-a-request) 的关于将 token 置于请求中。
 
@@ -496,14 +496,14 @@ solution for authentication.  It does offer a few challenges:
 5.  API server 将通过检查配置中指定的证书来确保 JWT 签名有效
 6.  检查以确保 `id_token` 没有过期
 7.  确保用户已授权
-8.  授权 API server 后向 `kubectl` 
+8.  一旦通过认证，API server 会向 `kubectl`  发送应答
 9.  `kubectl` 向用户提供反馈
 
 由于所有需要验证您身份的数据都在 `id_token` 中，Kubernetes 不需要向身份提供商 “phone home”。在每个请求都是无状态的模型中，这为认证提供了非常可扩展的解决方案。它确实提供了一些挑战：
 
-1.  Kubernetes 没有 ”web 接口“ 来出发验证进程。没有浏览器或界面来收集凭据，这就是为什么您需要首先认证您的身份提供商。
+1.  Kubernetes 没有 ”web 接口“ 来触发验证进程。没有浏览器或界面来收集凭据，这就是为什么您需要首先向身份供应商进行身份认证。
 2.  `id_token` 无法撤销，就像一个证书，所以它应该是短暂的（只有几分钟），所以每隔几分钟就得到一个新的令牌是非常烦人的。
-3.  没有使用 `kubectl proxy` 命令或注入 `id_token` 的反向代理，无法简单地对 Kubernetes dashboard 进行身份验证。
+3.  不使用 `kubectl proxy` 命令或注入 `id_token` 的反向代理，就无法简单地向 Kubernetes dashboard 进行身份验证。
 
 
 <!--
