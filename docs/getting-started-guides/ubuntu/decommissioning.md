@@ -1,4 +1,6 @@
 ---
+cn-approvers:
+- tianshapjq
 title: Decommissioning
 ---
 <!--
