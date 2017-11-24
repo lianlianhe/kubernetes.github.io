@@ -46,7 +46,10 @@ controller  aws/us-east-2  available         1      2  admin   just now
 my-kubernetes-cluster*    aws/us-east-2  available        12     22  admin   2 minutes ago
 ```
 
+<!--
 You can then destroy the model, which will in turn destroy the cluster inside of it:
+-->
+然后您可以通过删除模型来销毁模型内的集群：
 
     juju destroy-model my-kubernetes-cluster
     
