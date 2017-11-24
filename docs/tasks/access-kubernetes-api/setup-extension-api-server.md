@@ -64,10 +64,10 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 -->
 以下步骤 *高度概括* 地描述了如何建立扩展 apiserver。对于可实施的具体例子，您可以查阅 Kubernetes repo 中的 [apiserver 例子](https://github.com/kubernetes/sample-apiserver/blob/master/README.md)。
 
-或者，您可以使用现有的第三方方案，比如 [apiserver-builder](https://github.com/Kubernetes-incubator/apiserver-builder/blob/master/README.md)，这个方案能建立框架并为你提供如下所有自动化的步骤。
+或者，您可以使用现有的第三方方案，比如 [apiserver-builder](https://github.com/Kubernetes-incubator/apiserver-builder/blob/master/README.md)，能够实现下面步骤的自动化。
 
-1. 确保 APIServer API 是启用的（检查 `--runtime-config`）。它应该是默认启用的，除非在您的集群中被特意关闭了。
-2. 您需要创建 RBAC 规则用于运行您添加 APIserver 对象，或者让集群管理员创建一个。(由于 API 扩展对于整个集群生效，所以不推荐在生产集群中对 API 扩展进行 测试/开发/debug。)
+1. 确保 APIServer API 是启用的（检查 `--runtime-config`）。除非特意关闭，该配置默认启用。
+2. 您需要创建 RBAC 规则，以让您能有权限添加 APIserver 对象，或者让集群管理员创建一个。(由于 API 扩展对于整个集群生效，所以不推荐在生产集群中对 API 扩展进行 测试/开发/debug。)
 3. 创建一个 Kubernetes namespace 用于运行扩展 api-service。
 4. 创建／获取一张 CA 证书用于对 api-server 的 HTTPS 的服务器证书进行签名。
 5. 创建服务器证书／秘钥用于 api-server 的 HTTPS 服务。这个证书应该由上面提及的 CA 签名。它也应该包含含有 Kube DNS 名的 CN。这来自于 Kubernetes 服务并且是 <service name>.<service name namespace>.svc 的形式。
@@ -77,7 +77,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 9. 在这个 namespace 中创建一个 Kubernetes service account。
 10. 创建一个 Kubernetes cluster role 用于允许对您对资源进行操作。
 11. 使用在这个 namespace 中默认的 service account 为您刚刚创建的 cluster role 创建一个 Kubernetes cluster rolebinding。
-12. 创建一个 Kubernetes apiservice。上面提到的 CA 证书应该用 base65 加密，去除换行符并作为 spec.caBundle 在 apiservice 中使用。这不应该在 namespace 中。
+12. 创建一个 Kubernetes apiservice。上面提到的 CA 证书应该用 base64 加密，去除换行符并作为 spec.caBundle 在 apiservice 中使用。这不应该在 namespace 中。
 13. 使用 kubectl 获得您的资源。它应该返回 "No resources found."，意味着一切工作正常，但是您目前还没有创建那个类型的资源对象。
 
 {% endcapture %}
@@ -89,7 +89,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 * For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 -->
-如果您还没有 [配置汇聚层](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) 并启用 apiserver 标记。
+如果你还没有配置好，请参考 [配置汇聚层](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) 并启用 apiserver 标记。
 对于概览，请参考 [使用汇聚层扩展 Kubernetes API](/docs/concepts/api-extension/apiserver-aggregation/)。
 学习如何 [使用自定义资源扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
 
