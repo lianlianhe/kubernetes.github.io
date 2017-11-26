@@ -564,10 +564,10 @@ Setup instructions for specific systems:
 
 | 参数                      | 描述                                       | 示例                                       | 是否必需 |
 | ----------------------- | ---------------------------------------- | ---------------------------------------- | ---- |
-| `--oidc-issuer-url`     | 允许 API server 发现公共签名密钥的提供者的 URL。只接受使用 `https://` 的方案。通常是提供商的 URL 地址，不包含路径，例如“https://accounts.google.com” 或者 “https://login.salesforce.com”。这个 URL 应该指向下面的 .well-known/openid-configuration | 如果发现 URL 是 `https://accounts.google.com/.well-known/openid-configuration`，值应该是`https://accounts.google.com` | 是    |
+| `--oidc-issuer-url`     | 允许 API server 发现公共签名密钥的提供者的 URL。只接受使用 `https://` 的方案。通常是提供商的 URL 地址，不包含路径，例如 "https://accounts.google.com" 或者 "https://login.salesforce.com"。这个 URL 应该指向下面的 .well-known/openid-configuration | 如果发现 URL 是 `https://accounts.google.com/.well-known/openid-configuration`，值应该是`https://accounts.google.com` | 是    |
 | `--oidc-client-id`      | 所有的 token 必须为其颁发的客户端 ID                  | kubernetes                               | 是    |
 | `--oidc-username-claim` | JWT声明使用的用户名。默认情况下，`sub` 是最终用户的唯一标识符。管理员可以选择其他声明，如` email` 或 `name`，具体取决于他们的提供者。不过，`email` 以外的其他声明将以发行者的 URL 作为前缀，以防止与其他插件命名冲突。 | sub                                      | 否    |
-| `--oidc-groups-claim`   | JWT声明使用的用户组。如果生命存在，它必须是一个字符串数组。          | groups                                   | 否    |
+| `--oidc-groups-claim`   | JWT声明作为用户组。如果声明存在，它必须是一个字符串数组。           | groups                                   | 否    |
 | `--oidc-ca-file`        | 用来签名您的身份提供商的网络 CA 证书的路径。默认为主机的跟 CA。      | `/etc/kubernetes/ssl/kc-ca.pem`          | 否    |
 
 如果为 `--oidc-username-claim` 选择了除 `email` 以外的其他声明，则该值将以 `--oidc-issuer-url` 作为前缀，以防止与现有 Kubernetes 名称（例如 `system:users`）冲突。例如，如果提供商网址是 https://accounts.google.com，而用户名声明映射到 `jane`，则插件会将用户身份验证为：
