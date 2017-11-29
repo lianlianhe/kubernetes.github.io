@@ -1,10 +1,15 @@
+---
+layout: page
+title: K8SMettup DashBoard
+---
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>K8SMettup DashBoard</title>
-    <script src="./js/echarts.min.js"></script>
-    <script src="./js/jquery-2.2.0.min.js"></script>
+    <script src="/js/echarts.min.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
 </head>
 <body>
 
@@ -21,8 +26,8 @@
     // 指定图表的配置项和数据
     var pie_option = {
         title : {
-            text: '翻译中文统计',
-            subtext: 'Kubernetes 中文',
+            text: 'Kubernetes 译者统计',
+            subtext: '总译文统计',
             x:'center'
         },
         tooltip : {
@@ -195,7 +200,7 @@
     };
 
     // 异步加载数据
-    $.get('data.json').done(function (data) {
+    $.get('/data.json').done(function (data) {
         // 填入数据
         pieChart.setOption({
             legend: {
