@@ -138,9 +138,9 @@
 
 [https://k8smeetup.github.io/docs/admin/extensible-admission-controllers](https://k8smeetup.github.io/docs/admin/extensible-admission-controllers) by [wanghaoran1988](https://github.com/wanghaoran1988)
 
-[https://k8smeetup.github.io/docs/admin/kubelet](https://k8smeetup.github.io/docs/admin/kubelet) by [](https://github.com/)
+[https://k8smeetup.github.io/docs/admin/kubelet](https://k8smeetup.github.io/docs/admin/kubelet) by [niuhp](https://github.com/niuhp)
 
-[https://k8smeetup.github.io/docs/tasks/administer-cluster/calico-network-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/calico-network-policy) by [](https://github.com/)
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/calico-network-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/calico-network-policy) by [chentao1596](https://github.com/chentao1596)
 
 
 ### 第 6 周：2017-08-28 ~~ 2017-09-03 - 有效合并 5 篇
@@ -160,17 +160,17 @@
 
 [https://k8smeetup.github.io/docs/getting-started-guides/azure](https://k8smeetup.github.io/docs/getting-started-guides/azure) by [yufengqi](https://github.com/yufengqi)
 
-[https://k8smeetup.github.io/docs/tasks/administer-cluster/calico-network-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/calico-network-policy) by [](https://github.com/)
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/calico-network-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/calico-network-policy) by [chentao1596](https://github.com/chentao1596)
 
-[https://k8smeetup.github.io/docs/tasks/manage-gpus/scheduling-gpus](https://k8smeetup.github.io/docs/tasks/manage-gpus/scheduling-gpus) by [](https://github.com/)
+[https://k8smeetup.github.io/docs/tasks/manage-gpus/scheduling-gpus](https://k8smeetup.github.io/docs/tasks/manage-gpus/scheduling-gpus) by [chentao1596](https://github.com/chentao1596)
 
-[https://k8smeetup.github.io/docs/tasks/administer-cluster/romana-network-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/romana-network-policy) by [](https://github.com/)
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/romana-network-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/romana-network-policy) by [chentao1596](https://github.com/chentao1596)
 
-[https://k8smeetup.github.io/docs/tasks/administer-cluster/weave-network-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/weave-network-policy) by [](https://github.com/)
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/weave-network-policy](https://k8smeetup.github.io/docs/tasks/administer-cluster/weave-network-policy) by [chentao1596](https://github.com/chentao1596)
 
 [https://k8smeetup.github.io/docs/concepts/cluster-administration/logging](https://k8smeetup.github.io/docs/concepts/cluster-administration/logging) by [bjdzliu](https://github.com/bjdzliu)
 
-[https://k8smeetup.github.io/docs/admin/bootstrap-tokens](https://k8smeetup.github.io/docs/admin/bootstrap-tokens) by [](https://github.com/)
+[https://k8smeetup.github.io/docs/admin/bootstrap-tokens](https://k8smeetup.github.io/docs/admin/bootstrap-tokens) by [zhangqx2010](https://github.com/zhangqx2010)
 
 [https://k8smeetup.github.io/docs/concepts/services-networking/connect-applications-service](https://k8smeetup.github.io/docs/concepts/services-networking/connect-applications-service) by [shirdrn](https://github.com/shirdrn)
 
