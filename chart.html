@@ -12,22 +12,59 @@ title: K8SMettup DashBoard
     <script src="/js/jquery-2.2.0.min.js"></script>
 </head>
 <body>
-
-<div id="pie" style="width: 1000px;height:400px;margin:auto;"></div>
+<div style="width:1000px;margin:auto;">
+	<div id="main" style="width: 497px;height:400px;display: inline-flex;"></div>
+	<div id="pie" style="width: 497px;height:400px;display: inline-flex;"></div>
+</div>
 <div id="bar" style="width: 1000px;height:400px;margin:auto;"></div>
 <div id="week" style="width: 1000px;height:400px;margin:auto; margin-top: 30px;"></div>
 
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
+	var Chart = echarts.init(document.getElementById('main'));
     var pieChart = echarts.init(document.getElementById('pie'));
     var barChart = echarts.init(document.getElementById('bar'));
     var weekChart = echarts.init(document.getElementById('week'));
 
+	// pie post
+	option = {
+	    title : {
+	        text: 'Kubernetes 文章任务汇总',
+            subtext: 'K8SMeetup',
+            sublink: 'http://caicloud.io',
+	        x:'center'
+	    },
+	    tooltip : {
+	        trigger: 'item',
+	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+	    },
+	    legend: {
+	        orient: 'vertical',
+	        left: 'left',
+	        data: []
+	    },
+	    series : [
+	        {
+	            name: '翻译文章汇总',
+	            type: 'pie',
+	            radius : '55%',
+	            center: ['50%', '50%'],
+	            data:[],
+	            itemStyle: {
+	                emphasis: {
+	                    shadowBlur: 10,
+	                    shadowOffsetX: 0,
+	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+	                }
+	            }
+	        }
+	    ]
+	};
     // 指定图表的配置项和数据
     var pie_option = {
         title : {
-            text: 'Kubernetes 译者统计',
-            subtext: '总译文统计',
+            text: '翻译中文统计',
+            subtext: 'Kubernetes 中文',
             x:'center'
         },
         tooltip : {
@@ -201,8 +238,8 @@ title: K8SMettup DashBoard
 
     // 异步加载数据
     $.get('/data.json').done(function (data) {
-        // 填入数据
-        pieChart.setOption({
+
+        Chart.setOption({
             legend: {
                 data: data[0].legendData
             },
@@ -211,9 +248,19 @@ title: K8SMettup DashBoard
             }]
         });
 
+        // 填入数据
+        pieChart.setOption({
+            legend: {
+                data: data[1].legendData
+            },
+            series: [{
+                data: data[1].seriesData
+            }]
+        });
+
         barChart.setOption({
             xAxis: {
-                data: data[1].author
+                data: data[2].author
             },
             series: [
                 {
@@ -230,7 +277,7 @@ title: K8SMettup DashBoard
                             color: 'rgba(0,0,0,0)'
                         }
                     },
-                    data: data[1].series_title
+                    data: data[2].series_title
                 },
                 {
                     name: '翻译字数',
@@ -242,23 +289,24 @@ title: K8SMettup DashBoard
                             position: 'inside'
                         }
                     },
-                    data: data[1].series_data
+                    data: data[2].series_data
                 }
             ]
         });
 
         weekChart.setOption({
             legend: {
-                data: data[2].legend
+                data: data[3].legend
             },
             xAxis: {
-                data: data[2].category
+                data: data[3].category
             },
-            series: data[2].series
+            series: data[3].series
         });
 
     });
     // 使用刚指定的配置项和数据显示图表。
+	Chart.setOption(option);
     pieChart.setOption(pie_option);
     barChart.setOption(bar_option);
     weekChart.setOption(week_option);
