@@ -3,6 +3,8 @@ title: kubefed init
 notitle: true
 cn-approvers:
 - xiaosuiba
+cn-reviewers:
+- zhangqx2010
 ---
 ## kubefed init
 
