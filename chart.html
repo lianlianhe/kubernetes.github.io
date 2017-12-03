@@ -21,7 +21,7 @@ title: K8SMettup DashBoard
 
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
-	var Chart = echarts.init(document.getElementById('main'));
+    var Chart = echarts.init(document.getElementById('main'));
     var pieChart = echarts.init(document.getElementById('pie'));
     var barChart = echarts.init(document.getElementById('bar'));
     var weekChart = echarts.init(document.getElementById('week'));
@@ -30,8 +30,8 @@ title: K8SMettup DashBoard
 	option = {
 	    title : {
 	        text: 'Kubernetes 文章任务汇总',
-            subtext: 'K8SMeetup',
-            sublink: 'http://caicloud.io',
+            subtext: 'K8SMeetup 译者招募',
+            sublink: 'http://www.k8smeetup.com/recruit',
 	        x:'center'
 	    },
 	    tooltip : {
@@ -64,7 +64,8 @@ title: K8SMettup DashBoard
     var pie_option = {
         title : {
             text: '翻译中文统计',
-            subtext: 'Kubernetes 中文',
+            subtext: '微信译者招募',
+			sublink: 'https://mp.weixin.qq.com/s/1-YYrzEBK8JabxvU93Wf6Q',
             x:'center'
         },
         tooltip : {
@@ -100,8 +101,8 @@ title: K8SMettup DashBoard
     bar_option = {
         title: {
             text: 'Kubernetes 中文翻译汇总（单位:字）',
-            subtext: 'K8SMeetup',
-            sublink: 'http://caicloud.io'
+            subtext: 'Kubernetes 中文站',
+            sublink: 'http://k8smeetup.github.io'
         },
         tooltip : {
             trigger: 'axis',
