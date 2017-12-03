@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - enisoc
 - erictune
 - foxish
@@ -532,7 +532,7 @@ web-2   gcr.io/google_containers/nginx-slim:0.7
 Patch `web` StatefulSet 来执行 `RollingUpdate` 更新策略。
 
 ```shell
-kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
 statefulset "web" patched
 ```
 
