@@ -5,6 +5,8 @@ notitle: true
 ---
 标题: kube-proxy
 无标题：trye
+cn-approvers:
+- lianlianhe
 ---
 ## kube-proxy
 
