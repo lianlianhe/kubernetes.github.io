@@ -2,13 +2,19 @@
 title: kube-proxy
 notitle: true
 ---
+---
+标题: kube-proxy
+无标题：trye
+---
 ## kube-proxy
 
 
-
+<!--
 ### Synopsis
+-->
+### 摘要
 
-
+<!--
 The Kubernetes network proxy runs on each node. This
 reflects services as defined in the Kubernetes API on each node and can do simple
 TCP,UDP stream forwarding or round robin TCP,UDP forwarding across a set of backends.
@@ -16,13 +22,24 @@ Service cluster ips and ports are currently found through Docker-links-compatibl
 environment variables specifying ports opened by the service proxy. There is an optional
 addon that provides cluster DNS for these cluster IPs. The user must create a service
 with the apiserver API to configure the proxy.
+-->
+kubernetes网络代理运行在每个节点上。这个
+反映在每个节点上的Kubernetes API中定义的服务上，并且可以实现简单的
+TCP，UDP流转发或TCP轮询，UDP跨越一组后端的转发。
+服务集群ip和端口目前通过环境变量Docker-links-compatible
+指定的由服务代理打开的端口来发现。 这是一个可选的
+为这些群集IP提供群集DNS的插件。 用户必须创建一个服务
+用apiserver API配置代理。
 
 ```
 kube-proxy
 ```
-
+<!--
 ### Options
+-->
+### 参数
 
+<!--
 ```
       --azure-container-registry-config string       Path to the file container Azure container registry configuration information.
       --bind-address ip                              The IP address for the proxy server to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0)
@@ -88,6 +105,74 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --udp-timeout duration                         How long an idle UDP connection will be kept open (e.g. '250ms', '2s').  Must be greater than 0. Only applicable for proxy-mode=userspace (default 250ms)
       --version version[=true]                       Print version information and quit
       --write-config-to string                       If set, write the default configuration values to this file and exit.
+```
+-->
+
+```
+      --azure-container-registry-config string       Azure容器注册配置信息文件的路径。
+      --bind-address ip                              代理服务器的地址（所有接口设置为0.0.0.0）（默认为 0.0.0.0）
+      --cleanup                                      如果为真清理iptables和ipvs规则并推出。
+      --cluster-cidr string                          集群中的POD的CIDR地址范围。配置后，从该范围之外发送到服务群集IP的流量将被伪装，并且从pod发送到外部LoadBalancer IP的流量将被定向到相应的群集IP。
+      --config string                                配置文件路径。The path to the configuration file.
+      --config-sync-period duration                  刷新apisever的配置的频率。 必须大于0。（默认值 15m0s）
+      --conntrack-max-per-core int32                 每个CPU内核可追踪的最大NAT链接数（设置为0时参数conntrack-min不启用）。（默认值 32768）
+      --conntrack-min int32                          可分配的最小链接跟踪条目，可忽略参数conntrack-max-per-core（设置 conntrack-max-per-core=0 该参数不启用）。（默认值 131072）
+      --conntrack-tcp-timeout-close-wait duration    CLOSE_WAIT状态下的TCP链接NAT超时时间（默认 1h0m0s）
+      --conntrack-tcp-timeout-established duration   TCP链接的空闲超时时间 (0 为保留当前值) (默认值 24h0m0s)
+      --feature-gates mapStringBool                  一组Alpha/实验性的特性键值对描述。参数如下：
+APIListChunking=true|false (ALPHA - 默认值=false)
+APIResponseCompression=true|false (ALPHA - 默认值=false)
+Accelerators=true|false (ALPHA - 默认值=false)
+AdvancedAuditing=true|false (BETA - 默认值=true)
+AllAlpha=true|false (ALPHA - 默认值=false)
+AllowExtTrafficLocalEndpoints=true|false (默认值=true)
+AppArmor=true|false (BETA - 默认值=true)
+CPUManager=true|false (ALPHA - 默认值=false)
+CustomResourceValidation=true|false (ALPHA - 默认值=false)
+DebugContainers=true|false (ALPHA - 默认值=false)
+DevicePlugins=true|false (ALPHA - 默认值=false)
+DynamicKubeletConfig=true|false (ALPHA - 默认值=false)
+EnableEquivalenceClassCache=true|false (ALPHA - 默认值=false)
+ExpandPersistentVolumes=true|false (ALPHA - 默认值=false)
+ExperimentalCriticalPodAnnotation=true|false (ALPHA - 默认值=false)
+ExperimentalHostUserNamespaceDefaulting=true|false (BETA - 默认值=false)
+HugePages=true|false (ALPHA - 默认值=false)
+Initializers=true|false (ALPHA - 默认值=false)
+KubeletConfigFile=true|false (ALPHA - 默认值=false)
+LocalStorageCapacityIsolation=true|false (ALPHA - 默认值=false)
+MountPropagation=true|false (ALPHA - 默认值=false)
+PersistentLocalVolumes=true|false (ALPHA - 默认值=false)
+PodPriority=true|false (ALPHA - 默认值=false)
+RotateKubeletClientCertificate=true|false (BETA - 默认值=true)
+RotateKubeletServerCertificate=true|false (ALPHA - 默认值=false)
+StreamingProxyRedirects=true|false (BETA - 默认值=true)
+SupportIPVSProxyMode=true|false (ALPHA - 默认值=false)
+TaintBasedEvictions=true|false (ALPHA - 默认值=false)
+TaintNodesByCondition=true|false (ALPHA - 默认值=false)
+      --google-json-key string                       Google云端平台服务帐户用于身份验证的JSON密钥。
+      --healthz-bind-address ip                      要运行健康检查服务器的IP地址和端口（对于所有接口，设置为0.0.0.0）（默认为0.0.0.0:10256）
+      --healthz-port int32                           可健康检查服务器的绑定端口。0为不启用。（默认值 10256）
+      --hostname-override string                     如果指定，将会使用这个字符串代替现有实际使用的主机名。
+      --iptables-masquerade-bit int32                当只使用iptable代理时，则fwmark标记的每bit需要使用SNAT标识。范围必须在[0.31].（默认值 14）
+      --iptables-min-sync-period duration            当endpoints和服务变更后最小的的iptables规则刷新间隔。(例如： '5s', '1m', '2h22m')。
+      --iptables-sync-period duration                当endpoints和服务变更后最大的的iptables规则刷新间隔。(例如： '5s', '1m', '2h22m')。必须大于0.（默认值 30s）。
+      --ipvs-min-sync-period duration                当endpoints和服务变更后最小的的ipvs规则刷新间隔。(例如： '5s', '1m', '2h22m')。
+      --ipvs-scheduler string                        代理为ipvs时的ipvs的调度类型。
+      --ipvs-sync-period duration                    ipvs规则的最大刷新间隔。(例如. '5s', '1m', '2h22m').必须大于0。
+      --kube-api-burst int                           与kubernetes apiserver的激增交互数。（默认值 10）
+      --kube-api-content-type string                 发送给apiserver的请求的内容类型。 （默认“application / vnd.kubernetes.protobuf”）
+      --kube-api-qps float32                         与kubernetes apiserver交互时的QPS。（默认值 5）
+      --kubeconfig string                            具有授权信息的kubeconfig文件的路径（master的由master标志设置）。
+      --masquerade-all                               如果只使用iptables代理，SNAT通过服务集群IP发送的所有流量（这通常是不必要的）
+      --master string                                Kubernetes API 服务器地址 (覆盖 kubeconfig 中的值)
+      --metrics-bind-address ip                      metrics server的IP地址和端口(对所有接口设置为0.0.0.0) (默认值  127.0.0.1:10249)
+      --oom-score-adj int32                          kube-proxy进程的oom-score-adj的设置值。 该值范围必须在 [-1000, 1000]中。 (默认值 -999)
+      --profiling                                    如果允许 profiling 直接通过 /debug/pprof 接口处理.
+      --proxy-mode ProxyMode                         使用哪种代理模式：“用户空间”（旧）或“iptables”（更快）或“ipvs（实验）”。 如果空白，使用最佳可用代理（当前是iptables）。 如果选择iptables代理，但系统的内核或iptables版本不符，会总是回退到用户空间代理。
+      --proxy-port-range port-range                  代理服务流量使用的主机端口范围(包含beginPort-endPort) . 未指定情况下(0-0)端口将被随机指定。
+      --udp-timeout duration                         UDP链接的保持打开时间 (例如. '250ms', '2s').  必须大于 0. 仅适用于proxy-mode = userspace（默认250ms）
+      --version version[=true]                       打印版本信息并退出。
+      --write-config-to string                       如果设置，则将默认配置值写入此文件并退出。
 ```
 
 ###### Auto generated by spf13/cobra on 27-Sep-2017
